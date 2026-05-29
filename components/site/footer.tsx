@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { SITE, FOOTER_COLUMNS } from "@/constants/site";
+import { SITE, FOOTER_COLUMNS, SOCIALS } from "@/constants/site";
 import { BrandMark } from "./brand-mark";
+import { SocialIcon } from "./social-icons";
 
 export function Footer() {
   return (
@@ -29,6 +30,20 @@ export function Footer() {
             </ul>
           </div>
         ))}
+
+        <div>
+          <h4>Seguici</h4>
+          <ul className="footer-socials">
+            {SOCIALS.map((s) => (
+              <li key={s.platform}>
+                <a href={s.href} target="_blank" rel="noopener noreferrer">
+                  <SocialIcon platform={s.platform} size={18} />
+                  {s.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
 
       <div className="footer-bottom">

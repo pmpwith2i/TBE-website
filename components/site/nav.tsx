@@ -64,7 +64,7 @@ export function Nav({
       <nav className={navClass}>
         <Link href="/" className="nav-logo">
           <Image
-            src={SITE.logos.mark}
+            src={SITE.logos.wordmark}
             alt="TBE"
             width={60}
             height={30}
@@ -112,7 +112,7 @@ export function Nav({
         <div className="nav-mobile-head">
           <span className="nav-logo">
             <Image
-              src={SITE.logos.mark}
+              src={SITE.logos.wordmark}
               alt="TBE"
               width={60}
               height={30}

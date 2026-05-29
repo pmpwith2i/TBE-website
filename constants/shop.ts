@@ -50,13 +50,14 @@ export interface Product {
 export const SHOP_HERO = {
   watermark: "SHOP",
   eyebrowNum: "/05",
-  eyebrowText: "Kit · Accessori · Merch",
+  eyebrowText: "Merchandising Ufficiale",
   titleLines: [
-    [{ text: "Maglia rossa." }],
-    [{ text: "Strade d'Abruzzo.", accent: true }],
+    [{ text: "Acquista il nostro" }],
+    [{ text: "merchandising", accent: true }],
+    [{ text: "ufficiale." }],
   ],
   leadBefore:
-    "Kit ufficiale TBE 2026, prodotto in Italia da Alpic. Accessori e merchandise per pedalare, allenarsi, andare al bar dopo la doccia. ",
+    "Il kit ufficiale della stagione 2026, prodotto in Italia da Alpic. ",
   leadStrong: "Spedizione gratuita sopra €80.",
 };
 

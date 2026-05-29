@@ -7,18 +7,18 @@ import { SITE } from "@/constants/site";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: `${SITE.name} — Pedaliamo l'Abruzzo`,
+    default: `${SITE.name}`,
     template: `%s — ${SITE.name}`,
   },
   description: SITE.description,
   openGraph: {
-    title: `${SITE.name} — Pedaliamo l'Abruzzo`,
+    title: `${SITE.name}`,
     description: SITE.description,
     locale: "it_IT",
     type: "website",
     siteName: SITE.name,
   },
-  icons: { icon: SITE.logos.mark },
+  icons: { icon: SITE.logos.badge },
 };
 
 export default function RootLayout({

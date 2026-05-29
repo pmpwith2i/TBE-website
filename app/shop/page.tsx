@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import { SiteShell } from "@/components/site/site-shell";
-import { Eyebrow, SectionLabel } from "@/components/site/section-label";
+import { Eyebrow } from "@/components/site/section-label";
 import { DisplayTitle } from "@/components/site/display-title";
 import { FeaturedKit } from "@/components/shop/featured-kit";
-import { ShopCatalog } from "@/components/shop/shop-catalog";
-import { SHOP_HERO, CATALOG_HEADER, SHOP_INFO } from "@/constants/shop";
+import { SHOP_HERO, SHOP_INFO } from "@/constants/shop";
 
 export const metadata: Metadata = { title: "Shop" };
 
@@ -54,7 +53,7 @@ export default function ShopPage() {
               as="h1"
               lines={SHOP_HERO.titleLines}
               className="display"
-              style={{ fontSize: "clamp(60px, 12vw, 200px)", lineHeight: 0.85 }}
+              style={{ fontSize: "clamp(40px, 6.5vw, 96px)", lineHeight: 0.9 }}
             />
             <p className="lede">
               {SHOP_HERO.leadBefore}
@@ -65,23 +64,6 @@ export default function ShopPage() {
       </section>
 
       <FeaturedKit />
-
-      {/* CATEGORY HEADER */}
-      <section style={{ padding: "80px var(--gutter) 0" }}>
-        <div className="container">
-          <SectionLabel>{CATALOG_HEADER.label}</SectionLabel>
-          <h2 className="display display-l" style={{ marginBottom: 48 }}>
-            {CATALOG_HEADER.title}
-          </h2>
-        </div>
-      </section>
-
-      {/* PRODUCTS GRID + TABS */}
-      <section style={{ padding: "0 var(--gutter) 80px" }}>
-        <div className="container">
-          <ShopCatalog />
-        </div>
-      </section>
 
       {/* INFO STRIP */}
       <section

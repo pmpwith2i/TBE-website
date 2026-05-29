@@ -1,12 +1,13 @@
 /**
- * Contatti page: channels, "join the team" form, sponsor tiers, location.
+ * Contatti page: social channels, "join the team" form, sponsor tiers, location.
  */
 
+import { SITE } from "./site";
+
 export interface Channel {
-  icon: string;
+  platform: "instagram" | "facebook";
   label: string;
-  /** Two-line value (e.g. ["+39 0861", "123 456"]). */
-  value: string[];
+  handle: string;
   note: string;
   href: string;
 }
@@ -14,38 +15,25 @@ export interface Channel {
 export const CONTATTI_HERO = {
   eyebrowNum: "/06",
   eyebrowText: "Contatti & Iscrizioni",
-  titleLines: [[{ text: "Vieni a" }], [{ text: "trovarci.", accent: true }]],
-  lead: "In sede ogni martedì sera dalle 19. In strada ogni domenica mattina. Online, sempre.",
+  titleLines: [[{ text: "Seguici" }], [{ text: "sui social.", accent: true }]],
+  lead: "Il modo migliore per restare in contatto con noi è sui social. Ci trovi su Instagram e Facebook: scrivici un messaggio quando vuoi.",
 };
 
+/** The club only communicates through its social profiles. */
 export const CHANNELS: Channel[] = [
   {
-    icon: "@",
-    label: "Scrivici",
-    value: ["info", "@teramobike.it"],
-    note: "Rispondiamo entro 48h",
-    href: "mailto:info@teramobike.it",
+    platform: "instagram",
+    label: "Instagram",
+    handle: "@teramobikeexperience",
+    note: "Foto e racconti delle nostre uscite",
+    href: SITE.instagram,
   },
   {
-    icon: "☏",
-    label: "Chiamaci",
-    value: ["+39 0861", "123 456"],
-    note: "Lun-Ven 18-20 · Sab 9-12",
-    href: "tel:+390861123456",
-  },
-  {
-    icon: "◉",
-    label: "Sede",
-    value: ["Via delle Aquile 14", "Teramo"],
-    note: "Martedì sera dalle 19:00",
-    href: "#",
-  },
-  {
-    icon: "✆",
-    label: "WhatsApp",
-    value: ["+39 333", "123 4567"],
-    note: "Per uscite social & gare",
-    href: "https://wa.me/393331234567",
+    platform: "facebook",
+    label: "Facebook",
+    handle: "Teramo Bike Experience",
+    note: "Eventi e aggiornamenti della squadra",
+    href: SITE.facebook,
   },
 ];
 
@@ -53,16 +41,10 @@ export const JOIN_FORM = {
   label: "/01 — Iscriviti al team",
   titleLines: [
     [{ text: "Vuoi correre" }],
-    [{ text: "in maglia rossa?", accent: true }],
+    [{ text: "con noi?", accent: true }],
   ],
-  lead: "Mandaci una mail con due righe su di te. Ti rispondiamo entro 48 ore e ti invitiamo a un'uscita di prova senza impegno. Se ti trovi bene, parliamo di tesseramento.",
+  lead: "Mandaci una mail. Ti ricontattiamo il prima possibile.",
   requirementsLabel: "Cosa serve",
-  requirements: [
-    "· Bici (qualunque, l'importante è che freni)",
-    "· Certificato medico sportivo agonistico",
-    "· Quota annuale €120 (tessera CSI inclusa)",
-    "· Voglia di esserci anche d'inverno",
-  ],
   companyLabel: "Hai un'azienda?",
   companyLink: { label: "Diventa sponsor →", href: "#sponsor" },
   disciplines: ["Strada", "Gravel", "MTB", "Più di una", "Non so ancora"],
@@ -84,7 +66,7 @@ export const SPONSOR_SECTION = {
   label: "/02 — Diventa partner",
   titleLines: [[{ text: "Il tuo logo" }], [{ text: "in salita.", accent: true }]],
   lead: "Il nostro pubblico è composto da appassionati, sportivi locali, famiglie. La maglia TBE attraversa l'Abruzzo 12 mesi l'anno. La cronoscalata porta a Teramo 200+ corridori e relative famiglie da tutto il centro Italia.",
-  cta: { label: "Richiedi il media kit", href: "mailto:sponsor@teramobike.it" },
+  cta: { label: "Scrivici su Instagram", href: SITE.instagram },
   tiers: [
     {
       mark: "A",

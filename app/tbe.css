@@ -573,12 +573,20 @@
 }
 .footer-top {
   display: grid;
-  grid-template-columns: 1.6fr 1fr 1fr 1fr;
+  grid-template-columns: 1.6fr 1fr 1fr;
   gap: 48px;
   max-width: var(--maxw);
   margin: 0 auto;
   padding-bottom: 56px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.footer-socials a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.footer-socials svg {
+  display: block;
 }
 .footer h4 {
   font-family: var(--font-display);
@@ -1606,6 +1614,17 @@
   background: var(--tbe-ink);
   color: white;
 }
+/* Social contact cards on /contatti — two side by side, stacked on mobile. */
+.channels {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4px;
+}
+@media (max-width: 700px) {
+  .channels {
+    grid-template-columns: 1fr;
+  }
+}
 .channel {
   background: var(--tbe-ink);
   padding: 32px;
@@ -1617,6 +1636,9 @@
 }
 .channel:hover {
   background: #1f1f22;
+}
+.channel .icon svg {
+  display: block;
 }
 .channel .icon {
   font-family: var(--font-display);

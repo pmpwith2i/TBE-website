@@ -5,6 +5,7 @@ import { DisplayTitle } from "@/components/site/display-title";
 import { BtnLink } from "@/components/site/buttons";
 import { JoinForm } from "@/components/contatti/join-form";
 import { RegionMap } from "@/components/contatti/region-map";
+import { SocialIcon } from "@/components/site/social-icons";
 import {
   CONTATTI_HERO,
   CHANNELS,
@@ -59,19 +60,20 @@ export default function ContattiPage() {
         style={{ background: "var(--tbe-black)", padding: "0 var(--gutter) 80px" }}
       >
         <div className="container">
-          <div className="grid-4" style={{ gap: 4 }}>
+          <div className="channels">
             {CHANNELS.map((ch) => (
-              <a key={ch.label} href={ch.href} className="channel">
-                <div className="icon">{ch.icon}</div>
-                <div className="label">{ch.label}</div>
-                <div className="value">
-                  {ch.value.map((line, i) => (
-                    <span key={i}>
-                      {i > 0 && <br />}
-                      {line}
-                    </span>
-                  ))}
+              <a
+                key={ch.platform}
+                href={ch.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="channel"
+              >
+                <div className="icon">
+                  <SocialIcon platform={ch.platform} size={40} />
                 </div>
+                <div className="label">{ch.label}</div>
+                <div className="value">{ch.handle}</div>
                 <div className="note">{ch.note}</div>
               </a>
             ))}
@@ -103,39 +105,12 @@ export default function ContattiPage() {
                 className="display display-l"
                 style={{ marginBottom: 32 }}
               />
-              <p className="lede" style={{ opacity: 0.8, marginBottom: 32 }}>
+              <p
+                className="lede"
+                style={{ opacity: 0.8, marginBottom: 32, maxWidth: "40ch" }}
+              >
                 {JOIN_FORM.lead}
               </p>
-
-              <div
-                style={{
-                  padding: "24px 0",
-                  borderBlock: "1px solid rgba(255,255,255,0.1)",
-                  marginBottom: 32,
-                }}
-              >
-                <div
-                  className="caption"
-                  style={{ color: "var(--accent)", marginBottom: 12 }}
-                >
-                  {JOIN_FORM.requirementsLabel}
-                </div>
-                <ul
-                  style={{
-                    listStyle: "none",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 8,
-                    fontSize: 15,
-                    margin: 0,
-                    padding: 0,
-                  }}
-                >
-                  {JOIN_FORM.requirements.map((req) => (
-                    <li key={req}>{req}</li>
-                  ))}
-                </ul>
-              </div>
 
               <div
                 className="caption"
