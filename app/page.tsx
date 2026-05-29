@@ -19,7 +19,7 @@ import {
 
 export default function HomePage() {
   return (
-    <SiteShell theme="light" navVariant="transparent" invertLogo={false}>
+    <SiteShell theme="light" navVariant="transparent">
       <HomeHero />
       <Marquee items={HOME_MARQUEE} />
 

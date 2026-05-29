@@ -5,7 +5,7 @@
 
 export const HOME_HERO = {
   eyebrowNum: "/01",
-  eyebrowText: "Teramo · Abruzzo · Italia",
+  eyebrowText: "Teramo · Italia",
   metaTop: "Stagione 2026 · N°09",
   metaBig: "42°39'N 13°42'E",
   /** Three lines: plain, accent (red), outline (stroked). */
@@ -17,7 +17,7 @@ export const HOME_HERO = {
   paragraph:
     "Una squadra di ciclismo nata a Teramo, ai piedi del Gran Sasso. Un gruppo di amici uniti dalla passione per la bici: usciamo insieme ogni settimana e ogni tanto partecipiamo a qualche gara. Dal mare alla montagna in un'ora di pedalata.",
   bgImage: "/assets/sunset-rider.jpg",
-  bgAlt: "Rider TBE al tramonto sui monti d'Abruzzo",
+  bgAlt: "Ciclista TBE al tramonto sulle colline di Teramo",
   ctas: [
     { label: "Scopri la nostra Vision", href: "/vision", style: "primary" as const },
     { label: "Conosci il team", href: "/team", style: "glass" as const },
@@ -28,7 +28,7 @@ export const HOME_HERO = {
 export const HOME_MARQUEE = [
   "Teramo Bike Experience",
   "Stagione 2026",
-  "Strade d'Abruzzo",
+  "Strade di Teramo",
   "Gran Sasso Climbers",
   "Made in Teramo",
 ];

@@ -4,34 +4,26 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import {
-  NAV_LINKS,
-  NAV_CTA_DEFAULT,
-  SITE,
-  type NavCta,
-} from "@/constants/site";
-import { useCart } from "@/lib/cart";
+import { NAV_LINKS, NAV_CTA, SITE } from "@/constants/site";
 
 function isActive(pathname: string, href: string) {
   if (href === "/") return pathname === "/";
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
+/**
+ * Fixed top navigation. The bar is always on a dark surface (solid dark, the
+ * dark scrolled state, or over a dark hero), so the logo uses one consistent
+ * treatment on every page — no per-page color change.
+ */
 export function Nav({
   variant = "solid",
-  cta = NAV_CTA_DEFAULT,
-  cart = false,
-  invertLogo = true,
 }: {
   variant?: "solid" | "transparent";
-  cta?: NavCta;
-  cart?: boolean;
-  invertLogo?: boolean;
 }) {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const { count } = useCart();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -56,23 +48,16 @@ export function Nav({
     .filter(Boolean)
     .join(" ");
 
-  const ctaLabel = cart ? `Carrello (${count})` : cta.label;
-  const ctaHref = cart ? "#" : cta.href;
-
   return (
     <>
       <nav className={navClass}>
         <Link href="/" className="nav-logo">
           <Image
             src={SITE.logos.wordmark}
-            alt="TBE"
+            alt="Teramo Bike Experience"
             width={60}
             height={30}
-            style={{
-              height: 30,
-              width: "auto",
-              filter: invertLogo ? "invert(1)" : undefined,
-            }}
+            style={{ height: 30, width: "auto", filter: "invert(1)" }}
             priority
           />
           <span>{SITE.name}</span>
@@ -91,8 +76,8 @@ export function Nav({
           ))}
         </ul>
 
-        <Link href={ctaHref} className="nav-cta">
-          {ctaLabel}
+        <Link href={NAV_CTA.href} className="nav-cta">
+          {NAV_CTA.label}
         </Link>
 
         <button
@@ -113,7 +98,7 @@ export function Nav({
           <span className="nav-logo">
             <Image
               src={SITE.logos.wordmark}
-              alt="TBE"
+              alt="Teramo Bike Experience"
               width={60}
               height={30}
               style={{ height: 30, width: "auto", filter: "invert(1)" }}
@@ -145,11 +130,11 @@ export function Nav({
         </ul>
 
         <Link
-          href={ctaHref}
+          href={NAV_CTA.href}
           className="nav-cta"
           onClick={() => setMenuOpen(false)}
         >
-          {ctaLabel}
+          {NAV_CTA.label}
         </Link>
       </div>
     </>

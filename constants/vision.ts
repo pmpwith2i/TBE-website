@@ -20,8 +20,8 @@ export const VISION_MANIFESTO = {
   points: [
     {
       kicker: "01 / Territorio",
-      title: "L'Abruzzo è la nostra palestra.",
-      text: "Dal mare di Roseto al Corno Grande in due ore di bici. Mille metri di dislivello dietro casa, valli che non finiscono, strade dove non passa nessuno. Non ci serve andare altrove: qui c'è già tutto.",
+      title: "Il nostro territorio è la palestra.",
+      text: "Dal mare alle montagne in due ore di bici. Mille metri di dislivello dietro casa, valli che non finiscono, strade dove non passa nessuno. Non ci serve andare altrove: qui c'è già tutto.",
     },
     {
       kicker: "02 / Comunità",
@@ -90,7 +90,7 @@ export const VISION_VALUES = {
     {
       num: "01",
       title: "Gare",
-      text: "Calendario CSI Abruzzo e Marche, 30+ gare l'anno. Roster pubblico per ogni evento.",
+      text: "Calendario CSI, oltre 30 gare l'anno. Roster pubblico per ogni evento.",
     },
     {
       num: "02",

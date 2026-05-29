@@ -1,13 +1,12 @@
-"use client";
-
 import Image from "next/image";
-import { DisplayTitle } from "@/components/site/display-title";
-import { FEATURED_KIT } from "@/constants/shop";
-import { useCart } from "@/lib/cart";
+import { BtnLink } from "@/components/site/buttons";
+import { KIT } from "@/constants/shop";
 
+/**
+ * The official kit showcase. No cart for now — we invite people to write us
+ * to order. Product data comes from constants/shop.ts; copy is inline here.
+ */
 export function FeaturedKit() {
-  const { add } = useCart();
-
   return (
     <section style={{ background: "var(--tbe-black)", color: "white", padding: 0 }}>
       <div
@@ -23,8 +22,8 @@ export function FeaturedKit() {
           }}
         >
           <Image
-            src={FEATURED_KIT.image}
-            alt={FEATURED_KIT.imageAlt}
+            src={KIT.image}
+            alt={KIT.imageAlt}
             fill
             sizes="(max-width: 800px) 100vw, 50vw"
             style={{ objectFit: "contain" }}
@@ -40,7 +39,7 @@ export function FeaturedKit() {
           }}
         >
           <div style={{ display: "flex", gap: 10, marginBottom: 24, flexWrap: "wrap" }}>
-            {FEATURED_KIT.badges.map((badge, i) => (
+            {KIT.badges.map((badge, i) => (
               <span
                 key={badge}
                 style={{
@@ -60,18 +59,23 @@ export function FeaturedKit() {
             ))}
           </div>
 
-          <DisplayTitle
-            lines={FEATURED_KIT.titleLines}
+          <h2
             className="display"
             style={{
               fontSize: "clamp(56px, 9vw, 130px)",
               lineHeight: 0.82,
               marginBottom: 24,
             }}
-          />
+          >
+            Il Kit
+            <br />
+            <span style={{ color: "var(--accent)" }}>Ufficiale &apos;26</span>
+          </h2>
 
           <p className="lede" style={{ opacity: 0.85, marginBottom: 32 }}>
-            {FEATURED_KIT.lead}
+            Maglia e salopette in tessuto leggero e traspirante, perfetti per
+            ogni uscita. Un disegno pensato dalla squadra, prodotto in Italia da
+            Alpic.
           </p>
 
           <div
@@ -84,50 +88,30 @@ export function FeaturedKit() {
               marginBottom: 32,
             }}
           >
-            {FEATURED_KIT.stats.map((s) => (
-              <div key={s.label}>
+            {KIT.priceTiers.map((tier) => (
+              <div key={tier.label}>
                 <div className="caption" style={{ color: "rgba(255,255,255,0.5)" }}>
-                  {s.label}
+                  {tier.label}
+                  {tier.note ? ` (${tier.note})` : ""}
                 </div>
-                {s.small ? (
-                  <div
-                    style={{
-                      fontFamily: "var(--font-mono)",
-                      fontSize: 14,
-                      letterSpacing: "0.1em",
-                      marginTop: 14,
-                    }}
-                  >
-                    {s.value}
-                  </div>
-                ) : (
-                  <div
-                    style={{
-                      fontFamily: "var(--font-display)",
-                      fontStyle: "italic",
-                      fontWeight: 900,
-                      fontSize: 36,
-                      color: s.accent ? "var(--accent)" : undefined,
-                    }}
-                  >
-                    {s.value}
-                  </div>
-                )}
+                <div
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    fontStyle: "italic",
+                    fontWeight: 900,
+                    fontSize: 36,
+                    color: tier.accent ? "var(--accent)" : undefined,
+                  }}
+                >
+                  {tier.value}
+                </div>
               </div>
             ))}
           </div>
 
-          <button
-            type="button"
-            className="btn btn-primary"
-            style={{ alignSelf: "flex-start" }}
-            onClick={() => add(FEATURED_KIT.cartItem)}
-          >
-            {FEATURED_KIT.cta}{" "}
-            <span className="arrow" aria-hidden>
-              →
-            </span>
-          </button>
+          <BtnLink href="/contatti" className="btn btn-primary">
+            Scrivici per acquistare
+          </BtnLink>
         </div>
       </div>
     </section>

@@ -25,10 +25,7 @@ const ACCENT_TEXT: Record<"red" | "amber", string> = {
 
 export default function CronoscalataPage() {
   return (
-    <SiteShell
-      theme="dark"
-      navCta={{ label: "Iscriviti", href: "#iscrizione" }}
-    >
+    <SiteShell theme="dark">
       {/* HERO */}
       <section
         style={{

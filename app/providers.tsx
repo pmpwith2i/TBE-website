@@ -5,9 +5,9 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 /**
- * App-wide client providers. TanStack Query is our shared-state layer:
- * the cart lives in the query cache (see lib/cart.ts), so any component —
- * the nav badge, the shop, a future checkout — reads the same source.
+ * App-wide client providers. TanStack Query is wired up as the shared-state
+ * layer for any future client data needs (the site is currently static, so
+ * nothing fetches yet — this keeps one QueryClient ready per app load).
  */
 export function Providers({ children }: { children: ReactNode }) {
   // Lazy-init so the client is created once per app load, never per render.

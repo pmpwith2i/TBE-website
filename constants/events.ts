@@ -118,7 +118,7 @@ export const CRONOSCALATA = {
     ],
     paragraphs: [
       "La partenza è dal piazzale del bar di Roiano di Campli (327m). Si inizia subito a salire al 6,5% costante per il primo chilometro, poi il terreno si fa più impegnativo: tra il km 2 e il km 4 la media è dell'8% con picchi al 10% nei tornanti.",
-      "Dal km 4 al km 5 una breve discesa di 200 metri permette di tirare il fiato, prima dell'ultimo strappo finale che porta al Rifugio delle Aquile (762m), dove il panorama si apre sul mare Adriatico da una parte e sul massiccio del Gran Sasso dall'altra.",
+      "Dal km 4 al km 5 una breve discesa di 200 metri permette di tirare il fiato, prima dell'ultimo strappo finale che porta al Rifugio delle Aquile (762m), dove il panorama si apre sul mare da una parte e sul massiccio del Gran Sasso dall'altra.",
     ],
     recon: {
       before: "Ricognizione collettiva libera ",

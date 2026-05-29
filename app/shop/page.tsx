@@ -1,22 +1,24 @@
 import type { Metadata } from "next";
 import { SiteShell } from "@/components/site/site-shell";
 import { Eyebrow } from "@/components/site/section-label";
-import { DisplayTitle } from "@/components/site/display-title";
+import { BtnLink } from "@/components/site/buttons";
 import { FeaturedKit } from "@/components/shop/featured-kit";
-import { SHOP_HERO, SHOP_INFO } from "@/constants/shop";
 
 export const metadata: Metadata = { title: "Shop" };
 
 export default function ShopPage() {
   return (
-    <SiteShell
-      theme="light"
-      navVariant="transparent"
-      invertLogo={false}
-      navCart
-    >
-      {/* HERO */}
-      <section className="shop-hero">
+    <SiteShell theme="dark">
+      {/* HERO — dark so the type stays legible under the fixed nav */}
+      <section
+        style={{
+          position: "relative",
+          padding: "180px var(--gutter) 80px",
+          background: "var(--tbe-black)",
+          color: "var(--tbe-paper)",
+          overflow: "hidden",
+        }}
+      >
         <div
           aria-hidden
           style={{
@@ -28,17 +30,17 @@ export default function ShopPage() {
             fontWeight: 900,
             fontSize: "clamp(180px, 30vw, 460px)",
             color: "var(--tbe-red)",
-            opacity: 0.08,
+            opacity: 0.12,
             lineHeight: 0.7,
             letterSpacing: "-0.02em",
             pointerEvents: "none",
           }}
         >
-          {SHOP_HERO.watermark}
+          SHOP
         </div>
         <div className="container" style={{ position: "relative" }}>
-          <Eyebrow num={SHOP_HERO.eyebrowNum} style={{ marginBottom: 32 }}>
-            {SHOP_HERO.eyebrowText}
+          <Eyebrow num="/05" light style={{ marginBottom: 32 }}>
+            Merchandising Ufficiale
           </Eyebrow>
           <div
             style={{
@@ -49,15 +51,18 @@ export default function ShopPage() {
             }}
             className="shop-head-grid"
           >
-            <DisplayTitle
-              as="h1"
-              lines={SHOP_HERO.titleLines}
+            <h1
               className="display"
               style={{ fontSize: "clamp(40px, 6.5vw, 96px)", lineHeight: 0.9 }}
-            />
-            <p className="lede">
-              {SHOP_HERO.leadBefore}
-              <strong>{SHOP_HERO.leadStrong}</strong>
+            >
+              Acquista il nostro{" "}
+              <span style={{ color: "var(--accent)" }}>merchandising</span>{" "}
+              ufficiale.
+            </h1>
+            <p className="lede" style={{ opacity: 0.85 }}>
+              Il kit della stagione 2026, prodotto in Italia. Per ordinare,
+              scrivici un messaggio: ti diciamo taglie, disponibilità e modi di
+              ritiro o spedizione.
             </p>
           </div>
         </div>
@@ -65,43 +70,36 @@ export default function ShopPage() {
 
       <FeaturedKit />
 
-      {/* INFO STRIP */}
+      {/* CONTACT CTA — no cart for now */}
       <section
         style={{
-          background: "var(--tbe-bone)",
-          padding: "56px var(--gutter)",
-          borderBlock: "1px solid rgba(0,0,0,0.08)",
+          background: "var(--tbe-ink)",
+          padding: "var(--section) var(--gutter)",
+          textAlign: "center",
         }}
       >
-        <div className="container">
-          <div className="grid-3" style={{ gap: 32 }}>
-            {SHOP_INFO.map((info) => (
-              <div key={info.icon}>
-                <div
-                  style={{
-                    fontFamily: "var(--font-display)",
-                    fontStyle: "italic",
-                    fontWeight: 900,
-                    fontSize: 32,
-                    color: "var(--accent)",
-                    marginBottom: 8,
-                  }}
-                >
-                  {info.icon}
-                </div>
-                <div className="caption">{info.title}</div>
-                <p
-                  style={{
-                    fontSize: 14,
-                    marginTop: 8,
-                    color: "var(--tbe-smoke)",
-                  }}
-                >
-                  {info.text}
-                </p>
-              </div>
-            ))}
+        <div style={{ maxWidth: 760, margin: "0 auto" }}>
+          <div
+            className="caption"
+            style={{ color: "var(--accent)", marginBottom: 16 }}
+          >
+            Come si ordina
           </div>
+          <h2 className="display display-l" style={{ marginBottom: 20 }}>
+            Ti interessa?{" "}
+            <span style={{ color: "var(--accent)" }}>Scrivici.</span>
+          </h2>
+          <p
+            className="lede"
+            style={{ margin: "0 auto 32px", maxWidth: "54ch", opacity: 0.85 }}
+          >
+            Per ora gli acquisti si gestiscono direttamente con noi. Mandaci un
+            messaggio con quello che ti serve e ti rispondiamo il prima
+            possibile.
+          </p>
+          <BtnLink href="/contatti" className="btn btn-primary">
+            Contattaci
+          </BtnLink>
         </div>
       </section>
     </SiteShell>

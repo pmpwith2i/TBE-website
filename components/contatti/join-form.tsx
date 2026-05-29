@@ -1,8 +1,12 @@
 "use client";
 
 import type { FormEvent } from "react";
-import { JOIN_FORM } from "@/constants/contatti";
 
+/**
+ * Single contact form for whoever wants to join the team OR become a sponsor —
+ * the "Motivo" select routes the request. All copy is inline (it's UI text,
+ * not data).
+ */
 export function JoinForm() {
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -36,33 +40,18 @@ export function JoinForm() {
         </div>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
-        <div className="form-field">
-          <label>Età</label>
-          <input type="number" min={14} max={80} placeholder="32" />
-        </div>
-        <div className="form-field">
-          <label>Disciplina</label>
-          <select defaultValue={JOIN_FORM.disciplines[0]}>
-            {JOIN_FORM.disciplines.map((d) => (
-              <option key={d}>{d}</option>
-            ))}
-          </select>
-        </div>
-      </div>
-
       <div className="form-field">
-        <label>Esperienza in bici</label>
-        <select defaultValue={JOIN_FORM.experience[0]}>
-          {JOIN_FORM.experience.map((x) => (
-            <option key={x}>{x}</option>
-          ))}
+        <label>Motivo del contatto</label>
+        <select defaultValue="Voglio unirmi al team" required>
+          <option>Voglio unirmi al team</option>
+          <option>Voglio diventare sponsor</option>
+          <option>Altro</option>
         </select>
       </div>
 
       <div className="form-field">
-        <label>Raccontaci qualcosa</label>
-        <textarea placeholder={JOIN_FORM.textareaPlaceholder} />
+        <label>Messaggio</label>
+        <textarea placeholder="Raccontaci qualcosa di te o della tua azienda." />
       </div>
 
       <div
@@ -76,7 +65,10 @@ export function JoinForm() {
         }}
       >
         <input type="checkbox" required style={{ marginTop: 4 }} />
-        <label>{JOIN_FORM.privacy}</label>
+        <label>
+          Acconsento al trattamento dei dati ai sensi del GDPR per essere
+          ricontattato/a.
+        </label>
       </div>
 
       <button
@@ -84,7 +76,7 @@ export function JoinForm() {
         className="btn btn-primary"
         style={{ alignSelf: "flex-start", marginTop: 16 }}
       >
-        {JOIN_FORM.submit}{" "}
+        Invia messaggio{" "}
         <span className="arrow" aria-hidden>
           →
         </span>

@@ -4,16 +4,19 @@ import { fontVariables } from "./fonts";
 import { Providers } from "./providers";
 import { SITE } from "@/constants/site";
 
+const SITE_DESCRIPTION =
+  "Una squadra di ciclismo nata a Teramo. Un gruppo di amici uniti dalla passione per la bici.";
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: `${SITE.name}`,
+    default: `${SITE.name} — Una squadra di amici`,
     template: `%s — ${SITE.name}`,
   },
-  description: SITE.description,
+  description: SITE_DESCRIPTION,
   openGraph: {
-    title: `${SITE.name}`,
-    description: SITE.description,
+    title: `${SITE.name} — Una squadra di amici`,
+    description: SITE_DESCRIPTION,
     locale: "it_IT",
     type: "website",
     siteName: SITE.name,

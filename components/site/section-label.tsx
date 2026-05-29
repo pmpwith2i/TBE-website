@@ -19,7 +19,7 @@ export function SectionLabel({
   );
 }
 
-/** The "/01 — Teramo · Abruzzo" eyebrow with the numbered prefix. */
+/** The "/01 — Teramo" eyebrow with the numbered prefix. */
 export function Eyebrow({
   num,
   children,
