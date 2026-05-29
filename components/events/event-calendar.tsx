@@ -61,13 +61,30 @@ function Row({ event }: { event: CalendarEvent }) {
 /**
  * Filterable season calendar. `header` (the section label + title) is passed
  * in from the server page; the pills sit to its right and drive the list.
+ *
+ * The filter pills only appear when there's something to filter — i.e. more
+ * than one event spanning more than one type. With a single event (our case
+ * today) they're hidden automatically; add events and they return on their own.
  */
-export function EventCalendar({ header }: { header: ReactNode }) {
+export function EventCalendar({
+  header,
+  events = CALENDAR_EVENTS,
+}: {
+  header: ReactNode;
+  events?: CalendarEvent[];
+}) {
   const [filter, setFilter] = useState<EventType | "all">("all");
-  const events =
-    filter === "all"
-      ? CALENDAR_EVENTS
-      : CALENDAR_EVENTS.filter((e) => e.type === filter);
+
+  const presentTypes = new Set(events.map((e) => e.type));
+  const showFilters = events.length > 1 && presentTypes.size > 1;
+  const availableFilters = EVENT_FILTERS.filter(
+    (f) => f.value === "all" || presentTypes.has(f.value as EventType)
+  );
+
+  const visible =
+    !showFilters || filter === "all"
+      ? events
+      : events.filter((e) => e.type === filter);
 
   return (
     <>
@@ -82,22 +99,24 @@ export function EventCalendar({ header }: { header: ReactNode }) {
         }}
       >
         {header}
-        <div className="pills">
-          {EVENT_FILTERS.map((f) => (
-            <button
-              key={f.value}
-              type="button"
-              className={`pill${filter === f.value ? " active" : ""}`}
-              onClick={() => setFilter(f.value)}
-            >
-              {f.label}
-            </button>
-          ))}
-        </div>
+        {showFilters ? (
+          <div className="pills">
+            {availableFilters.map((f) => (
+              <button
+                key={f.value}
+                type="button"
+                className={`pill${filter === f.value ? " active" : ""}`}
+                onClick={() => setFilter(f.value)}
+              >
+                {f.label}
+              </button>
+            ))}
+          </div>
+        ) : null}
       </div>
 
       <div>
-        {events.map((event) => (
+        {visible.map((event) => (
           <Row key={`${event.day}-${event.month}-${event.title}`} event={event} />
         ))}
       </div>

@@ -42,9 +42,7 @@ export const SITE = {
   whatsappHref: "https://wa.me/393331234567",
   url: "https://teramobike.it",
   logos: {
-    mark: "/assets/logo-tbe.png",
     badge: "/assets/logo-badge.png",
-    outline: "/assets/logo-tbe-outline.png",
     wordmark: "/assets/logo-wordmark.png",
   },
   copyright: "© 2026 Teramo Bike Experience · Tutti i diritti riservati",

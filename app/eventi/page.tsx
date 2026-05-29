@@ -10,12 +10,18 @@ import {
   EVENTS_HERO,
   NEXT_EVENT,
   CALENDAR_HEADER,
+  CALENDAR_EVENTS,
   EVENTS_PROPOSE,
 } from "@/constants/events";
 
 export const metadata: Metadata = { title: "Eventi" };
 
 export default function EventiPage() {
+  // The featured "next event" card already showcases the main event, so the
+  // calendar below lists only the *other* events. With a single event there's
+  // nothing left to list and the whole section is skipped.
+  const otherEvents = CALENDAR_EVENTS.filter((e) => e.href !== NEXT_EVENT.href);
+
   return (
     <SiteShell theme="dark">
       {/* HEADER + NEXT EVENT */}
@@ -165,29 +171,32 @@ export default function EventiPage() {
         </div>
       </section>
 
-      {/* CALENDAR LIST */}
-      <section
-        className="section"
-        style={{
-          background: "var(--tbe-ink)",
-          paddingBlock: "clamp(60px, 8vw, 100px)",
-        }}
-      >
-        <div className="container">
-          <EventCalendar
-            header={
-              <div>
-                <SectionLabel light>{CALENDAR_HEADER.label}</SectionLabel>
-                <DisplayTitle
-                  lines={CALENDAR_HEADER.titleLines}
-                  className="display display-l"
-                  style={{ maxWidth: "14ch" }}
-                />
-              </div>
-            }
-          />
-        </div>
-      </section>
+      {/* CALENDAR LIST — only when there are events beyond the featured one */}
+      {otherEvents.length > 0 ? (
+        <section
+          className="section"
+          style={{
+            background: "var(--tbe-ink)",
+            paddingBlock: "clamp(60px, 8vw, 100px)",
+          }}
+        >
+          <div className="container">
+            <EventCalendar
+              events={otherEvents}
+              header={
+                <div>
+                  <SectionLabel light>{CALENDAR_HEADER.label}</SectionLabel>
+                  <DisplayTitle
+                    lines={CALENDAR_HEADER.titleLines}
+                    className="display display-l"
+                    style={{ maxWidth: "14ch" }}
+                  />
+                </div>
+              }
+            />
+          </div>
+        </section>
+      ) : null}
 
       {/* PROPOSE */}
       <section

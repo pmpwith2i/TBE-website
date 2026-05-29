@@ -76,10 +76,10 @@ export const CALENDAR_EVENTS: CalendarEvent[] = [
 ];
 
 export const EVENTS_PROPOSE = {
-  kicker: "Hai un'idea?",
-  titleLines: [[{ text: "Organizziamo" }], [{ text: "noi.", accent: true }]],
-  lead: "Hai un'idea per un'uscita, un evento o vuoi proporci una collaborazione? Scrivici.",
-  cta: { label: "Proponi un evento", href: "/contatti" },
+  kicker: "Oltre la cronoscalata",
+  titleLines: [[{ text: "Pedaliamo" }], [{ text: "tutto l'anno.", accent: true }]],
+  lead: "La cronoscalata è il nostro evento, ma ci troviamo ogni settimana per uscire insieme e ogni tanto partecipiamo a qualche gara. Vuoi unirti a noi? Scrivici.",
+  cta: { label: "Unisciti a noi", href: "/contatti" },
 };
 
 /* ============================================================
