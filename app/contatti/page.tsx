@@ -11,7 +11,6 @@ import {
   CHANNELS,
   JOIN_FORM,
   SPONSOR_SECTION,
-  LOCATION,
 } from "@/constants/contatti";
 
 export const metadata: Metadata = { title: "Contatti" };
@@ -222,82 +221,6 @@ export default function ContattiPage() {
         </div>
       </section>
 
-      {/* MAP / SEDE */}
-      <section
-        style={{
-          background: "var(--tbe-ink)",
-          padding: "var(--section) var(--gutter)",
-        }}
-      >
-        <div className="container">
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1.4fr",
-              gap: 60,
-              alignItems: "stretch",
-            }}
-            className="contatti-map-grid"
-          >
-            <div>
-              <SectionLabel light>{LOCATION.label}</SectionLabel>
-              <DisplayTitle
-                lines={LOCATION.titleLines}
-                className="display display-l"
-                style={{ marginBottom: 24 }}
-              />
-              <p style={{ opacity: 0.85, maxWidth: "40ch", marginBottom: 32 }}>
-                {LOCATION.text}
-              </p>
-
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 16,
-                  paddingTop: 24,
-                  borderTop: "1px solid rgba(255,255,255,0.1)",
-                }}
-              >
-                <div>
-                  <div
-                    className="caption"
-                    style={{ color: "rgba(255,255,255,0.5)" }}
-                  >
-                    Indirizzo
-                  </div>
-                  <div style={{ marginTop: 4 }}>
-                    {LOCATION.address.map((line, i) => (
-                      <span key={i}>
-                        {i > 0 && <br />}
-                        {line}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <div>
-                  <div
-                    className="caption"
-                    style={{ color: "rgba(255,255,255,0.5)" }}
-                  >
-                    Orari
-                  </div>
-                  <div style={{ marginTop: 4 }}>
-                    {LOCATION.hours.map((line, i) => (
-                      <span key={i}>
-                        {i > 0 && <br />}
-                        {line}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <RegionMap />
-          </div>
-        </div>
-      </section>
     </SiteShell>
   );
 }

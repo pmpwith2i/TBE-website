@@ -94,11 +94,3 @@ export const SPONSOR_SECTION = {
     },
   ],
 };
-
-export const LOCATION = {
-  label: "/03 — Dove siamo",
-  titleLines: [[{ text: "Sede" }], [{ text: "Teramo.", accent: true }]],
-  text: "La nostra sede operativa è dentro il negozio di Brian's Bike Shop, dove ci troviamo ogni martedì sera per pianificare uscite, montare bici e bere birra artigianale abruzzese.",
-  address: ["Via delle Aquile 14", "64100 Teramo (TE)"],
-  hours: ["Mar 19:00 — 22:00 · Sab 9:00 — 12:00", "Domenica: in strada"],
-};
