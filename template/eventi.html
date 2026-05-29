@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eventi — Teramo Bike Experience</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* Next event hero card */
+  .next-event {
+    position: relative;
+    background: var(--tbe-red-deep);
+    color: white;
+    overflow: hidden;
+    margin-top: 32px;
+    transition: transform 0.3s;
+  }
+  .next-event:hover { transform: translateY(-4px); }
+  .next-event-bg {
+    position: absolute; inset: 0;
+    background-image: url('assets/cronoscalata.jpg');
+    background-size: cover; background-position: center;
+    opacity: 0.25;
+    filter: contrast(1.1) saturate(1.1);
+  }
+  .next-event-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(115deg, var(--tbe-red-deep) 0%, rgba(74,4,16,0.78) 45%, rgba(74,4,16,0.4) 100%);
+  }
+  .next-event-inner {
+    position: relative;
+    padding: clamp(40px, 6vw, 80px);
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: clamp(32px, 5vw, 80px);
+    align-items: center;
+  }
+  @media (max-width: 800px) { .next-event-inner { grid-template-columns: 1fr; } }
+  .next-event-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: white;
+    color: var(--tbe-red);
+    padding: 6px 14px;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 900;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .next-event-tag .pulse {
+    display: inline-block;
+    width: 8px; height: 8px;
+    background: var(--tbe-red);
+    border-radius: 50%;
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%      { opacity: 0.4; transform: scale(0.8); }
+  }
+  .countdown {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    padding: 24px 0;
+    border-block: 1px solid rgba(255,255,255,0.2);
+    margin: 32px 0;
+  }
+  .countdown-cell {
+    text-align: center;
+  }
+  .countdown-cell .v {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 900;
+    font-size: clamp(36px, 5vw, 60px);
+    line-height: 1;
+    color: white;
+  }
+  .countdown-cell .l {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-top: 6px;
+  }
+
+  /* Calendar list */
+  .event-row {
+    display: grid;
+    grid-template-columns: 120px 1fr 220px 160px;
+    gap: 32px;
+    padding: 28px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+    align-items: center;
+    transition: background 0.2s, padding 0.2s;
+    text-decoration: none;
+    color: inherit;
+  }
+  .event-row:hover { background: rgba(200,16,46,0.08); padding-inline: 16px; }
+  @media (max-width: 900px) {
+    .event-row { grid-template-columns: 90px 1fr; gap: 16px; }
+    .event-row > *:nth-child(n+3) { grid-column: 2 / 3; }
+  }
+  .event-date {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 900;
+    line-height: 0.9;
+  }
+  .event-date .day { display: block; font-size: 56px; color: var(--accent); }
+  .event-date .month { display: block; font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.7; margin-top: 4px; }
+  .event-title {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 800;
+    font-size: 24px;
+    text-transform: uppercase;
+    line-height: 1.1;
+    margin-top: 4px;
+  }
+  .event-type {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .event-place {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    opacity: 0.7;
+    text-transform: uppercase;
+  }
+  .event-cta {
+    text-align: right;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+  .event-row:hover .event-cta { color: white; }
+  .event-row:hover .arrow { transform: translateX(6px); }
+  .event-cta .arrow { transition: transform 0.2s; }
+
+  /* Filter pills */
+  .pills {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+  .pill {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    padding: 10px 18px;
+    background: transparent;
+    color: white;
+    border: 1px solid rgba(255,255,255,0.2);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .pill:hover { border-color: var(--accent); }
+  .pill.active { background: var(--accent); border-color: var(--accent); color: white; }
+</style>
+</head>
+<body class="dark">
+
+<nav class="nav solid" id="nav">
+  <a href="index.html" class="nav-logo">
+    <img src="assets/logo-tbe.png" alt="TBE" style="filter: invert(1);">
+    <span>Teramo Bike Experience</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="vision.html">Vision</a></li>
+    <li><a href="team.html">Team</a></li>
+    <li><a href="eventi.html" class="active">Eventi</a></li>
+    <li><a href="shop.html">Shop</a></li>
+    <li><a href="contatti.html">Contatti</a></li>
+  </ul>
+  <a href="contatti.html" class="nav-cta">Unisciti</a>
+</nav>
+
+<!-- HEADER + NEXT EVENT -->
+<section style="padding: 180px var(--gutter) 80px; background: var(--tbe-black); color: var(--tbe-paper);">
+  <div class="container">
+    <div class="eyebrow" style="color: rgba(255,255,255,0.7); margin-bottom: 28px;">
+      <span class="num">/04</span> Eventi & Calendario 2026
+    </div>
+    <h1 class="display" style="font-size: clamp(56px, 11vw, 180px); line-height: 0.85;">
+      Date che<br>
+      <span style="color: var(--accent);">contano.</span>
+    </h1>
+
+    <!-- NEXT EVENT CARD -->
+    <a href="evento-cronoscalata.html" class="next-event" style="display: block; margin-top: 64px; text-decoration: none;">
+      <div class="next-event-bg"></div>
+      <div class="next-event-overlay"></div>
+      <div class="next-event-inner">
+        <div>
+          <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 24px; flex-wrap: wrap;">
+            <span class="next-event-tag"><span class="pulse"></span> Prossimo Evento</span>
+            <span class="caption" style="color: rgba(255,255,255,0.85);">Iscrizioni Aperte</span>
+          </div>
+          <div class="caption" style="color: rgba(255,255,255,0.8); margin-bottom: 8px;">21 Giugno 2026 · Roiano di Campli (TE)</div>
+          <h2 class="display" style="font-size: clamp(40px, 6vw, 88px); line-height: 0.85; margin-bottom: 16px;">
+            1ª Cronoscalata<br>
+            di Mattia Fiore
+          </h2>
+          <p style="opacity: 0.9; max-width: 50ch; margin-bottom: 4px; font-size: 17px;">
+            6,10 km dal centro di Roiano al Rifugio delle Aquile. Vista mare e Gran Sasso, premiati i primi tre di ogni categoria.
+          </p>
+
+          <div class="countdown" id="countdown">
+            <div class="countdown-cell"><div class="v" id="cdDays">—</div><div class="l">Giorni</div></div>
+            <div class="countdown-cell"><div class="v" id="cdHours">—</div><div class="l">Ore</div></div>
+            <div class="countdown-cell"><div class="v" id="cdMin">—</div><div class="l">Min</div></div>
+            <div class="countdown-cell"><div class="v" id="cdSec">—</div><div class="l">Sec</div></div>
+          </div>
+
+          <div style="display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-display); font-style: italic; font-weight: 800; text-transform: uppercase; font-size: 17px; letter-spacing: 0.08em;">
+            Vai al dettaglio & iscriviti <span style="font-size: 22px;">→</span>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+          <div style="padding: 20px; background: rgba(0,0,0,0.25); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,0.1);">
+            <div class="caption" style="color: rgba(255,255,255,0.6);">Lunghezza</div>
+            <div style="font-family: var(--font-display); font-style: italic; font-weight: 900; font-size: 38px; margin-top: 6px;">6,10 <span style="font-size: 16px; opacity: 0.7;">km</span></div>
+          </div>
+          <div style="padding: 20px; background: rgba(0,0,0,0.25); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,0.1);">
+            <div class="caption" style="color: rgba(255,255,255,0.6);">Dislivello</div>
+            <div style="font-family: var(--font-display); font-style: italic; font-weight: 900; font-size: 38px; margin-top: 6px;">+435 <span style="font-size: 16px; opacity: 0.7;">m</span></div>
+          </div>
+          <div style="padding: 20px; background: rgba(0,0,0,0.25); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,0.1);">
+            <div class="caption" style="color: rgba(255,255,255,0.6);">Pendenza media</div>
+            <div style="font-family: var(--font-display); font-style: italic; font-weight: 900; font-size: 38px; margin-top: 6px;">7,2 <span style="font-size: 16px; opacity: 0.7;">%</span></div>
+          </div>
+          <div style="padding: 20px; background: rgba(0,0,0,0.25); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,0.1);">
+            <div class="caption" style="color: rgba(255,255,255,0.6);">Iscritti</div>
+            <div style="font-family: var(--font-display); font-style: italic; font-weight: 900; font-size: 38px; margin-top: 6px;">87 <span style="font-size: 16px; opacity: 0.7;">/ 200</span></div>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- CALENDAR LIST -->
+<section class="section" style="background: var(--tbe-ink); padding-block: clamp(60px, 8vw, 100px);">
+  <div class="container">
+    <div style="display: flex; align-items: end; justify-content: space-between; flex-wrap: wrap; gap: 24px; margin-bottom: 40px;">
+      <div>
+        <div class="section-label"><span class="bar"></span><span style="color: rgba(255,255,255,0.7);">Calendario completo</span></div>
+        <h2 class="display display-l" style="max-width: 14ch;">
+          Tutta la stagione,<br>
+          <span style="color: var(--accent);">in una pagina.</span>
+        </h2>
+      </div>
+      <div class="pills">
+        <button class="pill active" data-filter="all">Tutti</button>
+        <button class="pill" data-filter="gara">Gare</button>
+        <button class="pill" data-filter="social">Uscite Social</button>
+        <button class="pill" data-filter="solidale">Solidali</button>
+      </div>
+    </div>
+
+    <div id="eventList">
+      <a href="evento-cronoscalata.html" class="event-row" data-type="gara">
+        <div class="event-date"><span class="day">21</span><span class="month">GIU</span></div>
+        <div>
+          <div class="event-type" style="color: var(--tbe-amber);">★ Evento Principale · Cronoscalata</div>
+          <div class="event-title">1ª Cronoscalata di Mattia Fiore</div>
+        </div>
+        <div class="event-place">ROIANO · 6,10 KM · 435 D+</div>
+        <div class="event-cta">Iscriviti <span class="arrow">→</span></div>
+      </a>
+
+      <a href="#" class="event-row" data-type="social">
+        <div class="event-date"><span class="day">12</span><span class="month">APR</span></div>
+        <div>
+          <div class="event-type">Uscita Social</div>
+          <div class="event-title">Colonnella → Civitella del Tronto</div>
+        </div>
+        <div class="event-place">78 KM · 1.100 D+ · Gravel</div>
+        <div class="event-cta">Dettagli <span class="arrow">→</span></div>
+      </a>
+
+      <a href="#" class="event-row" data-type="gara">
+        <div class="event-date"><span class="day">04</span><span class="month">MAG</span></div>
+        <div>
+          <div class="event-type">Gara · Granfondo</div>
+          <div class="event-title">Granfondo dei Quattro Borghi</div>
+        </div>
+        <div class="event-place">L'AQUILA · 142 KM · 2.300 D+</div>
+        <div class="event-cta">Dettagli <span class="arrow">→</span></div>
+      </a>
+
+      <a href="#" class="event-row" data-type="social">
+        <div class="event-date"><span class="day">25</span><span class="month">MAG</span></div>
+        <div>
+          <div class="event-type">Uscita Social</div>
+          <div class="event-title">Salita al Rifugio delle Aquile</div>
+        </div>
+        <div class="event-place">ROIANO · 30 KM · 600 D+</div>
+        <div class="event-cta">Dettagli <span class="arrow">→</span></div>
+      </a>
+
+      <a href="#" class="event-row" data-type="gara">
+        <div class="event-date"><span class="day">07</span><span class="month">LUG</span></div>
+        <div>
+          <div class="event-type">Gara · CSI Abruzzo</div>
+          <div class="event-title">Trofeo Città di Atri</div>
+        </div>
+        <div class="event-place">ATRI · 95 KM · Circuito</div>
+        <div class="event-cta">Dettagli <span class="arrow">→</span></div>
+      </a>
+
+      <a href="#" class="event-row" data-type="social">
+        <div class="event-date"><span class="day">29</span><span class="month">LUG</span></div>
+        <div>
+          <div class="event-type">Uscita Social · Tramonto</div>
+          <div class="event-title">Pedalata al Tramonto sul Gran Sasso</div>
+        </div>
+        <div class="event-place">CAMPO IMPERATORE · 42 KM</div>
+        <div class="event-cta">Dettagli <span class="arrow">→</span></div>
+      </a>
+
+      <a href="#" class="event-row" data-type="gara">
+        <div class="event-date"><span class="day">15</span><span class="month">SET</span></div>
+        <div>
+          <div class="event-type">Gara · Granfondo</div>
+          <div class="event-title">Granfondo del Conero</div>
+        </div>
+        <div class="event-place">SIROLO (AN) · 138 KM · 2.100 D+</div>
+        <div class="event-cta">Dettagli <span class="arrow">→</span></div>
+      </a>
+
+      <a href="#" class="event-row" data-type="solidale">
+        <div class="event-date"><span class="day">28</span><span class="month">SET</span></div>
+        <div>
+          <div class="event-type" style="color: var(--tbe-italian);">Pedalata Solidale</div>
+          <div class="event-title">Pedalata contro la Distrofia · Telethon</div>
+        </div>
+        <div class="event-place">TERAMO CENTRO · 35 KM</div>
+        <div class="event-cta">Partecipa <span class="arrow">→</span></div>
+      </a>
+
+      <a href="#" class="event-row" data-type="gara">
+        <div class="event-date"><span class="day">19</span><span class="month">OTT</span></div>
+        <div>
+          <div class="event-type">Gara · Gravel</div>
+          <div class="event-title">Strade Bianche dell'Abruzzo</div>
+        </div>
+        <div class="event-place">PENNE (PE) · 110 KM · 1.800 D+</div>
+        <div class="event-cta">Dettagli <span class="arrow">→</span></div>
+      </a>
+
+      <a href="#" class="event-row" data-type="social">
+        <div class="event-date"><span class="day">14</span><span class="month">DIC</span></div>
+        <div>
+          <div class="event-type">Festa Sociale</div>
+          <div class="event-title">Cena di Fine Stagione + Premiazioni</div>
+        </div>
+        <div class="event-place">TRATTORIA DA LUIGI · TERAMO</div>
+        <div class="event-cta">Invito <span class="arrow">→</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ORGANIZZA / PROPONI -->
+<section style="background: var(--tbe-black); padding: var(--section) var(--gutter); text-align: center;">
+  <div style="max-width: 800px; margin: 0 auto;">
+    <div class="caption" style="color: var(--accent); margin-bottom: 16px;">Hai un'idea?</div>
+    <h2 class="display display-l" style="margin-bottom: 20px;">
+      Organizziamo<br>
+      <span style="color: var(--accent);">noi.</span>
+    </h2>
+    <p class="lede" style="margin: 0 auto 32px; max-width: 50ch; opacity: 0.85;">Hai un'idea per un'uscita, un evento o vuoi proporci una collaborazione? Scrivici.</p>
+    <a href="contatti.html" class="btn btn-primary">Proponi un evento <span class="arrow">→</span></a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-top">
+    <div>
+      <div class="brand-mark"><div>Teramo</div><div class="red-bar">Bike</div><div>Experience</div></div>
+      <p style="opacity: 0.7; font-size: 14px;">ASD Teramo Bike Experience · Affiliata CSI<br>Via delle Aquile 14, 64100 Teramo (TE)</p>
+    </div>
+    <div><h4>Esplora</h4><ul><li><a href="vision.html">Vision</a></li><li><a href="team.html">Team</a></li><li><a href="eventi.html">Eventi</a></li><li><a href="shop.html">Shop</a></li></ul></div>
+    <div><h4>Contatti</h4><ul><li><a href="mailto:info@teramobike.it">info@teramobike.it</a></li><li><a href="contatti.html">Iscriviti</a></li></ul></div>
+    <div><h4>Social</h4><ul><li><a href="#">Instagram</a></li><li><a href="#">Strava</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><div>© 2026 Teramo Bike Experience</div><div>Made with ☕ in Abruzzo</div></div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 60) nav.classList.add('scrolled');
+  else nav.classList.remove('scrolled');
+});
+
+// Countdown to Cronoscalata
+const target = new Date('2026-06-21T08:30:00+02:00').getTime();
+function tick() {
+  const d = target - Date.now();
+  if (d < 0) return;
+  const days = Math.floor(d / 86400000);
+  const hours = Math.floor((d % 86400000) / 3600000);
+  const min = Math.floor((d % 3600000) / 60000);
+  const sec = Math.floor((d % 60000) / 1000);
+  document.getElementById('cdDays').textContent  = days;
+  document.getElementById('cdHours').textContent = String(hours).padStart(2, '0');
+  document.getElementById('cdMin').textContent   = String(min).padStart(2, '0');
+  document.getElementById('cdSec').textContent   = String(sec).padStart(2, '0');
+}
+tick(); setInterval(tick, 1000);
+
+// Filter
+document.querySelectorAll('.pill').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.pill').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const f = btn.dataset.filter;
+    document.querySelectorAll('.event-row').forEach(row => {
+      row.style.display = (f === 'all' || row.dataset.type === f) ? '' : 'none';
+    });
+  });
+});
+</script>
+</body>
+</html>

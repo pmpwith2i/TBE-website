@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contatti — Teramo Bike Experience</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .form-field label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+  }
+  .form-field input,
+  .form-field select,
+  .form-field textarea {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: white;
+    padding: 14px 18px;
+    font-family: var(--font-body);
+    font-size: 15px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .form-field input:focus,
+  .form-field select:focus,
+  .form-field textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    background: rgba(255,255,255,0.08);
+  }
+  .form-field textarea { resize: vertical; min-height: 120px; }
+
+  .channel {
+    background: var(--tbe-ink);
+    padding: 32px;
+    border-top: 3px solid var(--accent);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: background 0.2s;
+  }
+  .channel:hover { background: #1f1f22; }
+  .channel .icon {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 900;
+    font-size: 40px;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .channel .label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+  }
+  .channel .value {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 800;
+    font-size: 22px;
+    text-transform: uppercase;
+    line-height: 1.1;
+  }
+  .channel .note {
+    font-size: 13px;
+    opacity: 0.6;
+    margin-top: 4px;
+  }
+</style>
+</head>
+<body class="dark">
+
+<nav class="nav solid" id="nav">
+  <a href="index.html" class="nav-logo">
+    <img src="assets/logo-tbe.png" alt="TBE" style="filter: invert(1);">
+    <span>Teramo Bike Experience</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="vision.html">Vision</a></li>
+    <li><a href="team.html">Team</a></li>
+    <li><a href="eventi.html">Eventi</a></li>
+    <li><a href="shop.html">Shop</a></li>
+    <li><a href="contatti.html" class="active">Contatti</a></li>
+  </ul>
+  <a href="#form" class="nav-cta">Scrivici</a>
+</nav>
+
+<!-- HEADER -->
+<section style="padding: 180px var(--gutter) 60px; background: var(--tbe-black); color: var(--tbe-paper);">
+  <div class="container">
+    <div class="eyebrow" style="color: rgba(255,255,255,0.7); margin-bottom: 32px;">
+      <span class="num">/06</span> Contatti & Iscrizioni
+    </div>
+    <h1 class="display" style="font-size: clamp(60px, 12vw, 200px); line-height: 0.85;">
+      Vieni a<br>
+      <span style="color: var(--accent);">trovarci.</span>
+    </h1>
+    <p class="lede" style="margin-top: 32px; opacity: 0.8; max-width: 60ch;">
+      In sede ogni martedì sera dalle 19. In strada ogni domenica mattina. Online, sempre.
+    </p>
+  </div>
+</section>
+
+<!-- CHANNELS -->
+<section style="background: var(--tbe-black); padding: 0 var(--gutter) 80px;">
+  <div class="container">
+    <div class="grid-4" style="gap: 4px;">
+      <a href="mailto:info@teramobike.it" class="channel">
+        <div class="icon">@</div>
+        <div class="label">Scrivici</div>
+        <div class="value">info<br>@teramobike.it</div>
+        <div class="note">Rispondiamo entro 48h</div>
+      </a>
+      <a href="tel:+390861123456" class="channel">
+        <div class="icon">☏</div>
+        <div class="label">Chiamaci</div>
+        <div class="value">+39 0861<br>123 456</div>
+        <div class="note">Lun-Ven 18-20 · Sab 9-12</div>
+      </a>
+      <a href="#" class="channel">
+        <div class="icon">◉</div>
+        <div class="label">Sede</div>
+        <div class="value">Via delle Aquile 14<br>Teramo</div>
+        <div class="note">Martedì sera dalle 19:00</div>
+      </a>
+      <a href="https://wa.me/393331234567" class="channel">
+        <div class="icon">✆</div>
+        <div class="label">WhatsApp</div>
+        <div class="value">+39 333<br>123 4567</div>
+        <div class="note">Per uscite social & gare</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- IL FORM -->
+<section id="form" style="background: var(--tbe-ink); padding: var(--section) var(--gutter);">
+  <div class="container">
+    <div style="display: grid; grid-template-columns: 1fr 1.4fr; gap: clamp(40px, 8vw, 100px);">
+
+      <div>
+        <div class="section-label"><span class="bar"></span><span style="color: rgba(255,255,255,0.7);">/01 — Iscriviti al team</span></div>
+        <h2 class="display display-l" style="margin-bottom: 32px;">
+          Vuoi correre<br>
+          <span style="color: var(--accent);">in maglia rossa?</span>
+        </h2>
+        <p class="lede" style="opacity: 0.8; margin-bottom: 32px;">
+          Mandaci una mail con due righe su di te. Ti rispondiamo entro 48 ore e ti invitiamo a un'uscita di prova senza impegno. Se ti trovi bene, parliamo di tesseramento.
+        </p>
+
+        <div style="padding: 24px 0; border-block: 1px solid rgba(255,255,255,0.1); margin-bottom: 32px;">
+          <div class="caption" style="color: var(--accent); margin-bottom: 12px;">Cosa serve</div>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 15px;">
+            <li>· Bici (qualunque, l'importante è che freni)</li>
+            <li>· Certificato medico sportivo agonistico</li>
+            <li>· Quota annuale €120 (tessera CSI inclusa)</li>
+            <li>· Voglia di esserci anche d'inverno</li>
+          </ul>
+        </div>
+
+        <div class="caption" style="color: rgba(255,255,255,0.5); margin-bottom: 8px;">Hai un'azienda?</div>
+        <a href="#sponsor" class="btn-ghost italic uppercase" style="font-family: var(--font-display); font-weight: 800; letter-spacing: 0.1em; color: white;">Diventa sponsor →</a>
+      </div>
+
+      <form style="display: flex; flex-direction: column; gap: 20px;" onsubmit="event.preventDefault(); alert('Form di esempio — collegheremo l\\'invio in produzione.');">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <div class="form-field">
+            <label>Nome</label>
+            <input type="text" placeholder="Mario" required>
+          </div>
+          <div class="form-field">
+            <label>Cognome</label>
+            <input type="text" placeholder="Rossi" required>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <div class="form-field">
+            <label>Email</label>
+            <input type="email" placeholder="mario@esempio.it" required>
+          </div>
+          <div class="form-field">
+            <label>Telefono</label>
+            <input type="tel" placeholder="+39 333 123 4567">
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <div class="form-field">
+            <label>Età</label>
+            <input type="number" min="14" max="80" placeholder="32">
+          </div>
+          <div class="form-field">
+            <label>Disciplina</label>
+            <select>
+              <option>Strada</option>
+              <option>Gravel</option>
+              <option>MTB</option>
+              <option>Più di una</option>
+              <option>Non so ancora</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label>Esperienza in bici</label>
+          <select>
+            <option>Principiante (&lt; 1 anno)</option>
+            <option>Amatore (1-5 anni)</option>
+            <option>Avanzato (5+ anni)</option>
+            <option>Ex agonista</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label>Raccontaci qualcosa</label>
+          <textarea placeholder="Cosa cerchi in una squadra? Da dove pedali di solito? Hai una salita preferita?"></textarea>
+        </div>
+
+        <div style="display: flex; align-items: flex-start; gap: 12px; font-size: 13px; opacity: 0.75; margin-top: 8px;">
+          <input type="checkbox" required style="margin-top: 4px;">
+          <label>Acconsento al trattamento dei dati ai sensi del GDPR per essere ricontattato/a dal team.</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="align-self: flex-start; margin-top: 16px;">Invia candidatura <span class="arrow">→</span></button>
+      </form>
+
+    </div>
+  </div>
+</section>
+
+<!-- SPONSOR SECTION -->
+<section id="sponsor" style="background: var(--tbe-black); padding: var(--section) var(--gutter);">
+  <div class="container">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 8vw, 100px); align-items: center;">
+      <div>
+        <div class="section-label"><span class="bar"></span><span style="color: rgba(255,255,255,0.7);">/02 — Diventa partner</span></div>
+        <h2 class="display display-l" style="margin-bottom: 32px;">
+          Il tuo logo<br>
+          <span style="color: var(--accent);">in salita.</span>
+        </h2>
+        <p class="lede" style="opacity: 0.8; margin-bottom: 32px;">
+          Il nostro pubblico è composto da appassionati, sportivi locali, famiglie. La maglia TBE attraversa l'Abruzzo 12 mesi l'anno. La cronoscalata porta a Teramo 200+ corridori e relative famiglie da tutto il centro Italia.
+        </p>
+        <a href="mailto:sponsor@teramobike.it" class="btn btn-primary">Richiedi il media kit <span class="arrow">→</span></a>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div style="background: var(--tbe-ink); padding: 28px; border-top: 3px solid var(--accent);">
+          <div style="font-family: var(--font-display); font-style: italic; font-weight: 900; font-size: 56px; color: var(--accent); line-height: 1;">A</div>
+          <h4 style="font-family: var(--font-display); font-style: italic; font-weight: 800; text-transform: uppercase; font-size: 22px; margin: 8px 0 12px;">Sponsor Tecnico</h4>
+          <p style="font-size: 14px; opacity: 0.75;">Logo grande fronte maglia. Pannello in cronoscalata. €5.000 / anno.</p>
+        </div>
+        <div style="background: var(--tbe-ink); padding: 28px; border-top: 3px solid var(--accent);">
+          <div style="font-family: var(--font-display); font-style: italic; font-weight: 900; font-size: 56px; color: var(--accent); line-height: 1;">B</div>
+          <h4 style="font-family: var(--font-display); font-style: italic; font-weight: 800; text-transform: uppercase; font-size: 22px; margin: 8px 0 12px;">Co-Sponsor</h4>
+          <p style="font-size: 14px; opacity: 0.75;">Logo posteriore + manica. Banner cronoscalata. €1.500 / anno.</p>
+        </div>
+        <div style="background: var(--tbe-ink); padding: 28px; border-top: 3px solid var(--accent);">
+          <div style="font-family: var(--font-display); font-style: italic; font-weight: 900; font-size: 56px; color: var(--accent); line-height: 1;">C</div>
+          <h4 style="font-family: var(--font-display); font-style: italic; font-weight: 800; text-transform: uppercase; font-size: 22px; margin: 8px 0 12px;">Supporter</h4>
+          <p style="font-size: 14px; opacity: 0.75;">Logo piccolo posteriore. Citazione social. €500 / anno.</p>
+        </div>
+        <div style="background: var(--tbe-ink); padding: 28px; border-top: 3px solid var(--tbe-amber);">
+          <div style="font-family: var(--font-display); font-style: italic; font-weight: 900; font-size: 56px; color: var(--tbe-amber); line-height: 1;">+</div>
+          <h4 style="font-family: var(--font-display); font-style: italic; font-weight: 800; text-transform: uppercase; font-size: 22px; margin: 8px 0 12px;">Su misura</h4>
+          <p style="font-size: 14px; opacity: 0.75;">Pacchetti personalizzati per eventi, gare, attivazioni territoriali.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAP / SEDE -->
+<section style="background: var(--tbe-ink); padding: var(--section) var(--gutter);">
+  <div class="container">
+    <div style="display: grid; grid-template-columns: 1fr 1.4fr; gap: 60px; align-items: stretch;">
+      <div>
+        <div class="section-label"><span class="bar"></span><span style="color: rgba(255,255,255,0.7);">/03 — Dove siamo</span></div>
+        <h2 class="display display-l" style="margin-bottom: 24px;">
+          Sede<br>
+          <span style="color: var(--accent);">Teramo.</span>
+        </h2>
+        <p style="opacity: 0.85; max-width: 40ch; margin-bottom: 32px;">
+          La nostra sede operativa è dentro il negozio di Brian's Bike Shop, dove ci troviamo ogni martedì sera per pianificare uscite, montare bici e bere birra artigianale abruzzese.
+        </p>
+
+        <div style="display: flex; flex-direction: column; gap: 16px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.1);">
+          <div>
+            <div class="caption" style="color: rgba(255,255,255,0.5);">Indirizzo</div>
+            <div style="margin-top: 4px;">Via delle Aquile 14<br>64100 Teramo (TE)</div>
+          </div>
+          <div>
+            <div class="caption" style="color: rgba(255,255,255,0.5);">Orari</div>
+            <div style="margin-top: 4px;">Mar 19:00 — 22:00 · Sab 9:00 — 12:00<br>Domenica: in strada</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stylized map -->
+      <div style="background: var(--tbe-black); aspect-ratio: 16/10; position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
+        <svg viewBox="0 0 800 500" style="width:100%; height:100%; display:block;">
+          <defs>
+            <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+            </pattern>
+          </defs>
+          <rect width="800" height="500" fill="url(#grid)"/>
+          <!-- Roads -->
+          <path d="M 0,400 Q 200,380 400,360 T 800,300" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="2"/>
+          <path d="M 0,250 Q 250,260 500,240 T 800,200" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+          <path d="M 100,500 L 380,260 L 600,180 L 800,120" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
+          <path d="M 200,500 L 420,280 L 540,200" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
+          <!-- Contour lines (mountains) -->
+          <g stroke="rgba(200,16,46,0.25)" stroke-width="1" fill="none">
+            <ellipse cx="600" cy="180" rx="150" ry="60"/>
+            <ellipse cx="600" cy="180" rx="100" ry="40"/>
+            <ellipse cx="600" cy="180" rx="60" ry="22"/>
+          </g>
+          <text x="640" y="160" font-family="JetBrains Mono" font-size="10" fill="rgba(255,255,255,0.5)" letter-spacing="0.15em">GRAN SASSO</text>
+          <text x="660" y="175" font-family="JetBrains Mono" font-size="9" fill="rgba(200,16,46,0.7)">2912 m</text>
+          <!-- Coastline hint -->
+          <path d="M 0,100 Q 50,140 80,180 Q 120,240 100,320 Q 80,420 130,500" fill="none" stroke="rgba(243,156,18,0.4)" stroke-width="1.5" stroke-dasharray="3 4"/>
+          <text x="20" y="80" font-family="JetBrains Mono" font-size="10" fill="rgba(243,156,18,0.7)" letter-spacing="0.15em">MARE ADRIATICO</text>
+          <!-- Marker - Teramo -->
+          <g transform="translate(420, 280)">
+            <circle r="22" fill="rgba(200,16,46,0.2)"/>
+            <circle r="14" fill="rgba(200,16,46,0.4)"/>
+            <circle r="7" fill="#C8102E"/>
+            <line x1="0" y1="-25" x2="0" y2="-50" stroke="white" stroke-width="1"/>
+            <text x="14" y="-30" font-family="Barlow Condensed" font-style="italic" font-weight="900" font-size="22" fill="white" text-transform="uppercase">TBE · SEDE</text>
+            <text x="14" y="-14" font-family="JetBrains Mono" font-size="9" fill="rgba(255,255,255,0.6)" letter-spacing="0.15em">42°39'N 13°42'E</text>
+          </g>
+          <!-- Compass -->
+          <g transform="translate(740, 60)">
+            <text x="0" y="0" font-family="Barlow Condensed" font-style="italic" font-weight="900" font-size="18" fill="white">N</text>
+            <line x1="6" y1="-12" x2="6" y2="6" stroke="rgba(200,16,46,1)" stroke-width="1.5"/>
+            <polygon points="6,-14 3,-8 9,-8" fill="#C8102E"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-top">
+    <div>
+      <div class="brand-mark"><div>Teramo</div><div class="red-bar">Bike</div><div>Experience</div></div>
+      <p style="opacity: 0.7; font-size: 14px;">ASD Teramo Bike Experience · Affiliata CSI<br>Via delle Aquile 14, 64100 Teramo (TE)</p>
+    </div>
+    <div><h4>Esplora</h4><ul><li><a href="vision.html">Vision</a></li><li><a href="team.html">Team</a></li><li><a href="eventi.html">Eventi</a></li><li><a href="shop.html">Shop</a></li></ul></div>
+    <div><h4>Contatti</h4><ul><li><a href="mailto:info@teramobike.it">info@teramobike.it</a></li><li><a href="contatti.html">Iscriviti</a></li></ul></div>
+    <div><h4>Social</h4><ul><li><a href="#">Instagram</a></li><li><a href="#">Strava</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><div>© 2026 Teramo Bike Experience</div><div>Made with ☕ in Abruzzo</div></div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 60) nav.classList.add('scrolled');
+  else nav.classList.remove('scrolled');
+});
+</script>
+</body>
+</html>

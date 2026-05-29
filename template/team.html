@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Team — Teramo Bike Experience</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* Team page specific */
+  .roster-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+    background: var(--tbe-black);
+  }
+  @media (max-width: 1000px) { .roster-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 700px)  { .roster-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .rider {
+    position: relative;
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    background: var(--tbe-ink);
+    cursor: pointer;
+  }
+  .rider img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(0.35) contrast(1.05) brightness(0.92);
+    transition: filter 0.4s ease, transform 0.6s ease;
+  }
+  .rider:hover img { filter: grayscale(0) contrast(1.1) brightness(1); transform: scale(1.04); }
+  .rider .overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.85) 100%);
+    pointer-events: none;
+  }
+  .rider .meta {
+    position: absolute;
+    left: 18px; right: 18px; bottom: 18px;
+    color: white;
+  }
+  .rider .num {
+    position: absolute;
+    top: 14px; right: 14px;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 900;
+    font-size: 32px;
+    line-height: 1;
+    color: var(--accent);
+    text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  }
+  .rider .role {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.85;
+    margin-bottom: 6px;
+  }
+  .rider .name {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 800;
+    font-size: 24px;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+  }
+  .rider .name .surname { color: var(--accent); }
+</style>
+</head>
+<body class="dark">
+
+<nav class="nav solid" id="nav">
+  <a href="index.html" class="nav-logo">
+    <img src="assets/logo-tbe.png" alt="TBE" style="filter: invert(1);">
+    <span>Teramo Bike Experience</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="vision.html">Vision</a></li>
+    <li><a href="team.html" class="active">Team</a></li>
+    <li><a href="eventi.html">Eventi</a></li>
+    <li><a href="shop.html">Shop</a></li>
+    <li><a href="contatti.html">Contatti</a></li>
+  </ul>
+  <a href="contatti.html" class="nav-cta">Unisciti</a>
+</nav>
+
+<!-- HEADER -->
+<section style="padding: 180px var(--gutter) 60px; background: var(--tbe-black); color: var(--tbe-paper);">
+  <div class="container">
+    <div class="eyebrow" style="color: rgba(255,255,255,0.7); margin-bottom: 32px;">
+      <span class="num">/02</span> Roster Stagione 2026
+    </div>
+    <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 60px; align-items: end;">
+      <h1 class="display" style="font-size: clamp(60px, 11vw, 180px); line-height: 0.85;">
+        Stessa<br>
+        <span style="color: var(--accent);">strada.</span><br>
+        Stessa <em>maglia</em>.
+      </h1>
+      <p class="lede" style="opacity: 0.8;">
+        Dai veterani che hanno cominciato negli anni '90 ai venti­enni della categoria juniores. Tutti teramani, tutti diversi, tutti con la stessa intolleranza al freno.
+      </p>
+    </div>
+
+    <!-- Counter -->
+    <div style="margin-top: 56px; display: flex; align-items: baseline; gap: 16px;">
+      <span style="font-family: var(--font-display); font-style: italic; font-weight: 900; font-size: 72px; color: var(--accent); line-height: 1;" id="riderCount">—</span>
+      <span class="caption" style="color: rgba(255,255,255,0.6);">Corridori iscritti · Stagione 2026</span>
+    </div>
+  </div>
+</section>
+
+<!-- ROSTER GRID -->
+<section style="background: var(--tbe-black); padding-bottom: 40px;">
+  <div class="roster-grid" id="rosterGrid">
+    <!-- Filled by JS -->
+  </div>
+</section>
+
+<!-- STAFF -->
+<section class="section" style="background: var(--tbe-ink);">
+  <div class="container">
+    <div class="section-label"><span class="bar"></span><span style="color: rgba(255,255,255,0.7);">/03 — Staff</span></div>
+    <h2 class="display display-l" style="margin-bottom: 56px;">
+      Chi <span style="color: var(--accent);">tiene in piedi</span><br>
+      tutta la baracca.
+    </h2>
+
+    <div class="grid-3">
+      <article style="background: var(--tbe-black); padding: 32px; border-top: 3px solid var(--accent);">
+        <div style="aspect-ratio: 1; overflow: hidden; margin: -32px -32px 24px;">
+          <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=800&q=85" alt="Direttore Sportivo" style="width:100%; height:100%; object-fit: cover; filter: grayscale(0.4) contrast(1.1);">
+        </div>
+        <div class="caption" style="color: var(--accent);">Direttore Sportivo</div>
+        <h3 class="display display-m" style="margin: 8px 0 16px;">Roberto Pallini</h3>
+        <p style="opacity: 0.75; font-size: 15px;">Ex pro' anni '80, oggi tattica e calendario gare. La voce in radio quando le cose si complicano.</p>
+      </article>
+
+      <article style="background: var(--tbe-black); padding: 32px; border-top: 3px solid var(--accent);">
+        <div style="aspect-ratio: 1; overflow: hidden; margin: -32px -32px 24px;">
+          <img src="https://images.unsplash.com/photo-1607990281513-2c110a25bd8c?w=800&q=85" alt="Meccanico" style="width:100%; height:100%; object-fit: cover; filter: grayscale(0.4) contrast(1.1);">
+        </div>
+        <div class="caption" style="color: var(--accent);">Meccanico</div>
+        <h3 class="display display-m" style="margin: 8px 0 16px;">Brian Esposito</h3>
+        <p style="opacity: 0.75; font-size: 15px;">Brian's Bike Shop, Castelnuovo Vomano. Mani che capiscono le bici prima che parlino. Sponsor & officina.</p>
+      </article>
+
+      <article style="background: var(--tbe-black); padding: 32px; border-top: 3px solid var(--accent);">
+        <div style="aspect-ratio: 1; overflow: hidden; margin: -32px -32px 24px;">
+          <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&q=85" alt="Fisioterapista" style="width:100%; height:100%; object-fit: cover; filter: grayscale(0.4) contrast(1.1);">
+        </div>
+        <div class="caption" style="color: var(--accent);">Fisioterapista</div>
+        <h3 class="display display-m" style="margin: 8px 0 16px;">Elena Marcozzi</h3>
+        <p style="opacity: 0.75; font-size: 15px;">Studio Fisioste, Teramo. Rimette in piedi ginocchia e schiene il lunedì mattina, sempre.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-top">
+    <div>
+      <div class="brand-mark">
+        <div>Teramo</div>
+        <div class="red-bar">Bike</div>
+        <div>Experience</div>
+      </div>
+      <p style="opacity: 0.7; font-size: 14px; max-width: 36ch;">ASD Teramo Bike Experience · Affiliata CSI<br>Via delle Aquile 14, 64100 Teramo (TE)</p>
+    </div>
+    <div>
+      <h4>Esplora</h4>
+      <ul>
+        <li><a href="vision.html">Vision</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="eventi.html">Eventi</a></li>
+        <li><a href="shop.html">Shop</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contatti</h4>
+      <ul>
+        <li><a href="mailto:info@teramobike.it">info@teramobike.it</a></li>
+        <li><a href="contatti.html">Iscriviti</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Social</h4>
+      <ul>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">Strava · TBE Club</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>© 2026 Teramo Bike Experience</div>
+    <div>Made with ☕ in Abruzzo</div>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 60) nav.classList.add('scrolled');
+  else nav.classList.remove('scrolled');
+});
+
+// Roster TBE · Stagione 2026
+const riders = [
+  { n: 1,  first: "Marco",     last: "Di Pietro",   town: "Mosciano S.A.", img: "https://images.unsplash.com/photo-1517649763962-0c623066013b?w=900&q=85" },
+  { n: 2,  first: "Luca",      last: "Marini",      town: "Teramo",        img: "https://images.unsplash.com/photo-1604242692760-2f7b0c26856d?w=900&q=85" },
+  { n: 3,  first: "Andrea",    last: "Costanzi",    town: "Campli",        img: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=900&q=85" },
+  { n: 4,  first: "Federico",  last: "Liguori",     town: "Roseto",        img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=900&q=85" },
+  { n: 5,  first: "Davide",    last: "Tagliente",   town: "Atri",          img: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=900&q=85" },
+  { n: 6,  first: "Simone",    last: "D'Onofrio",   town: "Isola G.S.",    img: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=900&q=85" },
+  { n: 7,  first: "Giulia",    last: "Pavone",      town: "Teramo",        img: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=900&q=85" },
+  { n: 8,  first: "Mattia",    last: "Fiore",       town: "Campli",        img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=900&q=85" },
+  { n: 9,  first: "Sara",      last: "Verdone",     town: "Pineto",        img: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=900&q=85" },
+  { n: 10, first: "Antonio",   last: "Ciaffaroni",  town: "Teramo",        img: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=900&q=85" },
+  { n: 11, first: "Francesco", last: "Petruzzi",    town: "Giulianova",    img: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=900&q=85" },
+  { n: 12, first: "Chiara",    last: "Massari",     town: "Castelli",      img: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=900&q=85" },
+  { n: 13, first: "Pietro",    last: "Iezzi",       town: "Isola G.S.",    img: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=900&q=85" },
+  { n: 14, first: "Stefano",   last: "Cocci",       town: "Civitella",     img: "https://images.unsplash.com/photo-1521119989659-a83eee488004?w=900&q=85" },
+  { n: 15, first: "Riccardo",  last: "Bucci",       town: "Roseto",        img: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=900&q=85" },
+];
+
+const grid = document.getElementById('rosterGrid');
+document.getElementById('riderCount').textContent = riders.length;
+grid.innerHTML = riders.map(r => `
+  <article class="rider">
+    <img src="${r.img}" alt="${r.first} ${r.last}">
+    <div class="overlay"></div>
+    <div class="num">#${String(r.n).padStart(2, '0')}</div>
+    <div class="meta">
+      <div class="role">${r.town}</div>
+      <div class="name">${r.first} <span class="surname">${r.last}</span></div>
+    </div>
+  </article>
+`).join('');
+</script>
+</body>
+</html>

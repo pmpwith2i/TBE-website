@@ -1,0 +1,26 @@
+@import "tailwindcss";
+@import "./tbe.css";
+
+/*
+ * Tailwind is available for layout sugar, but the Teramo Bike Experience
+ * look is driven by the bespoke design system in tbe.css.
+ * Pure black/white are intentional brand values here (race aesthetic),
+ * so we don't override them.
+ */
+
+@theme inline {
+  --font-sans: var(--font-space), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+  --font-display: var(--font-barlow), "Barlow Condensed", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--tbe-paper);
+  color: var(--tbe-black);
+  font-family: var(--font-body);
+}
