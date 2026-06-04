@@ -1,9 +1,15 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { SiteShell } from "@/components/site/site-shell";
 import { BtnLink } from "@/components/site/buttons";
+import { pageSeo } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "Eventi" };
+export const metadata = pageSeo({
+  title: "Evento in preparazione",
+  description:
+    "Stiamo organizzando un evento aperto al territorio. Ancora nessuna data: seguici su Instagram e Facebook per gli aggiornamenti.",
+  path: "/eventi/cronoscalata",
+  index: false,
+});
 
 export default function CronoscalataPage() {
   return (

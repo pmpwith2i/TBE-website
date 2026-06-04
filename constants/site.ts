@@ -1,7 +1,8 @@
 /**
  * Site-wide DATA / configuration only — brand, navigation, social profiles,
- * footer links, sponsor list. Page copy lives directly in the page TSX files,
- * not here. Keep this file for things you'd actually edit as data.
+ * footer links. Page copy lives directly in the page TSX files, not here.
+ * Sponsors live in `constants/sponsors.ts`. Keep this file for things you'd
+ * actually edit as data.
  */
 
 export interface NavLink {
@@ -12,11 +13,6 @@ export interface NavLink {
 export interface FooterColumn {
   title: string;
   links: { label: string; href: string }[];
-}
-
-export interface Sponsor {
-  name: string;
-  detail: string;
 }
 
 export interface SocialLink {
@@ -75,20 +71,4 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
       { label: "Shop", href: "/shop" },
     ],
   },
-];
-
-/** Sponsor wall shown on the home page. */
-export const SPONSORS: Sponsor[] = [
-  { name: "Di Mattia Fiore", detail: "Impresa di Costruzioni" },
-  { name: "EcoVerde", detail: "Energia" },
-  { name: "Brian's", detail: "Bike Shop" },
-  { name: "Vischia", detail: "Autocarrozzeria" },
-  { name: "Alpic", detail: "Sportswear" },
-  { name: "Decar", detail: "Ford Partner" },
-  { name: "Pallini", detail: "Gioielleria · dal 1966" },
-  { name: "D'Onofrio", detail: "Farmacia" },
-  { name: "GI.MA", detail: "Pulizie · Giardinaggio" },
-  { name: "Fisioste", detail: "Fisioterapia" },
-  { name: "CSI", detail: "Centro Sportivo Italiano" },
-  { name: "+ Diventa partner", detail: "Scrivici sui social" },
 ];

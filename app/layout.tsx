@@ -1,27 +1,64 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { fontVariables } from "./fonts";
 import { Providers } from "./providers";
+import { StructuredData } from "@/components/site/structured-data";
 import { SITE } from "@/constants/site";
+import { BASE_KEYWORDS, DEFAULT_DESCRIPTION } from "@/lib/seo";
 
-const SITE_DESCRIPTION =
-  "Una squadra di ciclismo nata a Teramo. Un gruppo di amici uniti dalla passione per la bici.";
+const DEFAULT_TITLE = `${SITE.name} — Una squadra di amici`;
+const OG_IMAGE = {
+  url: "/assets/sunset-rider.jpg",
+  alt: "Teramo Bike Experience — un'uscita in bici al tramonto",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: `${SITE.name} — Una squadra di amici`,
+    default: DEFAULT_TITLE,
     template: `%s — ${SITE.name}`,
   },
-  description: SITE_DESCRIPTION,
-  openGraph: {
-    title: `${SITE.name} — Una squadra di amici`,
-    description: SITE_DESCRIPTION,
-    locale: "it_IT",
-    type: "website",
-    siteName: SITE.name,
+  description: DEFAULT_DESCRIPTION,
+  applicationName: SITE.name,
+  keywords: BASE_KEYWORDS,
+  authors: [{ name: SITE.name, url: SITE.url }],
+  creator: SITE.name,
+  publisher: SITE.legalName,
+  category: "sports",
+  referrer: "origin-when-cross-origin",
+  alternates: { canonical: "/" },
+  formatDetection: { email: false, address: false, telephone: false },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
-  icons: { icon: SITE.logos.badge },
+  openGraph: {
+    type: "website",
+    locale: "it_IT",
+    url: SITE.url,
+    siteName: SITE.name,
+    title: DEFAULT_TITLE,
+    description: DEFAULT_DESCRIPTION,
+    images: [OG_IMAGE],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: DEFAULT_TITLE,
+    description: DEFAULT_DESCRIPTION,
+    images: [OG_IMAGE.url],
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#c8102e",
+  colorScheme: "light dark",
 };
 
 export default function RootLayout({
@@ -30,6 +67,7 @@ export default function RootLayout({
   return (
     <html lang="it" className={fontVariables} suppressHydrationWarning>
       <body>
+        <StructuredData />
         <Providers>{children}</Providers>
       </body>
     </html>

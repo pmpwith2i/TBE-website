@@ -1,11 +1,22 @@
-import type { Metadata } from "next";
 import Image from "next/image";
+import { pageSeo } from "@/lib/seo";
 import { SiteShell } from "@/components/site/site-shell";
 import { Reveal } from "@/components/site/reveal";
 import { SectionLabel, Eyebrow } from "@/components/site/section-label";
 import { BtnLink } from "@/components/site/buttons";
 
-export const metadata: Metadata = { title: "Vision" };
+export const metadata = pageSeo({
+  title: "Vision",
+  description:
+    "La vision di Teramo Bike Experience: una squadra di ciclismo aperta a tutti, dove si pedala in gruppo al passo di ognuno. Le uscite social vengono prima delle gare.",
+  path: "/vision",
+  keywords: [
+    "vision squadra ciclismo",
+    "ciclismo aperto a tutti",
+    "comunità ciclistica Teramo",
+    "valori squadra bici",
+  ],
+});
 
 const POINTS = [
   {

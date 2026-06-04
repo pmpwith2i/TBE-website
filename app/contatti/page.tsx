@@ -1,11 +1,23 @@
-import type { Metadata } from "next";
 import { SiteShell } from "@/components/site/site-shell";
+import { pageSeo } from "@/lib/seo";
 import { Eyebrow, SectionLabel } from "@/components/site/section-label";
 import { SocialIcon } from "@/components/site/social-icons";
+import { MainSponsor } from "@/components/site/main-sponsor";
 import { JoinForm } from "@/components/contatti/join-form";
 import { SOCIALS } from "@/constants/site";
 
-export const metadata: Metadata = { title: "Contatti" };
+export const metadata = pageSeo({
+  title: "Contatti",
+  description:
+    "Vuoi pedalare con noi o sostenere la squadra? Contatta Teramo Bike Experience su Instagram, Facebook o dal form: ti rispondiamo presto.",
+  path: "/contatti",
+  keywords: [
+    "contatti Teramo Bike Experience",
+    "unirsi squadra ciclismo Teramo",
+    "iscriversi squadra bici Teramo",
+    "diventare sponsor ciclismo Teramo",
+  ],
+});
 
 const CHANNEL_NOTE: Record<
   "instagram" | "facebook",
@@ -80,6 +92,40 @@ export default function ContattiPage() {
                 </a>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      {/* MAIN SPONSOR */}
+      <section
+        style={{ background: "var(--tbe-black)", padding: "0 var(--gutter) 100px" }}
+      >
+        <div className="container">
+          <div
+            className="contatti-sponsor-grid"
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: "clamp(40px, 8vw, 100px)",
+              alignItems: "center",
+            }}
+          >
+            <div>
+              <SectionLabel light>Chi ci sostiene</SectionLabel>
+              <h2 className="display display-l" style={{ marginBottom: 24 }}>
+                Dietro la squadra,
+                <br />
+                <span style={{ color: "var(--accent)" }}>il territorio.</span>
+              </h2>
+              <p
+                className="lede"
+                style={{ opacity: 0.8, maxWidth: "42ch" }}
+              >
+                
+              </p>
+            </div>
+
+            <MainSponsor />
           </div>
         </div>
       </section>

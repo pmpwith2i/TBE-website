@@ -4,8 +4,21 @@ import { Marquee } from "@/components/site/marquee";
 import { Reveal } from "@/components/site/reveal";
 import { SectionLabel } from "@/components/site/section-label";
 import { BtnLink } from "@/components/site/buttons";
-import { SponsorWall } from "@/components/site/sponsor-wall";
+import { HomeSponsors } from "@/components/site/home-sponsors";
 import { HomeHero } from "@/components/home/hero";
+import { pageSeo, DEFAULT_DESCRIPTION } from "@/lib/seo";
+
+export const metadata = pageSeo({
+  description: DEFAULT_DESCRIPTION,
+  path: "/",
+  keywords: [
+    "squadra bici Teramo",
+    "ciclismo amatoriale Teramo",
+    "uscite social in bici",
+    "pedalare in gruppo Teramo",
+    "associazione ciclistica Teramo",
+  ],
+});
 
 const MARQUEE = [
   "Teramo Bike Experience",
@@ -199,7 +212,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <SponsorWall />
+      <HomeSponsors />
 
       {/* CTA STRIP */}
       <section

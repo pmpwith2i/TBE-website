@@ -1,9 +1,20 @@
-import type { Metadata } from "next";
 import { SiteShell } from "@/components/site/site-shell";
+import { pageSeo } from "@/lib/seo";
 import { Eyebrow, SectionLabel } from "@/components/site/section-label";
 import { BtnLink } from "@/components/site/buttons";
 
-export const metadata: Metadata = { title: "Eventi" };
+export const metadata = pageSeo({
+  title: "Eventi e uscite",
+  description:
+    "Le uscite di Teramo Bike Experience: pedalate social di gruppo ogni settimana, aperte a tutti, e qualche gara del calendario CSI. Vieni a pedalare con noi.",
+  path: "/eventi",
+  keywords: [
+    "uscite ciclismo Teramo",
+    "eventi ciclismo Teramo",
+    "pedalate di gruppo Teramo",
+    "gare ciclismo CSI Teramo",
+  ],
+});
 
 const ATTIVITA = [
   {

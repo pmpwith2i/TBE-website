@@ -655,45 +655,109 @@
   background: var(--tbe-bone);
   border-block: 1px solid rgba(0, 0, 0, 0.08);
 }
-.sponsor-row {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 32px;
+
+/* Main sponsor highlight (home + contatti) */
+.main-sponsor {
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  gap: 16px;
 }
-.sponsor-row .sponsor {
+.main-sponsor__tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.main-sponsor__card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: clamp(28px, 5vw, 48px) clamp(36px, 7vw, 72px);
+  box-shadow: 0 18px 44px -30px rgba(0, 0, 0, 0.5);
+}
+.main-sponsor__logo {
+  width: clamp(220px, 38vw, 340px);
+  height: auto;
+}
+.main-sponsor__name {
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 800;
-  font-size: 22px;
+  font-size: 32px;
   text-transform: uppercase;
   color: var(--tbe-graphite);
-  text-align: center;
-  letter-spacing: 0.04em;
-  opacity: 0.65;
-  transition: opacity 0.2s, color 0.2s;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  padding: 18px 8px;
-  background: white;
-  line-height: 1;
 }
-.sponsor-row .sponsor:hover {
+.main-sponsor__detail {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: inherit;
+  opacity: 0.6;
+}
+
+/* Sponsor scrolling band */
+.sponsor-marquee {
+  overflow: hidden;
+  margin-top: clamp(40px, 6vw, 64px);
+  padding: 22px 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 8%,
+    #000 92%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 8%,
+    #000 92%,
+    transparent
+  );
+}
+.sponsor-marquee__track {
+  display: flex;
+  width: max-content;
+  animation: marquee 38s linear infinite;
+}
+.sponsor-marquee__run {
+  display: flex;
+  align-items: center;
+}
+.sponsor-marquee__item {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 0 clamp(28px, 4vw, 52px);
+  white-space: nowrap;
+  color: var(--tbe-graphite);
+  opacity: 0.7;
+  transition: opacity 0.2s, color 0.2s;
+}
+.sponsor-marquee__item:hover {
   opacity: 1;
   color: var(--accent);
 }
-.sponsor-row .sponsor small {
-  display: block;
-  font-family: var(--font-mono);
-  font-style: normal;
-  font-size: 9px;
-  letter-spacing: 0.18em;
-  margin-top: 4px;
-  font-weight: 400;
+.sponsor-marquee__item strong {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 800;
+  font-size: clamp(18px, 2.4vw, 24px);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
-@media (max-width: 900px) {
-  .sponsor-row {
-    grid-template-columns: repeat(3, 1fr);
-  }
+.sponsor-marquee__item small {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0.8;
 }
 
 /* Diagonal slash decoration (italic logo echo) */
@@ -908,6 +972,7 @@
     transition: none;
   }
   .marquee-track,
+  .sponsor-marquee__track,
   .scroll-cue .line::after,
   .next-event-tag .pulse {
     animation: none !important;

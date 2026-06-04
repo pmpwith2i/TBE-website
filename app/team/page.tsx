@@ -1,10 +1,21 @@
-import type { Metadata } from "next";
 import Image from "next/image";
+import { pageSeo } from "@/lib/seo";
 import { SiteShell } from "@/components/site/site-shell";
 import { Eyebrow, SectionLabel } from "@/components/site/section-label";
 import { RIDERS, STAFF } from "@/constants/team";
 
-export const metadata: Metadata = { title: "Team" };
+export const metadata = pageSeo({
+  title: "Team",
+  description:
+    "Il team di Teramo Bike Experience: ciclisti di tutte le età e livelli, uniti dalla voglia di pedalare insieme sulle strade del teramano.",
+  path: "/team",
+  keywords: [
+    "ciclisti Teramo",
+    "squadra ciclistica Teramo",
+    "membri squadra bici Teramo",
+    "staff ciclismo Teramo",
+  ],
+});
 
 export default function TeamPage() {
   return (

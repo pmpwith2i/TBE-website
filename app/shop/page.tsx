@@ -1,10 +1,21 @@
-import type { Metadata } from "next";
 import { SiteShell } from "@/components/site/site-shell";
+import { pageSeo } from "@/lib/seo";
 import { Eyebrow } from "@/components/site/section-label";
 import { BtnLink } from "@/components/site/buttons";
 import { FeaturedKit } from "@/components/shop/featured-kit";
 
-export const metadata: Metadata = { title: "Shop" };
+export const metadata = pageSeo({
+  title: "Shop",
+  description:
+    "Il kit ufficiale di Teramo Bike Experience, prodotto in Italia: maglia e salopette della squadra. Scrivici per prezzi, taglie e disponibilità.",
+  path: "/shop",
+  keywords: [
+    "maglia ciclismo Teramo",
+    "kit ciclismo Teramo",
+    "abbigliamento ciclismo Made in Italy",
+    "completo ciclismo squadra",
+  ],
+});
 
 export default function ShopPage() {
   return (

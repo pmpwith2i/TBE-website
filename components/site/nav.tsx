@@ -57,7 +57,7 @@ export function Nav({
             alt="Teramo Bike Experience"
             width={60}
             height={30}
-            style={{ height: 30, width: "auto", filter: "invert(1)" }}
+            style={{ height: 30, width: "auto" }}
             priority
           />
           <span>{SITE.name}</span>
@@ -101,7 +101,7 @@ export function Nav({
               alt="Teramo Bike Experience"
               width={60}
               height={30}
-              style={{ height: 30, width: "auto", filter: "invert(1)" }}
+              style={{ height: 30, width: "auto" }}
             />
             <span>{SITE.shortName}</span>
           </span>
