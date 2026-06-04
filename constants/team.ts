@@ -1,5 +1,6 @@
 /**
- * Team page: the rider roster grid and the staff. Add/remove riders here.
+ * Team DATA only — rider roster + staff. All page copy (headings, intro)
+ * lives in app/team/page.tsx.
  */
 
 export interface Rider {
@@ -16,18 +17,6 @@ export interface StaffMember {
   bio: string;
   img: string;
 }
-
-export const TEAM_HERO = {
-  eyebrowNum: "/02",
-  eyebrowText: "Roster Stagione 2026",
-  titleLines: [
-    [{ text: "Stessa" }],
-    [{ text: "strada.", accent: true }],
-    [{ text: "Stessa " }, { text: "maglia", em: true }, { text: "." }],
-  ],
-  lead: "Dai veterani che hanno cominciato negli anni '90 ai venti­enni della categoria juniores. Tutti teramani, tutti diversi, tutti con la stessa voglia di pedalare insieme.",
-  counterLabel: "Corridori iscritti · Stagione 2026",
-};
 
 export const RIDERS: Rider[] = [
   { n: 1, first: "Marco", last: "Di Pietro", town: "Mosciano S.A.", img: "https://images.unsplash.com/photo-1517649763962-0c623066013b?w=900&q=85" },
@@ -47,31 +36,23 @@ export const RIDERS: Rider[] = [
   { n: 15, first: "Riccardo", last: "Bucci", town: "Roseto", img: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=900&q=85" },
 ];
 
-export const STAFF_SECTION = {
-  label: "/03 — Staff",
-  titleLines: [
-    [{ text: "Chi " }, { text: "tiene in piedi", accent: true }],
-    [{ text: "tutta la baracca." }],
-  ],
-};
-
 export const STAFF: StaffMember[] = [
   {
-    role: "Direttore Sportivo",
+    role: "Organizzazione",
     name: "Roberto Pallini",
-    bio: "Ex pro' anni '80, oggi tattica e calendario gare. La voce in radio quando le cose si complicano.",
+    bio: "Si occupa di organizzare le uscite e tenere i contatti con la squadra.",
     img: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=800&q=85",
   },
   {
     role: "Meccanico",
     name: "Brian Esposito",
-    bio: "Brian's Bike Shop, Castelnuovo Vomano. Mani che capiscono le bici prima che parlino. Sponsor & officina.",
+    bio: "Brian's Bike Shop, Castelnuovo Vomano. Tiene in ordine le nostre bici.",
     img: "https://images.unsplash.com/photo-1607990281513-2c110a25bd8c?w=800&q=85",
   },
   {
     role: "Fisioterapista",
     name: "Elena Marcozzi",
-    bio: "Studio Fisioste, Teramo. Rimette in piedi ginocchia e schiene il lunedì mattina, sempre.",
+    bio: "Studio Fisioste, Teramo. Ci dà una mano a restare in sella.",
     img: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&q=85",
   },
 ];

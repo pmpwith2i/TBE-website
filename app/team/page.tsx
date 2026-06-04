@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { SiteShell } from "@/components/site/site-shell";
 import { Eyebrow, SectionLabel } from "@/components/site/section-label";
-import { DisplayTitle } from "@/components/site/display-title";
-import { TEAM_HERO, RIDERS, STAFF_SECTION, STAFF } from "@/constants/team";
+import { RIDERS, STAFF } from "@/constants/team";
 
 export const metadata: Metadata = { title: "Team" };
 
@@ -19,8 +18,8 @@ export default function TeamPage() {
         }}
       >
         <div className="container">
-          <Eyebrow num={TEAM_HERO.eyebrowNum} light style={{ marginBottom: 32 }}>
-            {TEAM_HERO.eyebrowText}
+          <Eyebrow num="/02" light style={{ marginBottom: 32 }}>
+            La squadra · Stagione 2026
           </Eyebrow>
           <div
             style={{
@@ -31,41 +30,23 @@ export default function TeamPage() {
             }}
             className="team-head-grid"
           >
-            <DisplayTitle
-              as="h1"
-              lines={TEAM_HERO.titleLines}
+            <h1
               className="display"
               style={{ fontSize: "clamp(60px, 11vw, 180px)", lineHeight: 0.85 }}
-            />
+            >
+              Stessa
+              <br />
+              <span style={{ color: "var(--accent)" }}>strada.</span>
+              <br />
+              Stessa <em>maglia</em>.
+            </h1>
             <p className="lede" style={{ opacity: 0.8 }}>
-              {TEAM_HERO.lead}
+              Dai veterani che hanno cominciato negli anni &apos;90 ai
+              venti­enni di oggi. Tutti teramani, tutti diversi, tutti con la
+              stessa voglia di pedalare insieme.
             </p>
           </div>
 
-          <div
-            style={{
-              marginTop: 56,
-              display: "flex",
-              alignItems: "baseline",
-              gap: 16,
-            }}
-          >
-            <span
-              style={{
-                fontFamily: "var(--font-display)",
-                fontStyle: "italic",
-                fontWeight: 900,
-                fontSize: 72,
-                color: "var(--accent)",
-                lineHeight: 1,
-              }}
-            >
-              {RIDERS.length}
-            </span>
-            <span className="caption" style={{ color: "rgba(255,255,255,0.6)" }}>
-              {TEAM_HERO.counterLabel}
-            </span>
-          </div>
         </div>
       </section>
 
@@ -86,8 +67,7 @@ export default function TeamPage() {
               <div className="meta">
                 <div className="role">{rider.town}</div>
                 <div className="name">
-                  {rider.first}{" "}
-                  <span className="surname">{rider.last}</span>
+                  {rider.first} <span className="surname">{rider.last}</span>
                 </div>
               </div>
             </article>
@@ -98,12 +78,12 @@ export default function TeamPage() {
       {/* STAFF */}
       <section className="section" style={{ background: "var(--tbe-ink)" }}>
         <div className="container">
-          <SectionLabel light>{STAFF_SECTION.label}</SectionLabel>
-          <DisplayTitle
-            lines={STAFF_SECTION.titleLines}
-            className="display display-l"
-            style={{ marginBottom: 56 }}
-          />
+          <SectionLabel light>/03 — Staff</SectionLabel>
+          <h2 className="display display-l" style={{ marginBottom: 56 }}>
+            Chi ci dà
+            <br />
+            <span style={{ color: "var(--accent)" }}>una mano.</span>
+          </h2>
 
           <div className="grid-3">
             {STAFF.map((member) => (

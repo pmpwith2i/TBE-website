@@ -3,48 +3,52 @@ import { SiteShell } from "@/components/site/site-shell";
 import { Marquee } from "@/components/site/marquee";
 import { Reveal } from "@/components/site/reveal";
 import { SectionLabel } from "@/components/site/section-label";
-import { DisplayTitle } from "@/components/site/display-title";
 import { BtnLink } from "@/components/site/buttons";
 import { SponsorWall } from "@/components/site/sponsor-wall";
 import { HomeHero } from "@/components/home/hero";
-import { AgendaCard } from "@/components/home/agenda-card";
-import {
-  HOME_MARQUEE,
-  HOME_INTRO,
-  HOME_FEATURED,
-  HOME_AGENDA,
-  HOME_KIT,
-  HOME_CTA,
-} from "@/constants/home";
+
+const MARQUEE = [
+  "Teramo Bike Experience",
+  "Stagione 2026",
+  "Strade di Teramo",
+  "Pedalare insieme",
+  "Made in Teramo",
+];
+
+const KIT_CHIPS = ["Jersey · €95", "Bibshort · €120", "Completo · €195"];
 
 export default function HomePage() {
   return (
     <SiteShell theme="light" navVariant="transparent">
       <HomeHero />
-      <Marquee items={HOME_MARQUEE} />
+      <Marquee items={MARQUEE} />
 
       {/* INTRO / VISION TEASER */}
       <section className="section">
         <div className="container">
           <div className="grid-2" style={{ alignItems: "end" }}>
             <Reveal>
-              <SectionLabel>{HOME_INTRO.label}</SectionLabel>
+              <SectionLabel>/02 — Chi siamo</SectionLabel>
               <h2 className="display display-l">
-                Siamo una squadra
+                Una squadra
                 <br />
-                di amici nata
+                social, nata
                 <br />
                 a <em style={{ color: "var(--accent)" }}>Teramo</em>.
               </h2>
             </Reveal>
             <Reveal delay={100}>
               <p className="lede" style={{ marginBottom: 24 }}>
-                {HOME_INTRO.leadBefore}
-                <strong>{HOME_INTRO.leadStrong}</strong>
-                {HOME_INTRO.leadAfter}
+                Siamo un gruppo di amici di Teramo che esce in bici insieme. Le
+                uscite social sono il cuore della squadra: ci troviamo,
+                pedaliamo in gruppo e teniamo un passo adatto a tutti.{" "}
+                <strong>
+                  Qualcuno di noi ogni tanto fa una gara, ma il senso è stare
+                  insieme sui pedali.
+                </strong>
               </p>
               <BtnLink
-                href={HOME_INTRO.link.href}
+                href="/vision"
                 className="btn-ghost italic uppercase"
                 arrow={false}
                 style={{
@@ -53,23 +57,14 @@ export default function HomePage() {
                   letterSpacing: "0.1em",
                 }}
               >
-                {HOME_INTRO.link.label}
+                Leggi la nostra Vision →
               </BtnLink>
             </Reveal>
-          </div>
-
-          <div className="grid-4" style={{ marginTop: 96 }}>
-            {HOME_INTRO.stats.map((stat, i) => (
-              <Reveal as="div" className="stat" key={stat.label} delay={i * 80}>
-                <div className="num">{stat.num}</div>
-                <div className="label">{stat.label}</div>
-              </Reveal>
-            ))}
           </div>
         </div>
       </section>
 
-      {/* FEATURED — CRONOSCALATA */}
+      {/* LE NOSTRE USCITE */}
       <section
         className="section"
         style={{
@@ -81,55 +76,23 @@ export default function HomePage() {
         <div className="container">
           <div className="grid-2" style={{ alignItems: "stretch", gap: 0 }}>
             <Reveal style={{ paddingRight: "clamp(0px, 4vw, 60px)" }}>
-              <SectionLabel light>{HOME_FEATURED.label}</SectionLabel>
-              <div
-                className="caption"
-                style={{ color: "var(--accent)", marginBottom: 14 }}
-              >
-                {HOME_FEATURED.date}
-              </div>
-              <DisplayTitle
-                lines={HOME_FEATURED.titleLines}
+              <SectionLabel light>/03 — Le nostre uscite</SectionLabel>
+              <h2
                 className="display display-hero"
-                style={{ lineHeight: 0.82, marginBottom: 32 }}
-              />
-              <p className="lede" style={{ opacity: 0.85, marginBottom: 32 }}>
-                {HOME_FEATURED.lead}
-              </p>
-              <div
-                style={{
-                  display: "flex",
-                  gap: 32,
-                  padding: "24px 0",
-                  borderBlock: "1px solid rgba(255,255,255,0.15)",
-                  marginBottom: 32,
-                  flexWrap: "wrap",
-                }}
+                style={{ lineHeight: 0.9, marginBottom: 32 }}
               >
-                {HOME_FEATURED.stats.map((s) => (
-                  <div key={s.label}>
-                    <div
-                      className="caption"
-                      style={{ color: "rgba(255,255,255,0.5)" }}
-                    >
-                      {s.label}
-                    </div>
-                    <div
-                      style={{
-                        fontFamily: "var(--font-display)",
-                        fontStyle: "italic",
-                        fontWeight: 900,
-                        fontSize: 32,
-                        color: "var(--accent)",
-                      }}
-                    >
-                      {s.value}
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <BtnLink href={HOME_FEATURED.cta.href} className="btn btn-primary">
-                {HOME_FEATURED.cta.label}
+                Ci vediamo
+                <br />
+                <span style={{ color: "var(--accent)" }}>la domenica.</span>
+              </h2>
+              <p className="lede" style={{ opacity: 0.85, marginBottom: 32 }}>
+                Ci troviamo ogni settimana per un&apos;uscita insieme, aperta a
+                chiunque abbia una bici e voglia di pedalare. Si va al passo del
+                gruppo, nessuno resta indietro. Dal mare alle montagne del
+                teramano, e ritorno con calma.
+              </p>
+              <BtnLink href="/eventi" className="btn btn-primary">
+                Scopri le uscite
               </BtnLink>
             </Reveal>
 
@@ -138,34 +101,14 @@ export default function HomePage() {
               delay={120}
               style={{ aspectRatio: "3 / 4", minHeight: 600 }}
             >
-              <span className="tag">{HOME_FEATURED.tag}</span>
               <Image
-                src={HOME_FEATURED.image}
-                alt={HOME_FEATURED.imageAlt}
+                src="/assets/sunset-rider.jpg"
+                alt="Un'uscita della squadra al tramonto"
                 fill
                 sizes="(max-width: 900px) 100vw, 50vw"
                 style={{ objectFit: "cover" }}
               />
             </Reveal>
-          </div>
-        </div>
-      </section>
-
-      {/* EDITORIAL — AGENDA CARDS */}
-      <section className="section">
-        <div className="container">
-          <SectionLabel>{HOME_AGENDA.label}</SectionLabel>
-          <DisplayTitle
-            lines={HOME_AGENDA.titleLines}
-            className="display display-l"
-            style={{ marginBottom: 56, maxWidth: "16ch" }}
-          />
-          <div className="grid-3">
-            {HOME_AGENDA.cards.map((card, i) => (
-              <Reveal key={card.titleLines.join("")} delay={i * 90}>
-                <AgendaCard card={card} />
-              </Reveal>
-            ))}
           </div>
         </div>
       </section>
@@ -190,8 +133,8 @@ export default function HomePage() {
               }}
             >
               <Image
-                src={HOME_KIT.image}
-                alt={HOME_KIT.imageAlt}
+                src="/assets/maglia-front.jpg"
+                alt="Kit ufficiale TBE 2026 — vista frontale"
                 fill
                 sizes="(max-width: 900px) 100vw, 50vw"
                 style={{ objectFit: "contain" }}
@@ -208,37 +151,21 @@ export default function HomePage() {
                   textTransform: "uppercase",
                 }}
               >
-                {HOME_KIT.overlayTop}
-              </div>
-              <div
-                aria-hidden
-                style={{
-                  position: "absolute",
-                  bottom: 0,
-                  right: 0,
-                  fontFamily: "var(--font-display)",
-                  fontStyle: "italic",
-                  fontWeight: 900,
-                  fontSize: "clamp(80px, 14vw, 240px)",
-                  color: "var(--tbe-red)",
-                  opacity: 0.08,
-                  lineHeight: 0.8,
-                  pointerEvents: "none",
-                }}
-              >
-                {HOME_KIT.overlayBig}
+                KIT 2026
               </div>
             </Reveal>
 
             <Reveal delay={100}>
-              <SectionLabel>{HOME_KIT.label}</SectionLabel>
-              <DisplayTitle
-                lines={HOME_KIT.titleLines}
-                className="display display-hero"
-                style={{ marginBottom: 24 }}
-              />
+              <SectionLabel>/04 — Lo shop</SectionLabel>
+              <h2 className="display display-hero" style={{ marginBottom: 24 }}>
+                La maglia
+                <br />
+                <span style={{ color: "var(--accent)" }}>della squadra.</span>
+              </h2>
               <p className="lede" style={{ marginBottom: 32 }}>
-                {HOME_KIT.lead}
+                Il kit ufficiale della stagione 2026, prodotto in Italia da
+                Alpic. Un disegno pensato da noi. Disponibile in versione
+                estiva, gravel e invernale.
               </p>
               <div
                 style={{
@@ -248,7 +175,7 @@ export default function HomePage() {
                   flexWrap: "wrap",
                 }}
               >
-                {HOME_KIT.chips.map((chip) => (
+                {KIT_CHIPS.map((chip) => (
                   <span
                     key={chip}
                     style={{
@@ -264,8 +191,8 @@ export default function HomePage() {
                   </span>
                 ))}
               </div>
-              <BtnLink href={HOME_KIT.cta.href} className="btn btn-primary">
-                {HOME_KIT.cta.label}
+              <BtnLink href="/shop" className="btn btn-primary">
+                Vai allo shop
               </BtnLink>
             </Reveal>
           </div>
@@ -307,14 +234,15 @@ export default function HomePage() {
             </span>
           </h2>
           <p className="lede" style={{ margin: "0 auto 32px", maxWidth: "56ch" }}>
-            {HOME_CTA.lead}
+            Siamo aperti a ciclisti di tutte le età e livelli. Quello che conta è
+            la voglia di pedalare insieme, una domenica mattina.
           </p>
           <BtnLink
-            href={HOME_CTA.cta.href}
+            href="/contatti"
             className="btn"
             style={{ background: "white", color: "var(--tbe-red)" }}
           >
-            {HOME_CTA.cta.label}
+            Unisciti a noi
           </BtnLink>
         </div>
       </section>

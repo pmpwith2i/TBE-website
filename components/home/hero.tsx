@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { HOME_HERO } from "@/constants/home";
 import { BtnLink } from "@/components/site/buttons";
 
 const GLASS_BTN: React.CSSProperties = {
@@ -15,8 +14,8 @@ export function HomeHero() {
     <header className="hero">
       <div className="hero-bg">
         <Image
-          src={HOME_HERO.bgImage}
-          alt={HOME_HERO.bgAlt}
+          src="/assets/sunset-rider.jpg"
+          alt="Ciclista TBE al tramonto sulle colline di Teramo"
           fill
           priority
           sizes="100vw"
@@ -26,8 +25,8 @@ export function HomeHero() {
       <div className="hero-vignette" />
 
       <div className="hero-meta">
-        <span>{HOME_HERO.metaTop}</span>
-        <span className="big">{HOME_HERO.metaBig}</span>
+        <span>Stagione 2026</span>
+        <span className="big">42°39&apos;N 13°42&apos;E</span>
       </div>
 
       <div className="hero-inner">
@@ -35,45 +34,37 @@ export function HomeHero() {
           className="eyebrow"
           style={{ color: "rgba(255,255,255,0.7)", marginBottom: 28 }}
         >
-          <span className="num">{HOME_HERO.eyebrowNum}</span>{" "}
-          {HOME_HERO.eyebrowText}
+          <span className="num">/01</span> Teramo · Italia
         </div>
 
         <h1>
-          {HOME_HERO.title.map((line, i) => (
-            <span key={i}>
-              {i > 0 && <br />}
-              {line.variant === "accent" ? (
-                <span className="accent">{line.text}</span>
-              ) : line.variant === "outline" ? (
-                <span className="outline">{line.text}</span>
-              ) : (
-                line.text
-              )}
-            </span>
-          ))}
+          Una squadra
+          <br />
+          <span className="accent">di amici,</span>
+          <br />
+          <span className="outline">a Teramo.</span>
         </h1>
 
         <div className="hero-sub">
-          <p>{HOME_HERO.paragraph}</p>
+          <p>
+            Una squadra di ciclismo nata a Teramo, ai piedi del Gran Sasso. Un
+            gruppo di amici uniti dalla passione per la bici: usciamo insieme
+            ogni settimana e ogni tanto partecipiamo a qualche gara. Dal mare
+            alla montagna in un&apos;ora di pedalata.
+          </p>
           <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
-            <BtnLink href={HOME_HERO.ctas[0].href} className="btn btn-primary">
-              {HOME_HERO.ctas[0].label}
+            <BtnLink href="/vision" className="btn btn-primary">
+              Scopri la nostra Vision
             </BtnLink>
-            <BtnLink
-              href={HOME_HERO.ctas[1].href}
-              className="btn"
-              arrow={false}
-              style={GLASS_BTN}
-            >
-              {HOME_HERO.ctas[1].label}
+            <BtnLink href="/team" className="btn" arrow={false} style={GLASS_BTN}>
+              Conosci il team
             </BtnLink>
           </div>
         </div>
       </div>
 
       <div className="scroll-cue">
-        <span>{HOME_HERO.scrollLabel}</span>
+        <span>Scroll</span>
         <span className="line" />
       </div>
     </header>
