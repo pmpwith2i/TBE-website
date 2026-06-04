@@ -78,39 +78,22 @@ export function FeaturedKit() {
             Alpic.
           </p>
 
-          <div
+          <p
             style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: 24,
+              opacity: 0.75,
+              fontSize: 15,
               padding: "24px 0",
-              borderBlock: "1px solid rgba(255,255,255,0.15)",
+              borderTop: "1px solid rgba(255,255,255,0.15)",
               marginBottom: 32,
             }}
           >
-            {KIT.priceTiers.map((tier) => (
-              <div key={tier.label}>
-                <div className="caption" style={{ color: "rgba(255,255,255,0.5)" }}>
-                  {tier.label}
-                  {tier.note ? ` (${tier.note})` : ""}
-                </div>
-                <div
-                  style={{
-                    fontFamily: "var(--font-display)",
-                    fontStyle: "italic",
-                    fontWeight: 900,
-                    fontSize: 36,
-                    color: tier.accent ? "var(--accent)" : undefined,
-                  }}
-                >
-                  {tier.value}
-                </div>
-              </div>
-            ))}
-          </div>
+            Disponibile nelle taglie XS–XXXL, in versione estiva, gravel e
+            invernale. Per prezzi e disponibilità scrivici: te lo prepariamo
+            noi.
+          </p>
 
           <BtnLink href="/contatti" className="btn btn-primary">
-            Scrivici per acquistare
+            Scrivici per il kit
           </BtnLink>
         </div>
       </div>

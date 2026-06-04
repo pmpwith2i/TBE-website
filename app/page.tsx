@@ -15,7 +15,7 @@ const MARQUEE = [
   "Made in Teramo",
 ];
 
-const KIT_CHIPS = ["Jersey · €95", "Bibshort · €120", "Completo · €195"];
+const KIT_CHIPS = ["Made in Italy", "Estiva · Gravel · Invernale", "Taglie XS–XXXL"];
 
 export default function HomePage() {
   return (
