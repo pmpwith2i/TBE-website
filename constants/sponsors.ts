@@ -31,6 +31,7 @@ export const SPONSORS: Sponsor[] = [
   { name: "D'Onofrio", detail: "Farmacia" },
   { name: "GI.MA", detail: "Pulizie · Giardinaggio" },
   { name: "Fisioste", detail: "Fisioterapia" },
+  { name: "FCI", detail: "Federazione Ciclistica Italiana" },
   { name: "CSI", detail: "Centro Sportivo Italiano" },
   { name: "+ Diventa partner", detail: "Scrivici sui social" },
 ];

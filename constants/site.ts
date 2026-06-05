@@ -25,7 +25,9 @@ export const SITE = {
   name: "Teramo Bike Experience",
   shortName: "TBE",
   legalName: "ASD Teramo Bike Experience",
-  affiliation: "Affiliata CSI",
+  affiliation: "Affiliata FCI e CSI",
+  affiliationDetail:
+    "Affiliata FCI e CSI, con due tecnici istruttori di secondo livello FCI (Daniele Di Odoardo e Davide Danesi) e due istruttori/tecnici sportivi di Cicloturismo di primo livello CSI (Renzo Miracoli e Davide Danesi).",
   address: "Via delle Aquile 14, 64100 Teramo (TE)",
   vat: "P.IVA 01987650670",
   url: "https://teramobike.it",

@@ -6,7 +6,7 @@ import { BtnLink } from "@/components/site/buttons";
 export const metadata = pageSeo({
   title: "Eventi e uscite",
   description:
-    "Le uscite di Teramo Bike Experience: pedalate social di gruppo ogni settimana, aperte a tutti, e qualche gara del calendario CSI. Vieni a pedalare con noi.",
+    "Le uscite di Teramo Bike Experience: pedalate di gruppo ogni settimana, aperte a tutti, e qualche gara del calendario FCI e CSI. Vieni a pedalare con noi.",
   path: "/eventi",
   keywords: [
     "uscite ciclismo Teramo",
@@ -18,12 +18,12 @@ export const metadata = pageSeo({
 
 const ATTIVITA = [
   {
-    title: "Uscite social",
-    text: "Il cuore della squadra. Ci troviamo ogni settimana e usciamo in gruppo, a un passo adatto a tutti. Aperte a chiunque abbia una bici.",
+    title: "Uscite di gruppo",
+    text: "Il cuore della squadra. Ci troviamo ogni settimana e usciamo insieme, a un passo adatto a tutti. Aperte a chiunque abbia una bici.",
   },
   {
-    title: "Qualche gara",
-    text: "Alcuni di noi ogni tanto partecipano a una gara del calendario CSI. Si va per divertirsi, senza pressioni.",
+    title: "Le gare",
+    text: "Chi ha voglia di mettersi alla prova corre una gara del calendario FCI o CSI. Ci si diverte e ci si prova, ciascuno con i propri obiettivi.",
   },
   {
     title: "Eventi nostri",
@@ -59,8 +59,8 @@ export default function EventiPage() {
             style={{ marginTop: 32, opacity: 0.8, maxWidth: "60ch" }}
           >
             Il nostro appuntamento fisso è l&apos;uscita di gruppo: si pedala
-            insieme, al passo di tutti, per il piacere di stare in compagnia.
-            Tutto il resto viene dopo.
+            insieme, al passo di tutti, per il piacere di stare in compagnia. E
+            c&apos;è spazio anche per chi vuole mettersi alla prova in gara.
           </p>
         </div>
       </section>

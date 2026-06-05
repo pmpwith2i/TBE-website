@@ -20,7 +20,7 @@ export function StructuredData() {
         alternateName: SITE.shortName,
         legalName: SITE.legalName,
         description:
-          "Squadra social di ciclismo a Teramo: uscite in bici di gruppo aperte a tutti, e qualche gara del calendario CSI.",
+          "Squadra di ciclismo a Teramo: uscite in bici di gruppo aperte a tutti, e qualche gara del calendario FCI e CSI. ASD affiliata FCI e CSI.",
         url: base,
         logo: `${base}${SITE.logos.badge}`,
         image: `${base}/assets/sunset-rider.jpg`,
@@ -35,6 +35,37 @@ export function StructuredData() {
           addressCountry: "IT",
         },
         sameAs: [SITE.instagram, SITE.facebook],
+        memberOf: [
+          {
+            "@type": "SportsOrganization",
+            name: "Federazione Ciclistica Italiana",
+            alternateName: "FCI",
+          },
+          {
+            "@type": "SportsOrganization",
+            name: "Centro Sportivo Italiano",
+            alternateName: "CSI",
+          },
+        ],
+        member: [
+          {
+            "@type": "Person",
+            name: "Daniele Di Odoardo",
+            jobTitle: "Tecnico istruttore di secondo livello FCI",
+          },
+          {
+            "@type": "Person",
+            name: "Davide Danesi",
+            jobTitle:
+              "Tecnico istruttore di secondo livello FCI · Istruttore/tecnico sportivo Cicloturismo di primo livello CSI",
+          },
+          {
+            "@type": "Person",
+            name: "Renzo Miracoli",
+            jobTitle:
+              "Istruttore/tecnico sportivo Cicloturismo di primo livello CSI",
+          },
+        ],
       },
       {
         "@type": "WebSite",

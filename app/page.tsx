@@ -14,7 +14,7 @@ export const metadata = pageSeo({
   keywords: [
     "squadra bici Teramo",
     "ciclismo amatoriale Teramo",
-    "uscite social in bici",
+    "uscite in bici di gruppo",
     "pedalare in gruppo Teramo",
     "associazione ciclistica Teramo",
   ],
@@ -45,19 +45,19 @@ export default function HomePage() {
               <h2 className="display display-l">
                 Una squadra
                 <br />
-                social, nata
+                di ciclismo, nata
                 <br />
                 a <em style={{ color: "var(--accent)" }}>Teramo</em>.
               </h2>
             </Reveal>
             <Reveal delay={100}>
               <p className="lede" style={{ marginBottom: 24 }}>
-                Siamo un gruppo di amici di Teramo che esce in bici insieme. Le
-                uscite social sono il cuore della squadra: ci troviamo,
-                pedaliamo in gruppo e teniamo un passo adatto a tutti.{" "}
+                Siamo una squadra di ciclismo nata a Teramo da un gruppo di
+                amici. Le uscite di gruppo sono il cuore della squadra: ci
+                troviamo, pedaliamo insieme e teniamo un passo adatto a tutti.{" "}
                 <strong>
-                  Qualcuno di noi ogni tanto fa una gara, ma il senso è stare
-                  insieme sui pedali.
+                  Chi vuole gareggiare può farlo, senza togliere niente al
+                  piacere di pedalare in compagnia.
                 </strong>
               </p>
               <BtnLink

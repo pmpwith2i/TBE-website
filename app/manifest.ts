@@ -6,7 +6,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: SITE.name,
     short_name: SITE.shortName,
     description:
-      "Squadra social di ciclismo a Teramo: usciamo in bici insieme, aperti a tutti.",
+      "Squadra di ciclismo a Teramo: usciamo in bici insieme, aperti a tutti.",
     start_url: "/",
     display: "standalone",
     background_color: "#0a0a0a",

@@ -8,7 +8,7 @@ import { BtnLink } from "@/components/site/buttons";
 export const metadata = pageSeo({
   title: "Vision",
   description:
-    "La vision di Teramo Bike Experience: una squadra di ciclismo aperta a tutti, dove si pedala in gruppo al passo di ognuno. Le uscite social vengono prima delle gare.",
+    "La vision di Teramo Bike Experience: una squadra di ciclismo aperta a tutti, dove si pedala in gruppo al passo di ognuno. Chi vuole gareggiare può farlo, senza rinunciare al piacere di pedalare in compagnia.",
   path: "/vision",
   keywords: [
     "vision squadra ciclismo",
@@ -22,7 +22,7 @@ const POINTS = [
   {
     kicker: "01 / Insieme",
     title: "Si pedala in gruppo.",
-    text: "Le uscite social sono il cuore della squadra. Si va insieme, a un ritmo adatto a tutti: nessuno parte per primo, nessuno resta indietro.",
+    text: "Le uscite di gruppo sono il cuore della squadra. Si va insieme, a un ritmo adatto a tutti: nessuno parte per primo, nessuno resta indietro.",
   },
   {
     kicker: "02 / Aperti a tutti",
@@ -30,9 +30,9 @@ const POINTS = [
     text: "Non serve essere allenati o avere la bici giusta. Chi inizia da zero è il benvenuto come chi pedala da una vita.",
   },
   {
-    kicker: "03 / Qualcuno gareggia",
-    title: "La gara è solo una parte.",
-    text: "Alcuni di noi ogni tanto corrono una gara del calendario CSI. Fa parte della squadra, ma non è il motivo per cui ci troviamo.",
+    kicker: "03 / Chi vuole, gareggia",
+    title: "C'è spazio anche per quello.",
+    text: "Chi ha voglia di mettersi alla prova corre una gara del calendario FCI o CSI. È parte della squadra come le uscite in tranquillità: nessuna delle due esclude l'altra.",
   },
 ];
 
@@ -90,10 +90,10 @@ export default function VisionPage() {
             className="lede"
             style={{ marginTop: 40, opacity: 0.8, maxWidth: "60ch" }}
           >
-            Teramo Bike Experience è una squadra social: un gruppo di amici che
-            esce in bici per il piacere di stare insieme. Non ci interessa
-            vincere, ci interessa ritrovarsi e pedalare in compagnia. Alcuni di
-            noi corrono qualche gara, ma resta una parte, non il cuore.
+            Teramo Bike Experience è una squadra di ciclismo nata da un gruppo
+            di amici, per il piacere di pedalare insieme. Si esce in gruppo, a
+            un passo adatto a tutti; chi vuole gareggiare lo fa, e si pedala in
+            tranquillità senza che le due cose si escludano.
           </p>
         </div>
       </section>
@@ -155,7 +155,8 @@ export default function VisionPage() {
           >
             Siamo partiti come un gruppo di amici che si trovava per pedalare
             insieme, senza niente di organizzato. Col tempo siamo cresciuti, ci
-            siamo dati una maglia e siamo diventati una ASD affiliata CSI.
+            siamo dati una maglia e siamo diventati una ASD affiliata FCI e
+            CSI.
           </p>
           <p className="lede" style={{ opacity: 0.8, maxWidth: "62ch" }}>
             È cambiata la struttura, non lo spirito: usciamo in bici insieme,

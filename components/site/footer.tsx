@@ -16,6 +16,17 @@ export function Footer() {
             <br />
             {SITE.vat}
           </p>
+          <p
+            style={{
+              opacity: 0.55,
+              fontSize: 12,
+              maxWidth: "42ch",
+              marginTop: 12,
+              lineHeight: 1.5,
+            }}
+          >
+            {SITE.affiliationDetail}
+          </p>
         </div>
 
         {FOOTER_COLUMNS.map((col) => (

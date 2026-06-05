@@ -32,7 +32,7 @@ export const BASE_KEYWORDS = [
 ];
 
 export const DEFAULT_DESCRIPTION =
-  "Squadra social di ciclismo a Teramo: usciamo in bici insieme ogni settimana, aperti a tutti i livelli. Alcuni di noi gareggiano, ma conta l'uscita in gruppo.";
+  "Squadra di ciclismo a Teramo: usciamo in bici insieme ogni settimana, aperti a tutti i livelli. Chi vuole gareggiare può farlo, senza rinunciare al piacere di pedalare in compagnia.";
 
 type PageSeoInput = {
   /** Page title; omit on the home page to use the site default. */
