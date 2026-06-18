@@ -1,40 +1,27 @@
+import Image from "next/image";
+import Link from "next/link";
 import { SiteShell } from "@/components/site/site-shell";
 import { pageSeo } from "@/lib/seo";
 import { Eyebrow, SectionLabel } from "@/components/site/section-label";
 import { BtnLink } from "@/components/site/buttons";
+import { EVENTS, FEATURED_EVENT } from "@/constants/events";
 
 export const metadata = pageSeo({
-  title: "Eventi e uscite",
+  title: "Eventi e pre-iscrizioni",
   description:
-    "Le uscite di Teramo Bike Experience: pedalate di gruppo ogni settimana, aperte a tutti, e qualche gara del calendario FCI e CSI. Vieni a pedalare con noi.",
+    "Gli eventi di Teramo Bike Experience: cicloturistica, cronoscalata, locandine, premi, note e pre-iscrizioni quando disponibili.",
   path: "/eventi",
   keywords: [
-    "uscite ciclismo Teramo",
     "eventi ciclismo Teramo",
-    "pedalate di gruppo Teramo",
-    "gare ciclismo CSI Teramo",
+    "cicloturistica Teramo",
+    "cronoscalata Teramo",
+    "pre iscrizione ciclismo Teramo",
   ],
 });
-
-const ATTIVITA = [
-  {
-    title: "Uscite di gruppo",
-    text: "Il cuore della squadra. Ci troviamo ogni settimana e usciamo insieme, a un passo adatto a tutti. Aperte a chiunque abbia una bici.",
-  },
-  {
-    title: "Le gare",
-    text: "Chi ha voglia di mettersi alla prova corre una gara del calendario FCI o CSI. Ci si diverte e ci si prova, ciascuno con i propri obiettivi.",
-  },
-  {
-    title: "Eventi nostri",
-    text: "Ogni tanto ci piace organizzare qualcosa di aperto al territorio. Quando ci sarà una data, la trovi qui e sui nostri social.",
-  },
-];
 
 export default function EventiPage() {
   return (
     <SiteShell theme="dark">
-      {/* HEADER */}
       <section
         style={{
           padding: "180px var(--gutter) 80px",
@@ -44,28 +31,97 @@ export default function EventiPage() {
       >
         <div className="container">
           <Eyebrow num="/04" light style={{ marginBottom: 28 }}>
-            Le uscite
+            Eventi
           </Eyebrow>
           <h1
             className="display"
             style={{ fontSize: "clamp(56px, 11vw, 180px)", lineHeight: 0.85 }}
           >
-            Pedaliamo
+            Gare e
             <br />
-            <span style={{ color: "var(--accent)" }}>insieme.</span>
+            <span style={{ color: "var(--accent)" }}>pedalate.</span>
           </h1>
           <p
             className="lede"
             style={{ marginTop: 32, opacity: 0.8, maxWidth: "60ch" }}
           >
-            Il nostro appuntamento fisso è l&apos;uscita di gruppo: si pedala
-            insieme, al passo di tutti, per il piacere di stare in compagnia. E
-            c&apos;è spazio anche per chi vuole mettersi alla prova in gara.
+            Qui trovi gli eventi organizzati da Teramo Bike Experience: locandina,
+            data, premi, note e pre-iscrizione quando e aperta.
           </p>
         </div>
       </section>
 
-      {/* COSA FACCIAMO */}
+      <section
+        className="section"
+        style={{
+          background: "var(--tbe-black)",
+          paddingTop: 0,
+        }}
+      >
+        <div className="container">
+          <SectionLabel light>In evidenza</SectionLabel>
+          <Link
+            href={`/eventi/${FEATURED_EVENT.slug}`}
+            className="next-event"
+            style={{ display: "block" }}
+          >
+            <div className="next-event-overlay" />
+            <div className="next-event-inner">
+              <div>
+                <span className="next-event-tag">
+                  {FEATURED_EVENT.preRegistration.available ? (
+                    <span className="pulse" aria-hidden />
+                  ) : null}
+                  {FEATURED_EVENT.preRegistration.available
+                    ? "Pre-iscrizioni aperte"
+                    : "In preparazione"}
+                </span>
+                <h2
+                  className="display display-xl"
+                  style={{ marginTop: 28, marginBottom: 20 }}
+                >
+                  {FEATURED_EVENT.title}
+                </h2>
+                <p className="lede" style={{ opacity: 0.86, marginBottom: 28 }}>
+                  {FEATURED_EVENT.notes}
+                </p>
+                <div className="event-feature-meta">
+                  <div>
+                    <span>Data</span>
+                    <strong>{FEATURED_EVENT.date.label}</strong>
+                  </div>
+                  <div>
+                    <span>Tipo</span>
+                    <strong>{FEATURED_EVENT.typeLabel}</strong>
+                  </div>
+                  <div>
+                    <span>Premi</span>
+                    <strong>{FEATURED_EVENT.awards.length} voci</strong>
+                  </div>
+                </div>
+                <span className="btn btn-primary">
+                  Vai all&apos;evento
+                  <span className="arrow" aria-hidden>
+                    →
+                  </span>
+                </span>
+              </div>
+
+              <figure className="event-feature-poster">
+                <Image
+                  src={FEATURED_EVENT.poster}
+                  alt={FEATURED_EVENT.posterAlt}
+                  width={FEATURED_EVENT.posterSize.width}
+                  height={FEATURED_EVENT.posterSize.height}
+                  sizes="(max-width: 800px) 82vw, 360px"
+                  priority
+                />
+              </figure>
+            </div>
+          </Link>
+        </div>
+      </section>
+
       <section
         className="section"
         style={{
@@ -74,36 +130,37 @@ export default function EventiPage() {
         }}
       >
         <div className="container">
-          <SectionLabel light>Cosa facciamo</SectionLabel>
-          <h2
-            className="display display-l"
-            style={{ marginBottom: 56, maxWidth: "16ch" }}
-          >
-            Soprattutto,
-            <br />
-            <span style={{ color: "var(--accent)" }}>stare insieme.</span>
-          </h2>
-          <div className="grid-3">
-            {ATTIVITA.map((a) => (
-              <div
-                key={a.title}
-                style={{
-                  background: "var(--tbe-black)",
-                  padding: 32,
-                  borderTop: "3px solid var(--accent)",
-                }}
+          <SectionLabel light>Calendario</SectionLabel>
+          <div>
+            {EVENTS.map((event) => (
+              <Link
+                key={event.slug}
+                href={`/eventi/${event.slug}`}
+                className="event-row"
               >
-                <h3 className="display display-m" style={{ marginBottom: 12 }}>
-                  {a.title}
-                </h3>
-                <p style={{ opacity: 0.8, fontSize: 15 }}>{a.text}</p>
-              </div>
+                <div className="event-date" aria-label={event.date.label}>
+                  <span className="day">{event.date.dayLabel}</span>
+                  <span className="month">{event.date.monthLabel}</span>
+                </div>
+                <div>
+                  <div className="event-type">{event.typeLabel}</div>
+                  <div className="event-title">{event.title}</div>
+                </div>
+                <div className="event-place">{event.location}</div>
+                <div className="event-cta">
+                  {event.preRegistration.available
+                    ? "Pre-iscriviti"
+                    : "Dettagli"}
+                  <span className="arrow" aria-hidden>
+                    →
+                  </span>
+                </div>
+              </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
       <section
         style={{
           background: "var(--tbe-black)",
@@ -113,19 +170,19 @@ export default function EventiPage() {
       >
         <div style={{ maxWidth: 800, margin: "0 auto" }}>
           <h2 className="display display-l" style={{ marginBottom: 20 }}>
-            Vuoi venire a
+            Hai domande
             <br />
-            <span style={{ color: "var(--accent)" }}>un&apos;uscita?</span>
+            <span style={{ color: "var(--accent)" }}>sugli eventi?</span>
           </h2>
           <p
             className="lede"
             style={{ margin: "0 auto 32px", maxWidth: "50ch", opacity: 0.85 }}
           >
-            Scrivici sui social o qui dal sito: ti diciamo dove e quando ci
-            troviamo per la prossima pedalata.
+            Scrivici dai contatti: ti rispondiamo con aggiornamenti su percorsi,
+            regolamenti e aperture delle pre-iscrizioni.
           </p>
           <BtnLink href="/contatti" className="btn btn-primary">
-            Unisciti a noi
+            Scrivici
           </BtnLink>
         </div>
       </section>

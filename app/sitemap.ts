@@ -1,9 +1,9 @@
 import type { MetadataRoute } from "next";
+import { EVENTS } from "@/constants/events";
 import { SITE } from "@/constants/site";
 
 /**
- * Site map for crawlers. Lists the indexable routes only — the cronoscalata
- * stub is intentionally excluded (it's a no-index placeholder).
+ * Site map for crawlers. Lists the indexable routes only.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = SITE.url.replace(/\/$/, "");
@@ -22,7 +22,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/contatti", priority: 0.6, changeFrequency: "yearly" },
   ];
 
-  return routes.map((r) => ({
+  const eventRoutes = EVENTS.map((event) => ({
+    path: `/eventi/${event.slug}`,
+    priority: 0.8,
+    changeFrequency: "weekly" as const,
+  }));
+
+  return [...routes, ...eventRoutes].map((r) => ({
     url: `${base}${r.path}`,
     lastModified,
     changeFrequency: r.changeFrequency,
