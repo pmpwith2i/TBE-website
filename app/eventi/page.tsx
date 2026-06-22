@@ -24,13 +24,10 @@ export default function EventiPage() {
     <SiteShell theme="dark">
       <section className="bg-tbe-black px-[var(--gutter)] pb-20 pt-[180px] text-tbe-paper">
         <div className="mx-auto w-full max-w-[var(--maxw)]">
-          <Eyebrow num="/04" light className="mb-7">
-            Eventi
-          </Eyebrow>
           <h1 className="font-display text-[clamp(56px,11vw,180px)] font-black italic uppercase leading-[0.85] tracking-[-0.01em]">
-            Gare e
+            Gare ed
             <br />
-            <span className="text-accent">pedalate.</span>
+            <span className="text-accent">eventi.</span>
           </h1>
         </div>
       </section>
