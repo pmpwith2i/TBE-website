@@ -45,6 +45,30 @@ export interface EventPreRegistration {
   customFields: readonly EventCustomField[];
 }
 
+export interface EventSponsor {
+  name: string;
+  detail: string;
+  logo: string;
+  logoSize: {
+    width: number;
+    height: number;
+  };
+  logoAlt: string;
+}
+
+export interface EventRoute {
+  id: string;
+  name: string;
+  description: string;
+  gpxUrl: string;
+}
+
+export interface EventRegistrationFee {
+  label: string;
+  amount: string;
+  benefits: readonly string[];
+}
+
 export interface BikeEvent {
   slug: string;
   kind: EventKind;
@@ -58,6 +82,9 @@ export interface BikeEvent {
     height: number;
   };
   posterAlt: string;
+  mainSponsor?: EventSponsor;
+  routes: readonly EventRoute[];
+  registrationFee?: EventRegistrationFee;
   awards: readonly string[];
   notes: string;
   preRegistration: EventPreRegistration;
@@ -68,7 +95,7 @@ export const EVENTS = [
     slug: "cicloturistica",
     kind: "cicloturistica",
     typeLabel: "Cicloturistica",
-    title: "Prima Cicloturistica Di Garrano (Di Mattia Fiore Costruzioni)",
+    title: "Prima Cicloturistica Di Garrano",
     date: {
       label: "Sabato 4 Giugno 2026",
       dayLabel: "4",
@@ -81,10 +108,42 @@ export const EVENTS = [
       height: 4961,
     },
     posterAlt: "Ciclisti in uscita al tramonto sulle strade del teramano",
+    mainSponsor: {
+      name: "Di Mattia Fiore",
+      detail: "Impresa di Costruzioni",
+      logo: "/assets/sponsors/di_mattia_fiore.png",
+      logoSize: {
+        width: 510,
+        height: 167,
+      },
+      logoAlt: "Logo Di Mattia Fiore",
+    },
+    routes: [
+      {
+        id: "corto",
+        name: "Percorso corto",
+        description:
+          "Tracciato cicloturistico pensato per chi vuole pedalare in gruppo con passo accessibile.",
+        gpxUrl: "/assets/tracciati/cicloturistica-corto.gpx",
+      },
+      {
+        id: "lungo",
+        name: "Percorso lungo",
+        description:
+          "Tracciato piu completo per chi cerca una distanza maggiore mantenendo lo spirito non competitivo.",
+        gpxUrl: "/assets/tracciati/cicloturistica-lungo.gpx",
+      },
+    ],
+    registrationFee: {
+      label: "Quota di iscrizione",
+      amount: "20€",
+      benefits: [
+        "PACCO GARA PER I PRIMI 50 iscritti",
+        "RISTORO PRESSO IL RIFUGIO FRATTA MONTANARA",
+        "RISTORO finale PRESSo partenza/arrivo",
+      ],
+    },
     awards: [
-      "Premio al gruppo piu numeroso",
-      "Premio al partecipante piu giovane",
-      "Premio al partecipante piu esperto",
     ],
     notes:
       "Evento non competitivo aperto al territorio. Percorso, ritrovo e dettagli logistici saranno aggiornati appena definitivi.",
@@ -101,7 +160,7 @@ export const EVENTS = [
           type: "select",
           required: true,
           placeholder: "Seleziona un percorso",
-          options: ["Corto", "Medio", "Lungo"],
+          options: ["Percorso corto", "Percorso lungo"],
         },
         {
           id: "societa",
@@ -134,6 +193,9 @@ export const EVENTS = [
       height: 2800,
     },
     posterAlt: "Ciclista in salita durante una cronoscalata",
+    mainSponsor: undefined,
+    routes: [],
+    registrationFee: undefined,
     awards: [
       "Premio assoluto uomo",
       "Premio assoluto donna",

@@ -20,21 +20,11 @@ export const metadata = pageSeo({
   ],
 });
 
-const MARQUEE = [
-  "Teramo Bike Experience",
-  "Stagione 2026",
-  "Strade di Teramo",
-  "Pedalare insieme",
-  "Made in Teramo",
-];
-
-const KIT_CHIPS = ["Made in Italy", "Estiva · Gravel · Invernale", "Taglie XS–XXXL"];
 
 export default function HomePage() {
   return (
     <SiteShell theme="light" navVariant="transparent">
       <HomeHero />
-      <Marquee items={MARQUEE} />
 
       <section className="py-[var(--section)]">
         <div className="mx-auto w-full max-w-[var(--maxw)] px-[var(--gutter)]">
@@ -52,15 +42,8 @@ export default function HomePage() {
               <p className="mb-6 max-w-[60ch] text-[clamp(18px,1.4vw,22px)] leading-[1.5]">
                 Siamo una squadra di ciclismo nata a Teramo da un gruppo di
                 amici. Le uscite di gruppo sono il cuore della squadra: ci
-                troviamo, pedaliamo insieme e teniamo un passo adatto a tutti.{" "}
-                <strong>
-                  Chi vuole gareggiare può farlo, senza togliere niente al
-                  piacere di pedalare in compagnia.
-                </strong>
+                troviamo, pedaliamo insieme e ci divertiamo.
               </p>
-              <BtnLink href="/vision" variant="ghost" arrow={false}>
-                Leggi la nostra Vision →
-              </BtnLink>
             </Reveal>
           </div>
         </div>
@@ -126,19 +109,8 @@ export default function HomePage() {
               </h2>
               <p className="mb-8 max-w-[60ch] text-[clamp(18px,1.4vw,22px)] leading-[1.5]">
                 Il kit ufficiale della stagione 2026, prodotto in Italia da
-                Alpic. Un disegno pensato da noi. Disponibile in versione
-                estiva, gravel e invernale.
+                Alpic. Un disegno pensato da noi.
               </p>
-              <div className="mb-8 flex flex-wrap gap-3">
-                {KIT_CHIPS.map((chip) => (
-                  <span
-                    key={chip}
-                    className="border border-tbe-black px-3.5 py-2 font-mono text-[11px] uppercase tracking-[0.15em]"
-                  >
-                    {chip}
-                  </span>
-                ))}
-              </div>
               <BtnLink href="/shop">Vai allo shop</BtnLink>
             </Reveal>
           </div>
@@ -164,7 +136,7 @@ export default function HomePage() {
             Siamo aperti a ciclisti di tutte le età e livelli. Quello che conta è
             la voglia di pedalare insieme, una domenica mattina.
           </p>
-          <BtnLink href="/contatti" variant="light">
+          <BtnLink href="/contatti">
             Unisciti a noi
           </BtnLink>
         </div>

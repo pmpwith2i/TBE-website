@@ -24,12 +24,12 @@ export interface SocialLink {
 export const SITE = {
   name: "Teramo Bike Experience",
   shortName: "TBE",
-  legalName: "ASD Teramo Bike Experience",
+  legalName: "ASD TERAMO BIKE EXPERIENCE",
   affiliation: "Affiliata FCI e CSI",
   affiliationDetail:
     "Affiliata FCI e CSI, con due tecnici istruttori di secondo livello FCI (Daniele Di Odoardo e Davide Danesi) e due istruttori/tecnici sportivi di Cicloturismo di primo livello CSI (Renzo Miracoli e Davide Danesi).",
-  address: "Via delle Aquile 14, 64100 Teramo (TE)",
-  vat: "P.IVA 01987650670",
+  address: "VIA F BRANDIMARTE 2 - 64100 - TERAMO (TE)",
+  vat: "P.IVA 02190880670",
   url: "https://teramobike.it",
   instagram: "https://www.instagram.com/teramobikeexperience/",
   facebook: "https://www.facebook.com/p/Teramo-Bike-Experience-61573736592702/",
@@ -44,8 +44,6 @@ export const SITE = {
 /** Primary navigation, in display order. */
 export const NAV_LINKS: NavLink[] = [
   { label: "Home", href: "/" },
-  { label: "Vision", href: "/vision" },
-  { label: "Team", href: "/team" },
   { label: "Eventi", href: "/eventi" },
   { label: "Shop", href: "/shop" },
   { label: "Contatti", href: "/contatti" },
@@ -67,7 +65,6 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
   {
     title: "Esplora",
     links: [
-      { label: "Vision", href: "/vision" },
       { label: "Team", href: "/team" },
       { label: "Eventi", href: "/eventi" },
       { label: "Shop", href: "/shop" },

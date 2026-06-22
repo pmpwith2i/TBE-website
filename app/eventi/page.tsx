@@ -2,8 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { SiteShell } from "@/components/site/site-shell";
 import { pageSeo } from "@/lib/seo";
-import { Eyebrow, SectionLabel } from "@/components/site/section-label";
+import { SectionLabel } from "@/components/site/section-label";
 import { BtnLink, ButtonArrow } from "@/components/site/buttons";
+import { EventMainSponsor } from "@/components/eventi/event-main-sponsor";
 import { EVENTS, FEATURED_EVENT } from "@/constants/events";
 
 export const metadata = pageSeo({
@@ -53,6 +54,12 @@ export default function EventiPage() {
                 <h2 className="mb-5 mt-7 font-display text-[clamp(48px,8vw,120px)] font-black italic uppercase leading-[0.88] tracking-[-0.01em]">
                   {FEATURED_EVENT.title}
                 </h2>
+                {FEATURED_EVENT.mainSponsor ? (
+                  <EventMainSponsor
+                    sponsor={FEATURED_EVENT.mainSponsor}
+                    className="mb-7"
+                  />
+                ) : null}
                 <p className="mb-7 max-w-[60ch] text-[clamp(18px,1.4vw,22px)] leading-[1.5] opacity-85">
                   {FEATURED_EVENT.notes}
                 </p>
@@ -122,6 +129,13 @@ export default function EventiPage() {
                   <div className="mt-1 font-display text-2xl font-extrabold italic uppercase leading-[1.1]">
                     {event.title}
                   </div>
+                  {event.mainSponsor ? (
+                    <EventMainSponsor
+                      sponsor={event.mainSponsor}
+                      variant="compact"
+                      className="mt-4"
+                    />
+                  ) : null}
                 </div>
                 <div className="font-mono text-xs uppercase tracking-[0.1em] opacity-70 max-[900px]:col-start-2">
                   {event.location}

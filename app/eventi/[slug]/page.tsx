@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { EventRegistrationForm } from "@/components/eventi/event-registration-form";
+import { EventMainSponsor } from "@/components/eventi/event-main-sponsor";
 import { SiteShell } from "@/components/site/site-shell";
 import { Eyebrow, SectionLabel } from "@/components/site/section-label";
 import { ButtonArrow } from "@/components/site/buttons";
@@ -55,6 +56,12 @@ export default async function EventDetailPage({ params }: EventPageProps) {
             <h1 className="max-w-[10ch] font-display text-[clamp(52px,9vw,142px)] font-black italic uppercase leading-[0.85] tracking-[-0.01em]">
               {event.title}
             </h1>
+            {event.mainSponsor ? (
+              <EventMainSponsor
+                sponsor={event.mainSponsor}
+                className="mt-7"
+              />
+            ) : null}
             <p className="mt-7 max-w-[60ch] text-[clamp(18px,1.4vw,22px)] leading-[1.5] opacity-80">
               {event.notes}
             </p>

@@ -38,7 +38,6 @@ type PageSeoInput = {
   /** Page title; omit on the home page to use the site default. */
   title?: string;
   description: string;
-  /** Absolute path from the site root, e.g. "/vision". */
   path: string;
   /** Extra keywords specific to the page. */
   keywords?: string[];
