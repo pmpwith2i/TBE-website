@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { EventRegistrationForm } from "@/components/eventi/event-registration-form";
 import { EventMainSponsor } from "@/components/eventi/event-main-sponsor";
+import { EventRoutesViewer } from "@/components/eventi/event-routes-viewer";
 import { SiteShell } from "@/components/site/site-shell";
 import { Eyebrow, SectionLabel } from "@/components/site/section-label";
 import { ButtonArrow } from "@/components/site/buttons";
@@ -45,6 +46,19 @@ export default async function EventDetailPage({ params }: EventPageProps) {
     notFound();
   }
 
+  const infoRows = [
+    ["Data", event.date.label],
+    ["Luogo", event.location],
+    ...(event.registrationFee
+      ? [["Quota", event.registrationFee.amount]]
+      : []),
+    [
+      "Pre-iscrizione",
+      event.preRegistration.available ? "Disponibile" : "Non disponibile",
+    ],
+  ];
+  const hasRouteDetails = event.routes.length > 0 || Boolean(event.registrationFee);
+
   return (
     <SiteShell theme="dark">
       <section className="bg-tbe-black pb-[88px] pt-[180px] text-tbe-paper">
@@ -75,6 +89,14 @@ export default async function EventDetailPage({ params }: EventPageProps) {
                   <ButtonArrow />
                 </a>
               ) : null}
+              {event.routes.length > 0 ? (
+                <a
+                  href="#tracciati"
+                  className="inline-flex items-center border-b-2 border-accent bg-transparent px-0 py-2 font-display text-base font-extrabold italic uppercase tracking-[0.1em] text-current transition-colors hover:text-accent"
+                >
+                  Tracciati GPX
+                </a>
+              ) : null}
               <Link
                 href="/eventi"
                 className="inline-flex items-center border-b-2 border-accent bg-transparent px-0 py-2 font-display text-base font-extrabold italic uppercase tracking-[0.1em] text-current transition-colors hover:text-accent"
@@ -103,14 +125,7 @@ export default async function EventDetailPage({ params }: EventPageProps) {
           <div>
             <SectionLabel light>Informazioni</SectionLabel>
             <dl className="m-0 grid gap-3.5">
-              {[
-                ["Data", event.date.label],
-                ["Luogo", event.location],
-                [
-                  "Pre-iscrizione",
-                  event.preRegistration.available ? "Disponibile" : "Non disponibile",
-                ],
-              ].map(([label, value]) => (
+              {infoRows.map(([label, value]) => (
                 <div className="border-t border-white/10 pt-4" key={label}>
                   <dt className="mb-1.5 block font-mono text-[11px] uppercase tracking-[0.18em] text-white/60">
                     {label}
@@ -138,6 +153,53 @@ export default async function EventDetailPage({ params }: EventPageProps) {
           </div>
         </div>
       </section>
+
+      {hasRouteDetails ? (
+        <section
+          id="tracciati"
+          className="bg-tbe-black py-[clamp(56px,8vw,110px)]"
+        >
+          <div className="mx-auto grid w-full max-w-[var(--maxw)] items-start gap-[clamp(36px,7vw,96px)] px-[var(--gutter)] min-[1001px]:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)]">
+            <div>
+              <SectionLabel light>Tracciati e quota</SectionLabel>
+              <h2 className="mb-[22px] font-display text-[clamp(36px,5vw,76px)] font-black italic uppercase leading-[0.88]">
+                Scegli il
+                <br />
+                <span className="text-accent">percorso.</span>
+              </h2>
+              <p className="max-w-[42ch] text-[clamp(18px,1.4vw,22px)] leading-[1.5] opacity-80">
+                Due tracciati per pedalare con il gruppo giusto e tutti i
+                dettagli GPX raccolti nella scheda evento.
+              </p>
+
+              {event.registrationFee ? (
+                <div className="mt-8 border border-white/10 bg-white/5 p-6">
+                  <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-white/55">
+                    {event.registrationFee.label}
+                  </span>
+                  <strong className="mt-3 block font-display text-[clamp(46px,7vw,84px)] font-black italic uppercase leading-none text-accent">
+                    {event.registrationFee.amount}
+                  </strong>
+                  <ul className="mt-6 grid list-none gap-3 p-0">
+                    {event.registrationFee.benefits.map((benefit) => (
+                      <li
+                        className="relative border-t border-white/10 pt-3 pl-8 text-sm font-semibold uppercase tracking-[0.04em] text-white/78 before:absolute before:left-0 before:top-[18px] before:size-2.5 before:bg-accent before:content-['']"
+                        key={benefit}
+                      >
+                        {benefit}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+            </div>
+
+            {event.routes.length > 0 ? (
+              <EventRoutesViewer routes={event.routes} />
+            ) : null}
+          </div>
+        </section>
+      ) : null}
 
       <section
         id="pre-iscrizione"

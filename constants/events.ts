@@ -120,18 +120,18 @@ export const EVENTS = [
     },
     routes: [
       {
-        id: "corto",
-        name: "Percorso corto",
+        id: "soft",
+        name: "Percorso soft",
         description:
           "Tracciato cicloturistico pensato per chi vuole pedalare in gruppo con passo accessibile.",
-        gpxUrl: "/assets/tracciati/cicloturistica-corto.gpx",
+        gpxUrl: "/assets/tracciati/cicloturistica_04_06_26_soft.gpx",
       },
       {
-        id: "lungo",
-        name: "Percorso lungo",
+        id: "hard",
+        name: "Percorso hard",
         description:
           "Tracciato piu completo per chi cerca una distanza maggiore mantenendo lo spirito non competitivo.",
-        gpxUrl: "/assets/tracciati/cicloturistica-lungo.gpx",
+        gpxUrl: "/assets/tracciati/cicloturistica_04_06_26_hard.gpx",
       },
     ],
     registrationFee: {
@@ -144,6 +144,9 @@ export const EVENTS = [
       ],
     },
     awards: [
+      "Premio al gruppo piu numeroso",
+      "Premio al partecipante piu giovane",
+      "Premio al partecipante piu esperto",
     ],
     notes:
       "Evento non competitivo aperto al territorio. Percorso, ritrovo e dettagli logistici saranno aggiornati appena definitivi.",

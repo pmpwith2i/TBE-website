@@ -67,6 +67,9 @@ export default function EventiPage() {
                   {[
                     ["Data", FEATURED_EVENT.date.label],
                     ["Tipo", FEATURED_EVENT.typeLabel],
+                    ...(FEATURED_EVENT.registrationFee
+                      ? [["Quota", FEATURED_EVENT.registrationFee.amount]]
+                      : []),
                     ["Premi", `${FEATURED_EVENT.awards.length} voci`],
                   ].map(([label, value]) => (
                     <div className="bg-tbe-black/40 px-5 py-[18px]" key={label}>

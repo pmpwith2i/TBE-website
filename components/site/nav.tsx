@@ -18,6 +18,33 @@ const navLinkClass =
 const navCtaClass =
   "inline-flex bg-accent px-[22px] py-2.5 font-display text-sm font-extrabold italic uppercase tracking-[0.1em] text-tbe-white shadow-[0_12px_28px_-20px_rgba(200,16,46,0.9)] transition-[background,transform,box-shadow] duration-200 [clip-path:polygon(8%_0,100%_0,92%_100%,0_100%)] hover:-translate-y-0.5 hover:bg-tbe-red-dark hover:shadow-[0_16px_32px_-20px_rgba(10,10,10,0.7)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent";
 
+function BrandLogoLockup({
+  fetchPriority,
+}: {
+  fetchPriority?: "high" | "low" | "auto";
+}) {
+  return (
+    <>
+      <Image
+        src={SITE.logos.appIcon}
+        alt=""
+        width={512}
+        height={512}
+        className="h-10 w-10 shrink-0 rounded-full object-contain"
+        fetchPriority={fetchPriority}
+      />
+      <Image
+        src={SITE.logos.wordmark}
+        alt="Teramo Bike Experience"
+        width={60}
+        height={30}
+        className="h-[30px] w-auto shrink-0"
+        fetchPriority={fetchPriority}
+      />
+    </>
+  );
+}
+
 export function Nav({
   variant = "solid",
 }: {
@@ -57,14 +84,7 @@ export function Nav({
           href="/"
           className="flex min-w-0 items-center gap-3 font-display text-[22px] font-black italic uppercase tracking-[0.02em]"
         >
-          <Image
-            src={SITE.logos.wordmark}
-            alt="Teramo Bike Experience"
-            width={60}
-            height={30}
-            className="h-[30px] w-auto"
-            priority
-          />
+          <BrandLogoLockup fetchPriority="high" />
           <span className="hidden whitespace-nowrap min-[520px]:inline">{SITE.name}</span>
         </Link>
 
@@ -113,13 +133,7 @@ export function Nav({
       >
         <div className="mb-12 flex items-center justify-between border-b border-black/10 pb-5">
           <span className="flex items-center gap-3 font-display text-[22px] font-black italic uppercase tracking-[0.02em]">
-            <Image
-              src={SITE.logos.wordmark}
-              alt="Teramo Bike Experience"
-              width={60}
-              height={30}
-              className="h-[30px] w-auto"
-            />
+            <BrandLogoLockup />
             <span className="whitespace-nowrap">{SITE.shortName}</span>
           </span>
           <button

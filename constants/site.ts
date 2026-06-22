@@ -34,6 +34,7 @@ export const SITE = {
   instagram: "https://www.instagram.com/teramobikeexperience/",
   facebook: "https://www.facebook.com/p/Teramo-Bike-Experience-61573736592702/",
   logos: {
+    appIcon: "/web-app-manifest-512x512.png",
     badge: "/assets/logo-badge.png",
     wordmark: "/assets/logo-wordmark.png",
   },
