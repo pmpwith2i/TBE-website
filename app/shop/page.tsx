@@ -20,57 +20,23 @@ export const metadata = pageSeo({
 export default function ShopPage() {
   return (
     <SiteShell theme="dark">
-      {/* HERO — dark so the type stays legible under the fixed nav */}
-      <section
-        style={{
-          position: "relative",
-          padding: "180px var(--gutter) 80px",
-          background: "var(--tbe-black)",
-          color: "var(--tbe-paper)",
-          overflow: "hidden",
-        }}
-      >
+      <section className="relative overflow-hidden bg-tbe-black px-[var(--gutter)] pb-20 pt-[180px] text-tbe-paper">
         <div
           aria-hidden
-          style={{
-            position: "absolute",
-            bottom: -40,
-            right: -40,
-            fontFamily: "var(--font-display)",
-            fontStyle: "italic",
-            fontWeight: 900,
-            fontSize: "clamp(180px, 30vw, 460px)",
-            color: "var(--tbe-red)",
-            opacity: 0.12,
-            lineHeight: 0.7,
-            letterSpacing: "-0.02em",
-            pointerEvents: "none",
-          }}
+          className="pointer-events-none absolute -bottom-10 -right-10 font-display text-[clamp(180px,30vw,460px)] font-black italic leading-[0.7] tracking-[-0.02em] text-tbe-red opacity-10"
         >
           SHOP
         </div>
-        <div className="container" style={{ position: "relative" }}>
-          <Eyebrow num="/05" light style={{ marginBottom: 32 }}>
+        <div className="relative mx-auto w-full max-w-[var(--maxw)]">
+          <Eyebrow num="/05" light className="mb-8">
             Merchandising Ufficiale
           </Eyebrow>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1.5fr 1fr",
-              gap: 60,
-              alignItems: "end",
-            }}
-            className="shop-head-grid"
-          >
-            <h1
-              className="display"
-              style={{ fontSize: "clamp(40px, 6.5vw, 96px)", lineHeight: 0.9 }}
-            >
+          <div className="grid items-end gap-[60px] min-[901px]:grid-cols-[1.5fr_1fr]">
+            <h1 className="font-display text-[clamp(40px,6.5vw,96px)] font-black italic uppercase leading-[0.9] tracking-[-0.01em]">
               Acquista il nostro{" "}
-              <span style={{ color: "var(--accent)" }}>merchandising</span>{" "}
-              ufficiale.
+              <span className="text-accent">merchandising</span> ufficiale.
             </h1>
-            <p className="lede" style={{ opacity: 0.85 }}>
+            <p className="max-w-[60ch] text-[clamp(18px,1.4vw,22px)] leading-[1.5] opacity-85">
               Il kit della stagione 2026, prodotto in Italia. Per ordinare,
               scrivici un messaggio: ti diciamo taglie, disponibilità e modi di
               ritiro o spedizione.
@@ -81,36 +47,20 @@ export default function ShopPage() {
 
       <FeaturedKit />
 
-      {/* CONTACT CTA — no cart for now */}
-      <section
-        style={{
-          background: "var(--tbe-ink)",
-          padding: "var(--section) var(--gutter)",
-          textAlign: "center",
-        }}
-      >
-        <div style={{ maxWidth: 760, margin: "0 auto" }}>
-          <div
-            className="caption"
-            style={{ color: "var(--accent)", marginBottom: 16 }}
-          >
+      <section className="bg-tbe-ink px-[var(--gutter)] py-[var(--section)] text-center">
+        <div className="mx-auto max-w-[760px]">
+          <div className="mb-4 font-mono text-[11px] uppercase tracking-[0.18em] text-accent">
             Come si ordina
           </div>
-          <h2 className="display display-l" style={{ marginBottom: 20 }}>
-            Ti interessa?{" "}
-            <span style={{ color: "var(--accent)" }}>Scrivici.</span>
+          <h2 className="mb-5 font-display text-[clamp(36px,5vw,76px)] font-black italic uppercase leading-[0.88] tracking-[-0.01em]">
+            Ti interessa? <span className="text-accent">Scrivici.</span>
           </h2>
-          <p
-            className="lede"
-            style={{ margin: "0 auto 32px", maxWidth: "54ch", opacity: 0.85 }}
-          >
+          <p className="mx-auto mb-8 max-w-[54ch] text-[clamp(18px,1.4vw,22px)] leading-[1.5] opacity-85">
             Per ora gli acquisti si gestiscono direttamente con noi. Mandaci un
             messaggio con quello che ti serve e ti rispondiamo il prima
             possibile.
           </p>
-          <BtnLink href="/contatti" className="btn btn-primary">
-            Contattaci
-          </BtnLink>
+          <BtnLink href="/contatti">Contattaci</BtnLink>
         </div>
       </section>
     </SiteShell>

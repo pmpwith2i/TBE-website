@@ -36,30 +36,17 @@ const CHANNEL_NOTE: Record<
 export default function ContattiPage() {
   return (
     <SiteShell theme="dark">
-      {/* HEADER */}
-      <section
-        style={{
-          padding: "180px var(--gutter) 60px",
-          background: "var(--tbe-black)",
-          color: "var(--tbe-paper)",
-        }}
-      >
-        <div className="container">
-          <Eyebrow num="/06" light style={{ marginBottom: 32 }}>
+      <section className="bg-tbe-black px-[var(--gutter)] pb-[60px] pt-[180px] text-tbe-paper">
+        <div className="mx-auto w-full max-w-[var(--maxw)]">
+          <Eyebrow num="/06" light className="mb-8">
             Contatti
           </Eyebrow>
-          <h1
-            className="display"
-            style={{ fontSize: "clamp(60px, 12vw, 200px)", lineHeight: 0.85 }}
-          >
+          <h1 className="font-display text-[clamp(60px,12vw,200px)] font-black italic uppercase leading-[0.85] tracking-[-0.01em]">
             Seguici
             <br />
-            <span style={{ color: "var(--accent)" }}>sui social.</span>
+            <span className="text-accent">sui social.</span>
           </h1>
-          <p
-            className="lede"
-            style={{ marginTop: 32, opacity: 0.8, maxWidth: "60ch" }}
-          >
+          <p className="mt-8 max-w-[60ch] text-[clamp(18px,1.4vw,22px)] leading-[1.5] opacity-80">
             Il modo migliore per restare in contatto è sui social: ci trovi su
             Instagram e Facebook, scrivici un messaggio quando vuoi. Oppure
             compila il form qui sotto.
@@ -67,12 +54,9 @@ export default function ContattiPage() {
         </div>
       </section>
 
-      {/* SOCIAL CHANNELS */}
-      <section
-        style={{ background: "var(--tbe-black)", padding: "0 var(--gutter) 80px" }}
-      >
-        <div className="container">
-          <div className="channels">
+      <section className="bg-tbe-black px-[var(--gutter)] pb-20">
+        <div className="mx-auto w-full max-w-[var(--maxw)]">
+          <div className="grid gap-1 min-[701px]:grid-cols-2">
             {SOCIALS.map((s) => {
               const meta = CHANNEL_NOTE[s.platform];
               return (
@@ -81,14 +65,18 @@ export default function ContattiPage() {
                   href={s.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="channel"
+                  className="flex flex-col gap-3 border-t-[3px] border-accent bg-tbe-ink p-8 transition-colors hover:bg-[#1f1f22]"
                 >
-                  <div className="icon">
+                  <div className="font-display text-[40px] font-black italic leading-none text-accent [&_svg]:block">
                     <SocialIcon platform={s.platform} size={40} />
                   </div>
-                  <div className="label">{s.label}</div>
-                  <div className="value">{meta.handle}</div>
-                  <div className="note">{meta.note}</div>
+                  <div className="font-mono text-[11px] uppercase tracking-[0.2em] text-white/60">
+                    {s.label}
+                  </div>
+                  <div className="font-display text-[22px] font-extrabold italic uppercase leading-[1.1]">
+                    {meta.handle}
+                  </div>
+                  <div className="mt-1 text-[13px] opacity-60">{meta.note}</div>
                 </a>
               );
             })}
@@ -96,33 +84,16 @@ export default function ContattiPage() {
         </div>
       </section>
 
-      {/* MAIN SPONSOR */}
-      <section
-        style={{ background: "var(--tbe-black)", padding: "0 var(--gutter) 100px" }}
-      >
-        <div className="container">
-          <div
-            className="contatti-sponsor-grid"
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: "clamp(40px, 8vw, 100px)",
-              alignItems: "center",
-            }}
-          >
+      <section className="bg-tbe-black px-[var(--gutter)] pb-[100px]">
+        <div className="mx-auto w-full max-w-[var(--maxw)]">
+          <div className="grid items-center gap-[clamp(40px,8vw,100px)] min-[901px]:grid-cols-2">
             <div>
               <SectionLabel light>Chi ci sostiene</SectionLabel>
-              <h2 className="display display-l" style={{ marginBottom: 24 }}>
+              <h2 className="mb-6 font-display text-[clamp(36px,5vw,76px)] font-black italic uppercase leading-[0.88] tracking-[-0.01em]">
                 Dietro la squadra,
                 <br />
-                <span style={{ color: "var(--accent)" }}>il territorio.</span>
+                <span className="text-accent">il territorio.</span>
               </h2>
-              <p
-                className="lede"
-                style={{ opacity: 0.8, maxWidth: "42ch" }}
-              >
-                
-              </p>
             </div>
 
             <MainSponsor />
@@ -130,36 +101,17 @@ export default function ContattiPage() {
         </div>
       </section>
 
-      {/* FORM — one form for both joining the team and becoming a sponsor */}
-      <section
-        id="form"
-        style={{
-          background: "var(--tbe-ink)",
-          padding: "var(--section) var(--gutter)",
-        }}
-      >
-        <div className="container">
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1.4fr",
-              gap: "clamp(40px, 8vw, 100px)",
-            }}
-            className="contatti-form-grid"
-          >
+      <section id="form" className="bg-tbe-ink px-[var(--gutter)] py-[var(--section)]">
+        <div className="mx-auto w-full max-w-[var(--maxw)]">
+          <div className="grid gap-[clamp(40px,8vw,100px)] min-[901px]:grid-cols-[1fr_1.4fr]">
             <div>
               <SectionLabel light>Scrivici</SectionLabel>
-              <h2 className="display display-l" style={{ marginBottom: 32 }}>
+              <h2 className="mb-8 font-display text-[clamp(36px,5vw,76px)] font-black italic uppercase leading-[0.88] tracking-[-0.01em]">
                 Unisciti a noi
                 <br />
-                <span style={{ color: "var(--accent)" }}>
-                  o diventa sponsor.
-                </span>
+                <span className="text-accent">o diventa sponsor.</span>
               </h2>
-              <p
-                className="lede"
-                style={{ opacity: 0.8, marginBottom: 32, maxWidth: "42ch" }}
-              >
+              <p className="mb-8 max-w-[42ch] text-[clamp(18px,1.4vw,22px)] leading-[1.5] opacity-80">
                 Che tu voglia correre con noi o sostenere la squadra come
                 sponsor, compila il form: ti ricontattiamo il prima possibile.
               </p>

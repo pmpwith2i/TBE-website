@@ -8,12 +8,9 @@ import { SponsorMarquee } from "@/components/site/sponsor-marquee";
  */
 export function HomeSponsors() {
   return (
-    <section className="sponsors">
-      <div className="container">
-        <div
-          className="caption"
-          style={{ textAlign: "center", marginBottom: 40 }}
-        >
+    <section className="border-y border-black/10 bg-tbe-bone py-14">
+      <div className="mx-auto w-full max-w-[var(--maxw)] px-[var(--gutter)]">
+        <div className="mb-10 text-center font-mono text-[11px] uppercase tracking-[0.18em] text-tbe-smoke">
           — Sostenuti da chi crede nel territorio —
         </div>
         <MainSponsor />

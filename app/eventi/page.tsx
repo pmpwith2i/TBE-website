@@ -3,7 +3,7 @@ import Link from "next/link";
 import { SiteShell } from "@/components/site/site-shell";
 import { pageSeo } from "@/lib/seo";
 import { Eyebrow, SectionLabel } from "@/components/site/section-label";
-import { BtnLink } from "@/components/site/buttons";
+import { BtnLink, ButtonArrow } from "@/components/site/buttons";
 import { EVENTS, FEATURED_EVENT } from "@/constants/events";
 
 export const metadata = pageSeo({
@@ -22,98 +22,73 @@ export const metadata = pageSeo({
 export default function EventiPage() {
   return (
     <SiteShell theme="dark">
-      <section
-        style={{
-          padding: "180px var(--gutter) 80px",
-          background: "var(--tbe-black)",
-          color: "var(--tbe-paper)",
-        }}
-      >
-        <div className="container">
-          <Eyebrow num="/04" light style={{ marginBottom: 28 }}>
+      <section className="bg-tbe-black px-[var(--gutter)] pb-20 pt-[180px] text-tbe-paper">
+        <div className="mx-auto w-full max-w-[var(--maxw)]">
+          <Eyebrow num="/04" light className="mb-7">
             Eventi
           </Eyebrow>
-          <h1
-            className="display"
-            style={{ fontSize: "clamp(56px, 11vw, 180px)", lineHeight: 0.85 }}
-          >
+          <h1 className="font-display text-[clamp(56px,11vw,180px)] font-black italic uppercase leading-[0.85] tracking-[-0.01em]">
             Gare e
             <br />
-            <span style={{ color: "var(--accent)" }}>pedalate.</span>
+            <span className="text-accent">pedalate.</span>
           </h1>
-          <p
-            className="lede"
-            style={{ marginTop: 32, opacity: 0.8, maxWidth: "60ch" }}
-          >
-            Qui trovi gli eventi organizzati da Teramo Bike Experience: locandina,
-            data, premi, note e pre-iscrizione quando e aperta.
-          </p>
         </div>
       </section>
 
-      <section
-        className="section"
-        style={{
-          background: "var(--tbe-black)",
-          paddingTop: 0,
-        }}
-      >
-        <div className="container">
+      <section className="bg-tbe-black pb-[var(--section)]">
+        <div className="mx-auto w-full max-w-[var(--maxw)] px-[var(--gutter)]">
           <SectionLabel light>In evidenza</SectionLabel>
           <Link
             href={`/eventi/${FEATURED_EVENT.slug}`}
-            className="next-event"
-            style={{ display: "block" }}
+            className="group relative mt-8 block overflow-hidden bg-tbe-red-deep text-white transition-transform duration-300 hover:-translate-y-1"
           >
-            <div className="next-event-overlay" />
-            <div className="next-event-inner">
+            <div className="absolute inset-0 bg-[linear-gradient(115deg,var(--tbe-red-deep)_0%,rgba(74,4,16,0.78)_45%,rgba(74,4,16,0.4)_100%)]" />
+            <div className="relative grid items-center gap-[clamp(32px,5vw,72px)] p-[clamp(40px,6vw,80px)] min-[801px]:grid-cols-[minmax(0,1fr)_minmax(240px,380px)]">
               <div>
-                <span className="next-event-tag">
+                <span className="inline-flex items-center gap-2 bg-white px-3.5 py-1.5 font-display text-xs font-black italic uppercase tracking-[0.15em] text-tbe-red">
                   {FEATURED_EVENT.preRegistration.available ? (
-                    <span className="pulse" aria-hidden />
+                    <span className="size-2 rounded-full bg-tbe-red [animation:pulse_1.6s_ease-in-out_infinite] motion-reduce:animate-none" aria-hidden />
                   ) : null}
                   {FEATURED_EVENT.preRegistration.available
                     ? "Pre-iscrizioni aperte"
                     : "In preparazione"}
                 </span>
-                <h2
-                  className="display display-xl"
-                  style={{ marginTop: 28, marginBottom: 20 }}
-                >
+                <h2 className="mb-5 mt-7 font-display text-[clamp(48px,8vw,120px)] font-black italic uppercase leading-[0.88] tracking-[-0.01em]">
                   {FEATURED_EVENT.title}
                 </h2>
-                <p className="lede" style={{ opacity: 0.86, marginBottom: 28 }}>
+                <p className="mb-7 max-w-[60ch] text-[clamp(18px,1.4vw,22px)] leading-[1.5] opacity-85">
                   {FEATURED_EVENT.notes}
                 </p>
-                <div className="event-feature-meta">
-                  <div>
-                    <span>Data</span>
-                    <strong>{FEATURED_EVENT.date.label}</strong>
-                  </div>
-                  <div>
-                    <span>Tipo</span>
-                    <strong>{FEATURED_EVENT.typeLabel}</strong>
-                  </div>
-                  <div>
-                    <span>Premi</span>
-                    <strong>{FEATURED_EVENT.awards.length} voci</strong>
-                  </div>
+                <div className="mb-7 grid max-w-[640px] gap-3">
+                  {[
+                    ["Data", FEATURED_EVENT.date.label],
+                    ["Tipo", FEATURED_EVENT.typeLabel],
+                    ["Premi", `${FEATURED_EVENT.awards.length} voci`],
+                  ].map(([label, value]) => (
+                    <div className="bg-tbe-black/40 px-5 py-[18px]" key={label}>
+                      <span className="mb-1.5 block font-mono text-[11px] uppercase tracking-[0.18em] text-white/60">
+                        {label}
+                      </span>
+                      <strong className="block font-display text-[clamp(22px,3vw,34px)] font-extrabold italic uppercase leading-none">
+                        {value}
+                      </strong>
+                    </div>
+                  ))}
                 </div>
-                <span className="btn btn-primary">
+                <span className="inline-flex items-center gap-2.5 bg-accent px-8 py-4 font-display text-base font-extrabold italic uppercase tracking-[0.1em] text-tbe-white transition-[background,transform] duration-200 [clip-path:polygon(6%_0,100%_0,94%_100%,0_100%)] group-hover:translate-x-1 group-hover:bg-tbe-amber">
                   Vai all&apos;evento
-                  <span className="arrow" aria-hidden>
-                    →
-                  </span>
+                  <ButtonArrow />
                 </span>
               </div>
 
-              <figure className="event-feature-poster">
+              <figure className="m-0 w-[min(100%,380px)] justify-self-start min-[801px]:justify-self-end">
                 <Image
                   src={FEATURED_EVENT.poster}
                   alt={FEATURED_EVENT.posterAlt}
                   width={FEATURED_EVENT.posterSize.width}
                   height={FEATURED_EVENT.posterSize.height}
                   sizes="(max-width: 800px) 82vw, 360px"
+                  className="h-auto w-full object-contain"
                   priority
                 />
               </figure>
@@ -122,38 +97,41 @@ export default function EventiPage() {
         </div>
       </section>
 
-      <section
-        className="section"
-        style={{
-          background: "var(--tbe-ink)",
-          paddingBlock: "clamp(60px, 8vw, 100px)",
-        }}
-      >
-        <div className="container">
+      <section className="bg-tbe-ink py-[clamp(60px,8vw,100px)]">
+        <div className="mx-auto w-full max-w-[var(--maxw)] px-[var(--gutter)]">
           <SectionLabel light>Calendario</SectionLabel>
           <div>
             {EVENTS.map((event) => (
               <Link
                 key={event.slug}
                 href={`/eventi/${event.slug}`}
-                className="event-row"
+                className="group grid grid-cols-[120px_1fr_220px_160px] items-center gap-8 border-b border-white/10 py-7 text-inherit transition-[background,padding] duration-200 hover:bg-tbe-red/10 hover:px-4 max-[900px]:grid-cols-[90px_1fr] max-[900px]:gap-4"
               >
-                <div className="event-date" aria-label={event.date.label}>
-                  <span className="day">{event.date.dayLabel}</span>
-                  <span className="month">{event.date.monthLabel}</span>
+                <div
+                  className="font-display font-black italic leading-[0.9]"
+                  aria-label={event.date.label}
+                >
+                  <span className="block text-[56px] text-accent">
+                    {event.date.dayLabel}
+                  </span>
+                  <span className="mt-1 block text-sm uppercase tracking-[0.1em] opacity-70">
+                    {event.date.monthLabel}
+                  </span>
                 </div>
                 <div>
-                  <div className="event-type">{event.typeLabel}</div>
-                  <div className="event-title">{event.title}</div>
+                  <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-accent">
+                    {event.typeLabel}
+                  </div>
+                  <div className="mt-1 font-display text-2xl font-extrabold italic uppercase leading-[1.1]">
+                    {event.title}
+                  </div>
                 </div>
-                <div className="event-place">{event.location}</div>
-                <div className="event-cta">
-                  {event.preRegistration.available
-                    ? "Pre-iscriviti"
-                    : "Dettagli"}
-                  <span className="arrow" aria-hidden>
-                    →
-                  </span>
+                <div className="font-mono text-xs uppercase tracking-[0.1em] opacity-70 max-[900px]:col-start-2">
+                  {event.location}
+                </div>
+                <div className="flex items-center justify-end gap-2 text-right font-display text-[13px] font-extrabold italic uppercase tracking-[0.1em] text-accent transition-colors group-hover:text-white max-[900px]:col-start-2 max-[900px]:justify-start">
+                  {event.preRegistration.available ? "Pre-iscriviti" : "Dettagli"}
+                  <ButtonArrow />
                 </div>
               </Link>
             ))}
@@ -161,29 +139,18 @@ export default function EventiPage() {
         </div>
       </section>
 
-      <section
-        style={{
-          background: "var(--tbe-black)",
-          padding: "var(--section) var(--gutter)",
-          textAlign: "center",
-        }}
-      >
-        <div style={{ maxWidth: 800, margin: "0 auto" }}>
-          <h2 className="display display-l" style={{ marginBottom: 20 }}>
+      <section className="bg-tbe-black px-[var(--gutter)] py-[var(--section)] text-center">
+        <div className="mx-auto max-w-[800px]">
+          <h2 className="mb-5 font-display text-[clamp(36px,5vw,76px)] font-black italic uppercase leading-[0.88] tracking-[-0.01em]">
             Hai domande
             <br />
-            <span style={{ color: "var(--accent)" }}>sugli eventi?</span>
+            <span className="text-accent">sugli eventi?</span>
           </h2>
-          <p
-            className="lede"
-            style={{ margin: "0 auto 32px", maxWidth: "50ch", opacity: 0.85 }}
-          >
+          <p className="mx-auto mb-8 max-w-[50ch] text-[clamp(18px,1.4vw,22px)] leading-[1.5] opacity-85">
             Scrivici dai contatti: ti rispondiamo con aggiornamenti su percorsi,
             regolamenti e aperture delle pre-iscrizioni.
           </p>
-          <BtnLink href="/contatti" className="btn btn-primary">
-            Scrivici
-          </BtnLink>
+          <BtnLink href="/contatti">Scrivici</BtnLink>
         </div>
       </section>
     </SiteShell>

@@ -1,71 +1,63 @@
 import Image from "next/image";
 import { BtnLink } from "@/components/site/buttons";
-
-const GLASS_BTN: React.CSSProperties = {
-  background: "rgba(255,255,255,0.1)",
-  backdropFilter: "blur(8px)",
-  WebkitBackdropFilter: "blur(8px)",
-  color: "white",
-  border: "1px solid rgba(255,255,255,0.3)",
-};
+import { Eyebrow } from "@/components/site/section-label";
 
 export function HomeHero() {
   return (
-    <header className="hero">
-      <div className="hero-bg">
+    <header className="relative flex min-h-screen items-end overflow-hidden bg-tbe-black text-tbe-paper">
+      <div className="absolute inset-0">
         <Image
           src="/assets/sunset-rider.jpg"
           alt="Ciclista TBE al tramonto sulle colline di Teramo"
           fill
           priority
           sizes="100vw"
-          style={{ objectFit: "cover" }}
+          className="object-cover"
         />
       </div>
-      <div className="hero-vignette" />
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,0.5)_0%,rgba(10,10,10,0)_30%,rgba(10,10,10,0)_50%,rgba(10,10,10,0.85)_100%),radial-gradient(ellipse_at_80%_50%,rgba(200,16,46,0.18),transparent_60%)]" />
 
-      <div className="hero-meta">
+      <div className="absolute right-[var(--gutter)] top-[24%] z-10 hidden text-right font-mono text-[11px] uppercase tracking-[0.2em] text-white/70 min-[801px]:block">
         <span>Stagione 2026</span>
-        <span className="big">42°39&apos;N 13°42&apos;E</span>
+        <span className="mt-1 block font-display text-[28px] font-black italic tracking-[0.02em] text-tbe-paper">
+          42°39&apos;N 13°42&apos;E
+        </span>
       </div>
 
-      <div className="hero-inner">
-        <div
-          className="eyebrow"
-          style={{ color: "rgba(255,255,255,0.7)", marginBottom: 28 }}
-        >
-          <span className="num">/01</span> Teramo · Italia
-        </div>
+      <div className="relative z-10 mx-auto w-full max-w-[var(--maxw)] px-[var(--gutter)] pb-[clamp(40px,8vw,96px)]">
+        <Eyebrow light num="/01" className="mb-7">
+          Teramo · Italia
+        </Eyebrow>
 
-        <h1>
+        <h1 className="mb-6 font-display text-[clamp(56px,13vw,220px)] font-black italic uppercase leading-[0.85] tracking-[-0.01em]">
           Una squadra
           <br />
-          <span className="accent">di amici,</span>
+          <span className="text-accent">di amici,</span>
           <br />
-          <span className="outline">a Teramo.</span>
+          <span className="text-transparent [-webkit-text-stroke:2px_var(--tbe-paper)]">
+            a Teramo.
+          </span>
         </h1>
 
-        <div className="hero-sub">
-          <p>
+        <div className="mt-8 grid items-end gap-10 min-[801px]:grid-cols-2">
+          <p className="max-w-[46ch] text-[17px] leading-[1.55] opacity-85">
             Una squadra di ciclismo nata a Teramo, ai piedi del Gran Sasso. Un
             gruppo di amici uniti dalla passione per la bici: usciamo insieme
             ogni settimana e ogni tanto partecipiamo a qualche gara. Dal mare
             alla montagna in un&apos;ora di pedalata.
           </p>
-          <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
-            <BtnLink href="/vision" className="btn btn-primary">
-              Scopri la nostra Vision
-            </BtnLink>
-            <BtnLink href="/team" className="btn" arrow={false} style={GLASS_BTN}>
+          <div className="flex flex-wrap gap-4">
+            <BtnLink href="/vision">Scopri la nostra Vision</BtnLink>
+            <BtnLink href="/team" variant="glass" arrow={false}>
               Conosci il team
             </BtnLink>
           </div>
         </div>
       </div>
 
-      <div className="scroll-cue">
+      <div className="absolute bottom-6 left-[var(--gutter)] z-20 flex items-center gap-2.5 font-mono text-[10px] uppercase tracking-[0.25em] text-white/60">
         <span>Scroll</span>
-        <span className="line" />
+        <span className="relative inline-block h-px w-10 overflow-hidden bg-accent after:absolute after:inset-0 after:bg-white/80 after:[animation:scroll-pulse_2.4s_ease-in-out_infinite] after:content-[''] motion-reduce:after:animate-none" />
       </div>
     </header>
   );

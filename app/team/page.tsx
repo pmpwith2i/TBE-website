@@ -20,65 +20,52 @@ export const metadata = pageSeo({
 export default function TeamPage() {
   return (
     <SiteShell theme="dark">
-      {/* HEADER */}
-      <section
-        style={{
-          padding: "180px var(--gutter) 60px",
-          background: "var(--tbe-black)",
-          color: "var(--tbe-paper)",
-        }}
-      >
-        <div className="container">
-          <Eyebrow num="/02" light style={{ marginBottom: 32 }}>
+      <section className="bg-tbe-black px-[var(--gutter)] pb-[60px] pt-[180px] text-tbe-paper">
+        <div className="mx-auto w-full max-w-[var(--maxw)]">
+          <Eyebrow num="/02" light className="mb-8">
             La squadra · Stagione 2026
           </Eyebrow>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1.5fr 1fr",
-              gap: 60,
-              alignItems: "end",
-            }}
-            className="team-head-grid"
-          >
-            <h1
-              className="display"
-              style={{ fontSize: "clamp(60px, 11vw, 180px)", lineHeight: 0.85 }}
-            >
+          <div className="grid items-end gap-[60px] min-[901px]:grid-cols-[1.5fr_1fr]">
+            <h1 className="font-display text-[clamp(60px,11vw,180px)] font-black italic uppercase leading-[0.85] tracking-[-0.01em]">
               Stessa
               <br />
-              <span style={{ color: "var(--accent)" }}>strada.</span>
+              <span className="text-accent">strada.</span>
               <br />
               Stessa <em>maglia</em>.
             </h1>
-            <p className="lede" style={{ opacity: 0.8 }}>
+            <p className="max-w-[60ch] text-[clamp(18px,1.4vw,22px)] leading-[1.5] opacity-80">
               Dai veterani che hanno cominciato negli anni &apos;90 ai
               venti­enni di oggi. Tutti teramani, tutti diversi, tutti con la
               stessa voglia di pedalare insieme.
             </p>
           </div>
-
         </div>
       </section>
 
-      {/* ROSTER GRID */}
-      <section style={{ background: "var(--tbe-black)", paddingBottom: 40 }}>
-        <div className="roster-grid">
+      <section className="bg-tbe-black pb-10">
+        <div className="grid gap-1 bg-tbe-black min-[701px]:grid-cols-2 min-[1001px]:grid-cols-4">
           {RIDERS.map((rider) => (
-            <article className="rider" key={rider.n}>
+            <article
+              className="group relative aspect-[3/4] cursor-pointer overflow-hidden bg-tbe-ink"
+              key={rider.n}
+            >
               <Image
                 src={rider.img}
                 alt={`${rider.first} ${rider.last}`}
                 fill
                 sizes="(max-width: 700px) 50vw, (max-width: 1000px) 33vw, 25vw"
-                style={{ objectFit: "cover" }}
+                className="object-cover brightness-[0.92] contrast-[1.05] grayscale-[0.35] transition-[filter,transform] duration-500 group-hover:scale-[1.04] group-hover:brightness-100 group-hover:contrast-[1.1] group-hover:grayscale-0"
               />
-              <div className="overlay" />
-              <div className="num">#{String(rider.n).padStart(2, "0")}</div>
-              <div className="meta">
-                <div className="role">{rider.town}</div>
-                <div className="name">
-                  {rider.first} <span className="surname">{rider.last}</span>
+              <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,transparent_50%,rgba(0,0,0,0.85)_100%)]" />
+              <div className="absolute right-3.5 top-3.5 font-display text-[32px] font-black italic leading-none text-accent drop-shadow">
+                #{String(rider.n).padStart(2, "0")}
+              </div>
+              <div className="absolute bottom-[18px] left-[18px] right-[18px] text-white">
+                <div className="mb-1.5 font-mono text-[10px] uppercase tracking-[0.2em] opacity-85">
+                  {rider.town}
+                </div>
+                <div className="font-display text-2xl font-extrabold italic uppercase leading-none tracking-[0.01em]">
+                  {rider.first} <span className="text-accent">{rider.last}</span>
                 </div>
               </div>
             </article>
@@ -86,52 +73,37 @@ export default function TeamPage() {
         </div>
       </section>
 
-      {/* STAFF */}
-      <section className="section" style={{ background: "var(--tbe-ink)" }}>
-        <div className="container">
+      <section className="bg-tbe-ink py-[var(--section)]">
+        <div className="mx-auto w-full max-w-[var(--maxw)] px-[var(--gutter)]">
           <SectionLabel light>/03 — Staff</SectionLabel>
-          <h2 className="display display-l" style={{ marginBottom: 56 }}>
+          <h2 className="mb-14 font-display text-[clamp(36px,5vw,76px)] font-black italic uppercase leading-[0.88] tracking-[-0.01em]">
             Chi ci dà
             <br />
-            <span style={{ color: "var(--accent)" }}>una mano.</span>
+            <span className="text-accent">una mano.</span>
           </h2>
 
-          <div className="grid-3">
+          <div className="grid gap-6 min-[901px]:grid-cols-3">
             {STAFF.map((member) => (
               <article
                 key={member.name}
-                style={{
-                  background: "var(--tbe-black)",
-                  padding: 32,
-                  borderTop: "3px solid var(--accent)",
-                }}
+                className="border-t-[3px] border-accent bg-tbe-black p-8"
               >
-                <div
-                  style={{
-                    aspectRatio: "1",
-                    overflow: "hidden",
-                    margin: "-32px -32px 24px",
-                    position: "relative",
-                  }}
-                >
+                <div className="relative -mx-8 -mt-8 mb-6 aspect-square overflow-hidden">
                   <Image
                     src={member.img}
                     alt={member.role}
                     fill
                     sizes="(max-width: 900px) 100vw, 33vw"
-                    style={{
-                      objectFit: "cover",
-                      filter: "grayscale(0.4) contrast(1.1)",
-                    }}
+                    className="object-cover contrast-[1.1] grayscale-[0.4]"
                   />
                 </div>
-                <div className="caption" style={{ color: "var(--accent)" }}>
+                <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-accent">
                   {member.role}
                 </div>
-                <h3 className="display display-m" style={{ margin: "8px 0 16px" }}>
+                <h3 className="mb-4 mt-2 font-display text-[clamp(28px,3.4vw,48px)] font-black italic uppercase leading-[0.88] tracking-[-0.01em]">
                   {member.name}
                 </h3>
-                <p style={{ opacity: 0.75, fontSize: 15 }}>{member.bio}</p>
+                <p className="text-[15px] opacity-75">{member.bio}</p>
               </article>
             ))}
           </div>

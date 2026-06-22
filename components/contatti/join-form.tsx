@@ -1,12 +1,14 @@
 "use client";
 
 import type { FormEvent } from "react";
+import { ButtonArrow } from "@/components/site/buttons";
 
-/**
- * Single contact form for whoever wants to join the team OR become a sponsor —
- * the "Motivo" select routes the request. All copy is inline (it's UI text,
- * not data).
- */
+const fieldClass = "flex flex-col gap-2";
+const labelClass =
+  "font-mono text-[11px] uppercase tracking-[0.2em] text-white/70";
+const inputClass =
+  "border border-white/15 bg-white/5 px-[18px] py-3.5 font-body text-[15px] text-white transition focus:border-accent focus:bg-white/[0.08] focus:outline-none placeholder:text-white/40";
+
 export function JoinForm() {
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -14,57 +16,53 @@ export function JoinForm() {
   }
 
   return (
-    <form
-      style={{ display: "flex", flexDirection: "column", gap: 20 }}
-      onSubmit={handleSubmit}
-    >
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
-        <div className="form-field">
-          <label>Nome</label>
-          <input type="text" placeholder="Mario" required />
+    <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
+      <div className="grid gap-5 min-[701px]:grid-cols-2">
+        <div className={fieldClass}>
+          <label className={labelClass}>Nome</label>
+          <input className={inputClass} type="text" placeholder="Mario" required />
         </div>
-        <div className="form-field">
-          <label>Cognome</label>
-          <input type="text" placeholder="Rossi" required />
+        <div className={fieldClass}>
+          <label className={labelClass}>Cognome</label>
+          <input className={inputClass} type="text" placeholder="Rossi" required />
         </div>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
-        <div className="form-field">
-          <label>Email</label>
-          <input type="email" placeholder="mario@esempio.it" required />
+      <div className="grid gap-5 min-[701px]:grid-cols-2">
+        <div className={fieldClass}>
+          <label className={labelClass}>Email</label>
+          <input
+            className={inputClass}
+            type="email"
+            placeholder="mario@esempio.it"
+            required
+          />
         </div>
-        <div className="form-field">
-          <label>Telefono</label>
-          <input type="tel" placeholder="+39 333 123 4567" />
+        <div className={fieldClass}>
+          <label className={labelClass}>Telefono</label>
+          <input className={inputClass} type="tel" placeholder="+39 333 123 4567" />
         </div>
       </div>
 
-      <div className="form-field">
-        <label>Motivo del contatto</label>
-        <select defaultValue="Voglio unirmi al team" required>
-          <option>Voglio unirmi al team</option>
-          <option>Voglio diventare sponsor</option>
-          <option>Altro</option>
+      <div className={fieldClass}>
+        <label className={labelClass}>Motivo del contatto</label>
+        <select className={inputClass} defaultValue="Voglio unirmi al team" required>
+          <option className="bg-tbe-ink text-white">Voglio unirmi al team</option>
+          <option className="bg-tbe-ink text-white">Voglio diventare sponsor</option>
+          <option className="bg-tbe-ink text-white">Altro</option>
         </select>
       </div>
 
-      <div className="form-field">
-        <label>Messaggio</label>
-        <textarea placeholder="Raccontaci qualcosa di te o della tua azienda." />
+      <div className={fieldClass}>
+        <label className={labelClass}>Messaggio</label>
+        <textarea
+          className={`${inputClass} min-h-[120px] resize-y`}
+          placeholder="Raccontaci qualcosa di te o della tua azienda."
+        />
       </div>
 
-      <div
-        style={{
-          display: "flex",
-          alignItems: "flex-start",
-          gap: 12,
-          fontSize: 13,
-          opacity: 0.75,
-          marginTop: 8,
-        }}
-      >
-        <input type="checkbox" required style={{ marginTop: 4 }} />
+      <div className="mt-2 flex items-start gap-3 text-[13px] leading-normal opacity-75">
+        <input className="mt-1 accent-accent" type="checkbox" required />
         <label>
           Acconsento al trattamento dei dati ai sensi del GDPR per essere
           ricontattato/a.
@@ -73,13 +71,9 @@ export function JoinForm() {
 
       <button
         type="submit"
-        className="btn btn-primary"
-        style={{ alignSelf: "flex-start", marginTop: 16 }}
+        className="group mt-4 inline-flex cursor-pointer items-center gap-2.5 self-start border-0 bg-accent px-8 py-4 font-display text-base font-extrabold italic uppercase tracking-[0.1em] text-tbe-white transition-[background,transform] duration-200 [clip-path:polygon(6%_0,100%_0,94%_100%,0_100%)] hover:translate-x-1 hover:bg-tbe-amber"
       >
-        Invia messaggio{" "}
-        <span className="arrow" aria-hidden>
-          →
-        </span>
+        Invia messaggio <ButtonArrow />
       </button>
     </form>
   );

@@ -1,12 +1,10 @@
 import type { ReactNode } from "react";
 import { Nav } from "./nav";
 import { Footer } from "./footer";
+import { cn } from "@/lib/utils";
 
 /**
- * Wraps a page in the TBE design context: applies the theme to the `.tbe`
- * root (so the bespoke CSS scoping works), renders the fixed nav and the
- * shared footer. Use `navVariant="transparent"` when the nav sits over a
- * full-bleed hero, otherwise it gets a solid dark bar.
+ * Wraps a page in the TBE design context and shared chrome.
  */
 export function SiteShell({
   children,
@@ -18,7 +16,14 @@ export function SiteShell({
   navVariant?: "solid" | "transparent";
 }) {
   return (
-    <div className={theme === "dark" ? "tbe dark" : "tbe"}>
+    <div
+      className={cn(
+        "min-h-screen overflow-x-clip font-body text-[17px] leading-[1.55] antialiased [text-rendering:optimizeLegibility] [&_img]:block [&_img]:max-w-full",
+        theme === "dark"
+          ? "bg-tbe-black text-tbe-paper"
+          : "bg-tbe-paper text-tbe-black"
+      )}
+    >
       <Nav variant={navVariant} />
       {children}
       <Footer />

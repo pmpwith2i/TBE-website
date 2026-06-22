@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { EventRegistrationForm } from "@/components/eventi/event-registration-form";
 import { SiteShell } from "@/components/site/site-shell";
 import { Eyebrow, SectionLabel } from "@/components/site/section-label";
+import { ButtonArrow } from "@/components/site/buttons";
 import { EVENTS, getEventBySlug } from "@/constants/events";
 import { pageSeo } from "@/lib/seo";
 
@@ -45,81 +46,86 @@ export default async function EventDetailPage({ params }: EventPageProps) {
 
   return (
     <SiteShell theme="dark">
-      <section
-        className="event-detail-hero"
-        style={{
-          background: "var(--tbe-black)",
-          color: "var(--tbe-paper)",
-        }}
-      >
-        <div className="container event-detail-hero__grid">
+      <section className="bg-tbe-black pb-[88px] pt-[180px] text-tbe-paper">
+        <div className="mx-auto grid w-full max-w-[var(--maxw)] items-center gap-[clamp(36px,7vw,110px)] px-[var(--gutter)] min-[901px]:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.85fr)]">
           <div>
-            <Eyebrow num="/04" light style={{ marginBottom: 28 }}>
+            <Eyebrow num="/04" light className="mb-7">
               {event.typeLabel}
             </Eyebrow>
-            <h1 className="display event-detail-title">{event.title}</h1>
-            <p className="lede" style={{ marginTop: 28, opacity: 0.82 }}>
+            <h1 className="max-w-[10ch] font-display text-[clamp(52px,9vw,142px)] font-black italic uppercase leading-[0.85] tracking-[-0.01em]">
+              {event.title}
+            </h1>
+            <p className="mt-7 max-w-[60ch] text-[clamp(18px,1.4vw,22px)] leading-[1.5] opacity-80">
               {event.notes}
             </p>
-            <div className="event-detail-actions">
+            <div className="mt-[34px] flex flex-wrap gap-4">
               {event.preRegistration.available ? (
-                <a href="#pre-iscrizione" className="btn btn-primary">
+                <a
+                  href="#pre-iscrizione"
+                  className="group inline-flex cursor-pointer items-center gap-2.5 border-0 bg-accent px-8 py-4 font-display text-base font-extrabold italic uppercase tracking-[0.1em] text-tbe-white transition-[background,transform] duration-200 [clip-path:polygon(6%_0,100%_0,94%_100%,0_100%)] hover:translate-x-1 hover:bg-tbe-amber"
+                >
                   Pre-iscriviti
-                  <span className="arrow" aria-hidden>
-                    →
-                  </span>
+                  <ButtonArrow />
                 </a>
               ) : null}
-              <Link href="/eventi" className="btn btn-ghost">
+              <Link
+                href="/eventi"
+                className="inline-flex items-center border-b-2 border-accent bg-transparent px-0 py-2 font-display text-base font-extrabold italic uppercase tracking-[0.1em] text-current transition-colors hover:text-accent"
+              >
                 Tutti gli eventi
               </Link>
             </div>
           </div>
 
-          <figure className="event-poster">
+          <figure className="m-0 w-[min(100%,460px)] justify-self-start overflow-hidden border border-white/10 bg-tbe-graphite min-[901px]:justify-self-end">
             <Image
               src={event.poster}
               alt={event.posterAlt}
               width={event.posterSize.width}
               height={event.posterSize.height}
               sizes="(max-width: 900px) 82vw, 420px"
+              className="h-auto w-full object-contain"
               priority
             />
           </figure>
         </div>
       </section>
 
-      <section
-        className="section"
-        style={{
-          background: "var(--tbe-ink)",
-          paddingBlock: "clamp(56px, 8vw, 104px)",
-        }}
-      >
-        <div className="container event-detail-info">
+      <section className="bg-tbe-ink py-[clamp(56px,8vw,104px)]">
+        <div className="mx-auto grid w-full max-w-[var(--maxw)] items-start gap-[clamp(36px,7vw,96px)] px-[var(--gutter)] min-[901px]:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
           <div>
             <SectionLabel light>Informazioni</SectionLabel>
-            <dl className="event-facts">
-              <div>
-                <dt>Data</dt>
-                <dd>{event.date.label}</dd>
-              </div>
-              <div>
-                <dt>Luogo</dt>
-                <dd>{event.location}</dd>
-              </div>
-              <div>
-                <dt>Pre-iscrizione</dt>
-                <dd>{event.preRegistration.available ? "Disponibile" : "Non disponibile"}</dd>
-              </div>
+            <dl className="m-0 grid gap-3.5">
+              {[
+                ["Data", event.date.label],
+                ["Luogo", event.location],
+                [
+                  "Pre-iscrizione",
+                  event.preRegistration.available ? "Disponibile" : "Non disponibile",
+                ],
+              ].map(([label, value]) => (
+                <div className="border-t border-white/10 pt-4" key={label}>
+                  <dt className="mb-1.5 block font-mono text-[11px] uppercase tracking-[0.18em] text-white/60">
+                    {label}
+                  </dt>
+                  <dd className="m-0 block font-display text-[clamp(22px,3vw,34px)] font-extrabold italic uppercase leading-none">
+                    {value}
+                  </dd>
+                </div>
+              ))}
             </dl>
           </div>
 
           <div>
             <SectionLabel light>Premi</SectionLabel>
-            <ul className="event-awards">
+            <ul className="m-0 grid list-none gap-3 p-0">
               {event.awards.map((award) => (
-                <li key={award}>{award}</li>
+                <li
+                  className="relative border border-white/10 bg-white/5 py-[18px] pl-12 pr-[18px] text-base before:absolute before:left-5 before:top-[25px] before:size-2.5 before:bg-accent before:content-['']"
+                  key={award}
+                >
+                  {award}
+                </li>
               ))}
             </ul>
           </div>
@@ -128,21 +134,17 @@ export default async function EventDetailPage({ params }: EventPageProps) {
 
       <section
         id="pre-iscrizione"
-        className="section"
-        style={{
-          background: "var(--tbe-black)",
-          paddingBlock: "clamp(56px, 8vw, 110px)",
-        }}
+        className="bg-tbe-black py-[clamp(56px,8vw,110px)]"
       >
-        <div className="container event-registration-section">
+        <div className="mx-auto grid w-full max-w-[var(--maxw)] items-start gap-[clamp(36px,7vw,96px)] px-[var(--gutter)] min-[901px]:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
           <div>
             <SectionLabel light>Pre-iscrizione</SectionLabel>
-            <h2 className="display display-l" style={{ marginBottom: 22 }}>
+            <h2 className="mb-[22px] font-display text-[clamp(36px,5vw,76px)] font-black italic uppercase leading-[0.88] tracking-[-0.01em]">
               Lascia i tuoi
               <br />
-              <span style={{ color: "var(--accent)" }}>dati.</span>
+              <span className="text-accent">dati.</span>
             </h2>
-            <p className="lede" style={{ opacity: 0.82, maxWidth: "42ch" }}>
+            <p className="max-w-[42ch] text-[clamp(18px,1.4vw,22px)] leading-[1.5] opacity-80">
               I campi extra del form sono specifici di questo evento e si
               modificano dal file di costanti.
             </p>

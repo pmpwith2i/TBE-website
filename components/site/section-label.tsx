@@ -1,42 +1,49 @@
-/**
- * The "— /02 — Chi siamo" style label with the red bar, used to head
- * most sections. On dark pages pass `light` so the text reads correctly.
- */
+import { cn } from "@/lib/utils";
+
 export function SectionLabel({
   children,
   light = false,
+  className,
 }: {
   children: React.ReactNode;
   light?: boolean;
+  className?: string;
 }) {
   return (
-    <div className="section-label">
-      <span className="bar" />
-      <span style={light ? { color: "rgba(255,255,255,0.7)" } : undefined}>
-        {children}
-      </span>
+    <div
+      className={cn(
+        "mb-[18px] flex items-baseline gap-3.5 font-mono text-xs uppercase tracking-[0.22em] text-tbe-smoke",
+        light && "text-white/70",
+        className
+      )}
+    >
+      <span className="-translate-y-[3px] h-0.5 w-16 shrink-0 bg-accent" />
+      <span>{children}</span>
     </div>
   );
 }
 
-/** The "/01 — Teramo" eyebrow with the numbered prefix. */
 export function Eyebrow({
   num,
   children,
   light = false,
-  style,
+  className,
 }: {
   num?: string;
   children: React.ReactNode;
   light?: boolean;
-  style?: React.CSSProperties;
+  className?: string;
 }) {
   return (
     <div
-      className="eyebrow"
-      style={{ ...(light ? { color: "rgba(255,255,255,0.7)" } : {}), ...style }}
+      className={cn(
+        "inline-flex items-center gap-2.5 font-mono text-xs uppercase tracking-[0.22em] text-tbe-smoke before:h-px before:w-8 before:bg-accent before:content-['']",
+        light && "text-white/70",
+        className
+      )}
     >
-      {num ? <span className="num">{num}</span> : null} {children}
+      {num ? <span className="font-bold text-accent">{num}</span> : null}
+      {children}
     </div>
   );
 }
