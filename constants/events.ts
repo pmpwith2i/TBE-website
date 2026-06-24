@@ -163,7 +163,7 @@ export const EVENTS = [
           type: "select",
           required: true,
           placeholder: "Seleziona un percorso",
-          options: ["Percorso corto", "Percorso lungo"],
+          options: ["Percorso soft", "Percorso hard"],
         },
         {
           id: "societa",

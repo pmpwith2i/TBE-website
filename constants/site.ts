@@ -39,7 +39,6 @@ export const SITE = {
     wordmark: "/assets/logo-wordmark.png",
   },
   copyright: "© 2026 Teramo Bike Experience · Tutti i diritti riservati",
-  madeWith: "Made with ☕ a Teramo",
 } as const;
 
 /** Primary navigation, in display order. */

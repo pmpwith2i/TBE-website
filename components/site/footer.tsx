@@ -62,7 +62,6 @@ export function Footer() {
 
       <div className="mx-auto flex max-w-[var(--maxw)] flex-col gap-2 pt-6 font-mono text-[11px] uppercase tracking-[0.15em] opacity-50 min-[801px]:flex-row min-[801px]:justify-between">
         <div>{SITE.copyright}</div>
-        <div>{SITE.madeWith}</div>
       </div>
     </footer>
   );
