@@ -715,7 +715,7 @@ export function EventRoutesViewer({ routes }: { routes: readonly EventRoute[] })
         })}
 
         <a
-          className="ml-auto inline-flex items-center bg-white px-4 py-2.5 font-display text-sm font-extrabold italic uppercase tracking-[0.1em] text-tbe-red transition hover:bg-tbe-paper"
+          className="ml-auto inline-flex items-center px-4 py-2.5 font-display text-sm font-extrabold italic uppercase tracking-[0.1em] text-tbe-red! transition hover:bg-tbe-paper"
           href={selectedRoute.gpxUrl}
           download
         >

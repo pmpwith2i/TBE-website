@@ -186,8 +186,8 @@ export const EVENTS = [
     title: "Cronoscalata Teramo Bike Experience",
     date: {
       label: "Data in definizione",
-      dayLabel: "TBD",
-      monthLabel: "2026",
+      dayLabel: "5",
+      monthLabel: "Giugno 2026",
     },
     location: "Teramo",
     poster: "/assets/cronoscalata.jpg",
