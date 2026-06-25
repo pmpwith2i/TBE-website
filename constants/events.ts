@@ -288,7 +288,8 @@ export const EVENTS = [
         name: "Roiano - Rifugio delle Aquile",
         description:
           "Cronoscalata da Roiano di Campli al Rifugio delle Aquile, con vista mare e Gran Sasso.",
-        gpxUrl: "/assets/tracciati/cronoscalata_05_07_26.gpx",
+        gpxStatusLabel:
+          "GPX in arrivo: il file sara pubblicato appena disponibile.",
       },
     ],
     routeSection: {
