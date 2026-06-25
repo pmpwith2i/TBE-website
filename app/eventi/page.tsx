@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { SiteShell } from "@/components/site/site-shell";
 import { pageSeo } from "@/lib/seo";
@@ -7,10 +6,7 @@ import { BtnLink, ButtonArrow } from "@/components/site/buttons";
 import { EventMainSponsor } from "@/components/eventi/event-main-sponsor";
 import {
   EVENTS,
-  FEATURED_EVENT,
-  getEventFeeSummary,
   getEventRegistrationCtaLabel,
-  getEventScheduleSummary,
   hasEventRegistration,
 } from "@/constants/events";
 
@@ -27,10 +23,11 @@ export const metadata = pageSeo({
   ],
 });
 
-export default function EventiPage() {
-  const featuredFeeSummary = getEventFeeSummary(FEATURED_EVENT);
-  const featuredScheduleSummary = getEventScheduleSummary(FEATURED_EVENT);
+const CHRONOLOGICAL_EVENTS = [...EVENTS].sort((a, b) =>
+  (a.date.iso ?? "9999-12-31").localeCompare(b.date.iso ?? "9999-12-31")
+);
 
+export default function EventiPage() {
   return (
     <SiteShell theme="dark">
       <section className="bg-tbe-black px-[var(--gutter)] pb-20 pt-[180px] text-tbe-paper">
@@ -43,85 +40,11 @@ export default function EventiPage() {
         </div>
       </section>
 
-      <section className="bg-tbe-black pb-[var(--section)]">
-        <div className="mx-auto w-full max-w-[var(--maxw)] px-[var(--gutter)]">
-          <SectionLabel light>In evidenza</SectionLabel>
-          <Link
-            href={`/eventi/${FEATURED_EVENT.slug}`}
-            className="group relative mt-8 block overflow-hidden bg-tbe-red-deep text-white transition-transform duration-300 hover:-translate-y-1"
-          >
-            <div className="absolute inset-0 bg-[linear-gradient(115deg,var(--tbe-red-deep)_0%,rgba(74,4,16,0.78)_45%,rgba(74,4,16,0.4)_100%)]" />
-            <div className="relative grid items-center gap-[clamp(32px,5vw,72px)] p-[clamp(40px,6vw,80px)] min-[801px]:grid-cols-[minmax(0,1fr)_minmax(240px,380px)]">
-              <div>
-                <span className="inline-flex items-center gap-2 bg-white px-3.5 py-1.5 font-display text-xs font-black italic uppercase tracking-[0.15em] text-tbe-red">
-                  {hasEventRegistration(FEATURED_EVENT) ? (
-                    <span className="size-2 rounded-full bg-tbe-red [animation:pulse_1.6s_ease-in-out_infinite] motion-reduce:animate-none" aria-hidden />
-                  ) : null}
-                  {hasEventRegistration(FEATURED_EVENT)
-                    ? "Iscrizioni aperte"
-                    : "In preparazione"}
-                </span>
-                <h2 className="mb-5 mt-7 font-display text-[clamp(48px,8vw,120px)] font-black italic uppercase leading-[0.88] tracking-[-0.01em]">
-                  {FEATURED_EVENT.title}
-                </h2>
-                {FEATURED_EVENT.mainSponsor ? (
-                  <EventMainSponsor
-                    sponsor={FEATURED_EVENT.mainSponsor}
-                    className="mb-7"
-                  />
-                ) : null}
-                <p className="mb-7 max-w-[60ch] text-[clamp(18px,1.4vw,22px)] leading-[1.5] opacity-85">
-                  {FEATURED_EVENT.notes}
-                </p>
-                <div className="mb-7 grid max-w-[640px] gap-3">
-                  {[
-                    ["Data", FEATURED_EVENT.date.label],
-                    ["Tipo", FEATURED_EVENT.typeLabel],
-                    ...(featuredScheduleSummary
-                      ? [["Programma", featuredScheduleSummary]]
-                      : []),
-                    ...(featuredFeeSummary
-                      ? [["Quote", featuredFeeSummary]]
-                      : []),
-                    ["Premi", `${FEATURED_EVENT.awards.length} voci`],
-                  ].map(([label, value]) => (
-                    <div className="bg-tbe-black/40 px-5 py-[18px]" key={label}>
-                      <span className="mb-1.5 block font-mono text-[11px] uppercase tracking-[0.18em] text-white/60">
-                        {label}
-                      </span>
-                      <strong className="block font-display text-[clamp(22px,3vw,34px)] font-extrabold italic uppercase leading-none">
-                        {value}
-                      </strong>
-                    </div>
-                  ))}
-                </div>
-                <span className="inline-flex items-center gap-2.5 bg-accent px-8 py-4 font-display text-base font-extrabold italic uppercase tracking-[0.1em] text-tbe-white transition-[background,transform] duration-200 [clip-path:polygon(6%_0,100%_0,94%_100%,0_100%)] group-hover:translate-x-1 group-hover:bg-tbe-amber">
-                  Vai all&apos;evento
-                  <ButtonArrow />
-                </span>
-              </div>
-
-              <figure className="m-0 w-[min(100%,380px)] justify-self-start min-[801px]:justify-self-end">
-                <Image
-                  src={FEATURED_EVENT.poster}
-                  alt={FEATURED_EVENT.posterAlt}
-                  width={FEATURED_EVENT.posterSize.width}
-                  height={FEATURED_EVENT.posterSize.height}
-                  sizes="(max-width: 800px) 82vw, 360px"
-                  className="h-auto w-full object-contain"
-                  priority
-                />
-              </figure>
-            </div>
-          </Link>
-        </div>
-      </section>
-
       <section className="bg-tbe-ink py-[clamp(60px,8vw,100px)]">
         <div className="mx-auto w-full max-w-[var(--maxw)] px-[var(--gutter)]">
           <SectionLabel light>Calendario</SectionLabel>
           <div>
-            {EVENTS.map((event) => (
+            {CHRONOLOGICAL_EVENTS.map((event) => (
               <Link
                 key={event.slug}
                 href={`/eventi/${event.slug}`}

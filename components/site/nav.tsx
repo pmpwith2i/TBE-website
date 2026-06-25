@@ -72,7 +72,7 @@ export function Nav({
     <>
       <nav
         className={cn(
-          "fixed inset-x-0 top-0 z-[100] flex items-center justify-between gap-6 border-b border-black/10 bg-tbe-paper/92 px-[var(--gutter)] py-[18px] text-tbe-black shadow-[0_18px_42px_-34px_rgba(10,10,10,0.45)] backdrop-blur-md transition-[background,color,padding,box-shadow] duration-300",
+          "fixed inset-x-0 top-0 z-[10000] flex items-center justify-between gap-6 border-b border-black/10 bg-tbe-paper/92 px-[var(--gutter)] py-[18px] text-tbe-black shadow-[0_18px_42px_-34px_rgba(10,10,10,0.45)] backdrop-blur-md transition-[background,color,padding,box-shadow] duration-300",
           variant === "transparent" &&
             !scrolled &&
             "bg-tbe-paper/86 shadow-[0_16px_36px_-34px_rgba(10,10,10,0.35)]",
