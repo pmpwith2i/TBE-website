@@ -106,6 +106,44 @@ function CustomField({ field }: { field: EventCustomField }) {
 }
 
 export function EventRegistrationForm({ event }: { event: BikeEvent }) {
+  if (event.preRegistration.externalUrl) {
+    return <ExternalRegistrationCard event={event} />;
+  }
+
+  return <NativeEventRegistrationForm event={event} />;
+}
+
+function ExternalRegistrationCard({ event }: { event: BikeEvent }) {
+  const { externalUrl, externalCtaLabel, formTitle, intro } =
+    event.preRegistration;
+
+  if (!externalUrl) {
+    return null;
+  }
+
+  return (
+    <div className="flex flex-col gap-6 border border-white/10 bg-tbe-ink p-[clamp(24px,4vw,40px)]">
+      <div>
+        <h2 className="font-display text-[clamp(28px,3.4vw,48px)] font-black italic uppercase leading-[0.88] tracking-[-0.01em]">
+          {formTitle}
+        </h2>
+        <p className="mt-2.5 text-white/75">{intro}</p>
+      </div>
+
+      <a
+        href={externalUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group inline-flex cursor-pointer items-center gap-2.5 self-start border-0 bg-accent px-8 py-4 font-display text-base font-extrabold italic uppercase tracking-[0.1em] text-tbe-white transition-[background,transform] duration-200 [clip-path:polygon(6%_0,100%_0,94%_100%,0_100%)] hover:translate-x-1 hover:bg-tbe-amber"
+      >
+        {externalCtaLabel ?? "Vai all'iscrizione"}
+        <ButtonArrow />
+      </a>
+    </div>
+  );
+}
+
+function NativeEventRegistrationForm({ event }: { event: BikeEvent }) {
   const [state, formAction, pending] = useActionState(
     submitEventPreRegistration,
     INITIAL_STATE

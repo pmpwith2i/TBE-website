@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { BtnLink } from "@/components/site/buttons";
 import { Eyebrow } from "@/components/site/section-label";
 
 export function HomeHero() {

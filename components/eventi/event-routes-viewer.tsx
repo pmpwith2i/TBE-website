@@ -451,14 +451,27 @@ export function EventRoutesViewer({ routes }: { routes: readonly EventRoute[] })
   );
 
   const activeData = useMemo<ActiveRouteData>(
-    () =>
-      routeData.status !== "idle" && routeData.routeId === selectedRoute?.id
-        ? routeData
-        : {
-            status: "loading",
-            message: "Caricamento tracciato GPX...",
-          },
-    [routeData, selectedRoute?.id],
+    () => {
+      if (selectedRoute && !selectedRoute.gpxUrl) {
+        return {
+          status: "error",
+          routeId: selectedRoute.id,
+          message:
+            selectedRoute.gpxStatusLabel ??
+            "GPX in fase di pubblicazione. Torna su questa pagina appena il file sara disponibile.",
+        };
+      }
+
+      if (routeData.status !== "idle" && routeData.routeId === selectedRoute?.id) {
+        return routeData;
+      }
+
+      return {
+        status: "loading",
+        message: "Caricamento tracciato GPX...",
+      };
+    },
+    [routeData, selectedRoute],
   );
 
   useEffect(() => {
@@ -516,9 +529,15 @@ export function EventRoutesViewer({ routes }: { routes: readonly EventRoute[] })
       return;
     }
 
+    const { gpxUrl } = selectedRoute;
+
+    if (!gpxUrl) {
+      return;
+    }
+
     const controller = new AbortController();
 
-    fetch(selectedRoute.gpxUrl, { signal: controller.signal })
+    fetch(gpxUrl, { signal: controller.signal })
       .then((response) => {
         if (!response.ok) {
           throw new Error("missing");
@@ -714,13 +733,19 @@ export function EventRoutesViewer({ routes }: { routes: readonly EventRoute[] })
           );
         })}
 
-        <a
-          className="ml-auto inline-flex items-center px-4 py-2.5 font-display text-sm font-extrabold italic uppercase tracking-[0.1em] text-tbe-red! transition hover:bg-tbe-paper"
-          href={selectedRoute.gpxUrl}
-          download
-        >
-          Scarica GPX
-        </a>
+        {selectedRoute.gpxUrl ? (
+          <a
+            className="ml-auto inline-flex items-center px-4 py-2.5 font-display text-sm font-extrabold italic uppercase tracking-[0.1em] text-tbe-red! transition hover:bg-tbe-paper"
+            href={selectedRoute.gpxUrl}
+            download
+          >
+            Scarica GPX
+          </a>
+        ) : (
+          <span className="ml-auto px-4 py-2.5 font-display text-sm font-extrabold italic uppercase tracking-[0.1em] text-white/45">
+            GPX in arrivo
+          </span>
+        )}
       </div>
 
       <div className="grid min-[1001px]:grid-cols-[minmax(0,1fr)_320px]">
@@ -790,7 +815,7 @@ export function EventRoutesViewer({ routes }: { routes: readonly EventRoute[] })
               File
             </dt>
             <dd className="mt-2 break-all text-xs leading-relaxed text-white/70">
-              {selectedRoute.gpxUrl}
+              {selectedRoute.gpxUrl ?? "GPX in fase di pubblicazione"}
             </dd>
           </div>
         </aside>

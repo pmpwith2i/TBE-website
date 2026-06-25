@@ -5,12 +5,19 @@ import { pageSeo } from "@/lib/seo";
 import { SectionLabel } from "@/components/site/section-label";
 import { BtnLink, ButtonArrow } from "@/components/site/buttons";
 import { EventMainSponsor } from "@/components/eventi/event-main-sponsor";
-import { EVENTS, FEATURED_EVENT } from "@/constants/events";
+import {
+  EVENTS,
+  FEATURED_EVENT,
+  getEventFeeSummary,
+  getEventRegistrationCtaLabel,
+  getEventScheduleSummary,
+  hasEventRegistration,
+} from "@/constants/events";
 
 export const metadata = pageSeo({
-  title: "Eventi e pre-iscrizioni",
+  title: "Eventi e iscrizioni",
   description:
-    "Gli eventi di Teramo Bike Experience: cicloturistica, cronoscalata, locandine, premi, note e pre-iscrizioni quando disponibili.",
+    "Gli eventi di Teramo Bike Experience: cicloturistica, cronoscalata, programmi, quote, tracciati, premi e iscrizioni.",
   path: "/eventi",
   keywords: [
     "eventi ciclismo Teramo",
@@ -21,6 +28,9 @@ export const metadata = pageSeo({
 });
 
 export default function EventiPage() {
+  const featuredFeeSummary = getEventFeeSummary(FEATURED_EVENT);
+  const featuredScheduleSummary = getEventScheduleSummary(FEATURED_EVENT);
+
   return (
     <SiteShell theme="dark">
       <section className="bg-tbe-black px-[var(--gutter)] pb-20 pt-[180px] text-tbe-paper">
@@ -44,11 +54,11 @@ export default function EventiPage() {
             <div className="relative grid items-center gap-[clamp(32px,5vw,72px)] p-[clamp(40px,6vw,80px)] min-[801px]:grid-cols-[minmax(0,1fr)_minmax(240px,380px)]">
               <div>
                 <span className="inline-flex items-center gap-2 bg-white px-3.5 py-1.5 font-display text-xs font-black italic uppercase tracking-[0.15em] text-tbe-red">
-                  {FEATURED_EVENT.preRegistration.available ? (
+                  {hasEventRegistration(FEATURED_EVENT) ? (
                     <span className="size-2 rounded-full bg-tbe-red [animation:pulse_1.6s_ease-in-out_infinite] motion-reduce:animate-none" aria-hidden />
                   ) : null}
-                  {FEATURED_EVENT.preRegistration.available
-                    ? "Pre-iscrizioni aperte"
+                  {hasEventRegistration(FEATURED_EVENT)
+                    ? "Iscrizioni aperte"
                     : "In preparazione"}
                 </span>
                 <h2 className="mb-5 mt-7 font-display text-[clamp(48px,8vw,120px)] font-black italic uppercase leading-[0.88] tracking-[-0.01em]">
@@ -67,8 +77,11 @@ export default function EventiPage() {
                   {[
                     ["Data", FEATURED_EVENT.date.label],
                     ["Tipo", FEATURED_EVENT.typeLabel],
-                    ...(FEATURED_EVENT.registrationFee
-                      ? [["Quota", FEATURED_EVENT.registrationFee.amount]]
+                    ...(featuredScheduleSummary
+                      ? [["Programma", featuredScheduleSummary]]
+                      : []),
+                    ...(featuredFeeSummary
+                      ? [["Quote", featuredFeeSummary]]
                       : []),
                     ["Premi", `${FEATURED_EVENT.awards.length} voci`],
                   ].map(([label, value]) => (
@@ -144,7 +157,9 @@ export default function EventiPage() {
                   {event.location}
                 </div>
                 <div className="flex items-center justify-end gap-2 text-right font-display text-[13px] font-extrabold italic uppercase tracking-[0.1em] text-accent transition-colors group-hover:text-white max-[900px]:col-start-2 max-[900px]:justify-start">
-                  {event.preRegistration.available ? "Pre-iscriviti" : "Dettagli"}
+                  {hasEventRegistration(event)
+                    ? getEventRegistrationCtaLabel(event)
+                    : "Dettagli"}
                   <ButtonArrow />
                 </div>
               </Link>

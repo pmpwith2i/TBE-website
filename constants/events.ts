@@ -1,5 +1,5 @@
 /**
- * Events DATA only — posters, dates, awards, notes and preregistration setup.
+ * Events DATA only — posters, dates, awards, notes and registration setup.
  * Page copy and layout live in `app/eventi`.
  */
 
@@ -37,8 +37,27 @@ export interface EventDate {
   monthLabel: string;
 }
 
+export interface EventScheduleItem {
+  time?: string;
+  title: string;
+  detail?: string;
+}
+
+export interface EventFee {
+  label: string;
+  amount: string;
+  detail?: string;
+}
+
+export interface EventInfoGroup {
+  title: string;
+  items: readonly string[];
+}
+
 export interface EventPreRegistration {
   available: boolean;
+  externalUrl?: string;
+  externalCtaLabel?: string;
   formTitle: string;
   intro: string;
   closedMessage: string;
@@ -60,13 +79,15 @@ export interface EventRoute {
   id: string;
   name: string;
   description: string;
-  gpxUrl: string;
+  gpxUrl?: string;
+  gpxStatusLabel?: string;
 }
 
-export interface EventRegistrationFee {
+export interface EventRouteSection {
   label: string;
-  amount: string;
-  benefits: readonly string[];
+  title: string;
+  accent: string;
+  intro: string;
 }
 
 export interface BikeEvent {
@@ -83,41 +104,73 @@ export interface BikeEvent {
   };
   posterAlt: string;
   mainSponsor?: EventSponsor;
+  schedule: readonly EventScheduleItem[];
+  fees: readonly EventFee[];
   routes: readonly EventRoute[];
-  registrationFee?: EventRegistrationFee;
+  routeSection?: EventRouteSection;
+  infoGroups: readonly EventInfoGroup[];
   awards: readonly string[];
   notes: string;
   preRegistration: EventPreRegistration;
 }
+
+export const DI_MATTIA_FIORE_SPONSOR = {
+  name: "Di Mattia Fiore",
+  detail: "Impresa di Costruzioni",
+  logo: "/assets/sponsors/di_mattia_fiore.png",
+  logoSize: {
+    width: 510,
+    height: 167,
+  },
+  logoAlt: "Logo Di Mattia Fiore",
+} as const satisfies EventSponsor;
 
 export const EVENTS = [
   {
     slug: "cicloturistica",
     kind: "cicloturistica",
     typeLabel: "Cicloturistica",
-    title: "Prima Cicloturistica Di Garrano",
+    title: "Cicloturistica di Garrano",
     date: {
-      label: "Sabato 4 Giugno 2026",
+      iso: "2026-07-04",
+      label: "Sabato 4 luglio 2026",
       dayLabel: "4",
-      monthLabel: "Giugno 2026",
+      monthLabel: "Luglio 2026",
     },
-    location: "Teramo",
+    location: "Garrano Basso (TE)",
     poster: "/assets/cicloturistica.jpg",
     posterSize: {
       width: 3508,
       height: 4961,
     },
     posterAlt: "Ciclisti in uscita al tramonto sulle strade del teramano",
-    mainSponsor: {
-      name: "Di Mattia Fiore",
-      detail: "Impresa di Costruzioni",
-      logo: "/assets/sponsors/di_mattia_fiore.png",
-      logoSize: {
-        width: 510,
-        height: 167,
+    mainSponsor: DI_MATTIA_FIORE_SPONSOR,
+    schedule: [
+      {
+        time: "08.00",
+        title: "Iscrizioni e ritrovo",
+        detail: "Via Nazionale, Garrano Basso (TE)",
       },
-      logoAlt: "Logo Di Mattia Fiore",
-    },
+      {
+        time: "09.00",
+        title: "Partenza",
+        detail: "Via Nazionale, Garrano Basso (TE)",
+      },
+    ],
+    fees: [
+      {
+        label: "Tesserati",
+        amount: "20€",
+      },
+      {
+        label: "Non tesserati",
+        amount: "25€",
+      },
+      {
+        label: "Solo pranzo",
+        amount: "10€",
+      },
+    ],
     routes: [
       {
         id: "soft",
@@ -134,47 +187,70 @@ export const EVENTS = [
         gpxUrl: "/assets/tracciati/cicloturistica_04_06_26_hard.gpx",
       },
     ],
-    registrationFee: {
-      label: "Quota di iscrizione",
-      amount: "20€",
-      benefits: [
-        "PACCO GARA PER I PRIMI 50 iscritti",
-        "RISTORO PRESSO IL RIFUGIO FRATTA MONTANARA",
-        "RISTORO finale PRESSo partenza/arrivo",
-      ],
+    routeSection: {
+      label: "Tracciati",
+      title: "Scegli il",
+      accent: "percorso.",
+      intro:
+        "Percorso soft e hard sono disponibili in GPX per preparare la giornata e scegliere il passo giusto.",
     },
-    awards: [
-      "Premio al gruppo piu numeroso",
-      "Premio al partecipante piu giovane",
-      "Premio al partecipante piu esperto",
+    infoGroups: [
+      {
+        title: "Logistica",
+        items: [
+          "Parcheggio disponibile in zona partenza.",
+          "Ristoro presso il Rifugio Fratta Montanara.",
+          "Ristoro finale presso partenza/arrivo.",
+        ],
+      },
+      {
+        title: "Partecipazione",
+        items: ["Casco obbligatorio.", "Ammesse MTB, E-bike e gravel."],
+      },
+      {
+        title: "Pacco gara",
+        items: ["Pacco gara per i primi 50 iscritti."],
+      },
     ],
+    awards: ["Premio per la squadra piu numerosa"],
     notes:
-      "Evento non competitivo aperto al territorio. Percorso, ritrovo e dettagli logistici saranno aggiornati appena definitivi.",
+      "Cicloturistica non competitiva a Garrano Basso con percorsi soft e hard, ristoro in quota al Rifugio Fratta Montanara e ristoro finale in zona partenza/arrivo.",
     preRegistration: {
       available: true,
       formTitle: "Pre-iscriviti alla cicloturistica",
       intro:
-        "Lasciaci i tuoi dati: ti ricontattiamo con conferma, ritrovo e dettagli sul percorso.",
+        "Pre-iscriviti dal sito: raccogliamo i dati principali per confermare percorso, quota e partecipazione al pranzo.",
       closedMessage: "Le pre-iscrizioni non sono ancora aperte.",
       customFields: [
+        {
+          id: "tipologia_iscrizione",
+          label: "Tipologia iscrizione",
+          type: "select",
+          required: true,
+          placeholder: "Seleziona la quota",
+          options: ["Tesserati - 20€", "Non tesserati - 25€", "Solo pranzo - 10€"],
+        },
         {
           id: "percorso",
           label: "Percorso preferito",
           type: "select",
           required: true,
           placeholder: "Seleziona un percorso",
-          options: ["Percorso soft", "Percorso hard"],
+          options: ["Percorso soft", "Percorso hard", "Solo pranzo"],
+        },
+        {
+          id: "mezzo",
+          label: "Mezzo",
+          type: "select",
+          required: true,
+          placeholder: "Seleziona il mezzo",
+          options: ["MTB", "E-bike", "Gravel", "Solo pranzo"],
         },
         {
           id: "societa",
           label: "Societa o gruppo",
           type: "text",
           placeholder: "Facoltativo",
-        },
-        {
-          id: "tesserato",
-          label: "Sono tesserato FCI, CSI o altro ente",
-          type: "checkbox",
         },
       ],
     },
@@ -185,51 +261,74 @@ export const EVENTS = [
     typeLabel: "Cronoscalata",
     title: "Cronoscalata Teramo Bike Experience",
     date: {
-      label: "Data in definizione",
+      iso: "2026-07-05",
+      label: "Domenica 5 luglio 2026",
       dayLabel: "5",
-      monthLabel: "Giugno 2026",
+      monthLabel: "Luglio 2026",
     },
-    location: "Teramo",
+    location: "Roiano di Campli (TE)",
     poster: "/assets/cronoscalata.jpg",
     posterSize: {
       width: 2100,
       height: 2800,
     },
     posterAlt: "Ciclista in salita durante una cronoscalata",
-    mainSponsor: undefined,
-    routes: [],
-    registrationFee: undefined,
-    awards: [
-      "Premio assoluto uomo",
-      "Premio assoluto donna",
-      "Premi di categoria",
+    mainSponsor: DI_MATTIA_FIORE_SPONSOR,
+    schedule: [
+      {
+        time: "08.30",
+        title: "Partenza",
+        detail: "Roiano di Campli (TE)",
+      },
     ],
+    fees: [],
+    routes: [
+      {
+        id: "roiano-rifugio-aquile",
+        name: "Roiano - Rifugio delle Aquile",
+        description:
+          "Cronoscalata da Roiano di Campli al Rifugio delle Aquile, con vista mare e Gran Sasso.",
+        gpxStatusLabel:
+          "GPX in arrivo: il file sara pubblicato appena disponibile.",
+      },
+    ],
+    routeSection: {
+      label: "Tracciato gara",
+      title: "Roiano",
+      accent: "Rifugio delle Aquile.",
+      intro:
+        "La cronoscalata sale da Roiano al Rifugio delle Aquile, con vista aperta verso mare e Gran Sasso.",
+    },
+    infoGroups: [
+      {
+        title: "Percorso",
+        items: [
+          "Da Roiano di Campli al Rifugio delle Aquile.",
+          "Vista mare e Gran Sasso lungo l'arrivo in quota.",
+          "File GPX in fase di pubblicazione.",
+        ],
+      },
+      {
+        title: "Iscrizione",
+        items: [
+          "Iscrizioni gestite dalla piattaforma Kronos Teramo.",
+          "Il pulsante iscrizione apre la scheda ufficiale della cronoscalata.",
+        ],
+      },
+    ],
+    awards: ["Premiati i primi 3 di ogni categoria"],
     notes:
-      "Evento competitivo in preparazione. Regolamento, categorie, percorso e modalita di partenza saranno pubblicati appena confermati.",
+      "Cronoscalata competitiva da Roiano di Campli al Rifugio delle Aquile, con arrivo panoramico tra vista mare e Gran Sasso.",
     preRegistration: {
       available: false,
-      formTitle: "Pre-iscriviti alla cronoscalata",
+      externalUrl: "https://www.kronosteramo.it/cronoscalata/iscrizione.aspx",
+      externalCtaLabel: "Iscriviti su Kronos",
+      formTitle: "Iscriviti alla cronoscalata",
       intro:
-        "Quando le pre-iscrizioni apriranno, useremo questi campi per raccogliere i dati sportivi necessari.",
+        "Completa l'iscrizione sulla piattaforma Kronos Teramo: il link apre la scheda ufficiale della cronoscalata.",
       closedMessage:
-        "Le pre-iscrizioni apriranno dopo la pubblicazione del regolamento.",
-      customFields: [
-        {
-          id: "categoria",
-          label: "Categoria",
-          type: "select",
-          required: true,
-          placeholder: "Seleziona la categoria",
-          options: ["Elite Sport", "M1-M2", "M3-M4", "M5-M6", "Donne", "E-bike"],
-        },
-        {
-          id: "numero_tessera",
-          label: "Numero tessera",
-          type: "text",
-          required: true,
-          placeholder: "FCI, CSI o altro ente",
-        },
-      ],
+        "Le iscrizioni alla cronoscalata sono gestite sulla piattaforma Kronos Teramo.",
+      customFields: [],
     },
   },
 ] as const satisfies readonly BikeEvent[];
@@ -240,4 +339,34 @@ export const FEATURED_EVENT = EVENTS[0];
 
 export function getEventBySlug(slug: string): BikeEvent | undefined {
   return EVENTS.find((event) => event.slug === slug);
+}
+
+export function hasEventRegistration(event: BikeEvent) {
+  return (
+    event.preRegistration.available || Boolean(event.preRegistration.externalUrl)
+  );
+}
+
+export function getEventRegistrationCtaLabel(event: BikeEvent) {
+  return event.preRegistration.externalCtaLabel ?? "Pre-iscriviti";
+}
+
+export function getEventFeeSummary(event: BikeEvent) {
+  if (event.fees.length === 0) {
+    return undefined;
+  }
+
+  return event.fees
+    .map((fee) => `${fee.amount} ${fee.label.toLowerCase()}`)
+    .join(" / ");
+}
+
+export function getEventScheduleSummary(event: BikeEvent) {
+  const firstItem = event.schedule[0];
+
+  if (!firstItem) {
+    return undefined;
+  }
+
+  return [firstItem.time, firstItem.title].filter(Boolean).join(" - ");
 }

@@ -7,7 +7,16 @@ import { EventRoutesViewer } from "@/components/eventi/event-routes-viewer";
 import { SiteShell } from "@/components/site/site-shell";
 import { Eyebrow, SectionLabel } from "@/components/site/section-label";
 import { ButtonArrow } from "@/components/site/buttons";
-import { EVENTS, getEventBySlug } from "@/constants/events";
+import {
+  EVENTS,
+  getEventFeeSummary,
+  getEventRegistrationCtaLabel,
+  getEventBySlug,
+  hasEventRegistration,
+  type EventFee,
+  type EventInfoGroup,
+  type EventScheduleItem,
+} from "@/constants/events";
 import { pageSeo } from "@/lib/seo";
 
 type EventPageProps = {
@@ -28,7 +37,11 @@ export async function generateMetadata({ params }: EventPageProps) {
 
   return pageSeo({
     title: event.title,
-    description: `${event.title}: locandina, data, premi, note e pre-iscrizione quando disponibile.`,
+    description: `${event.title}: locandina, data, premi, note e ${
+      hasEventRegistration(event)
+        ? "iscrizione disponibile"
+        : "pre-iscrizione quando disponibile"
+    }.`,
     path: `/eventi/${event.slug}`,
     keywords: [
       event.title,
@@ -36,6 +49,120 @@ export async function generateMetadata({ params }: EventPageProps) {
       `pre iscrizione ${event.typeLabel.toLowerCase()} Teramo`,
     ],
   });
+}
+
+function formatScheduleItem(item: EventScheduleItem) {
+  return [item.time, item.title].filter(Boolean).join(" - ");
+}
+
+function EventScheduleList({
+  items,
+}: {
+  items: readonly EventScheduleItem[];
+}) {
+  return (
+    <ol className="m-0 grid list-none gap-3 p-0">
+      {items.map((item) => (
+        <li
+          className="grid gap-4 border border-white/10 bg-white/5 p-5 min-[641px]:grid-cols-[92px_1fr]"
+          key={`${item.time}-${item.title}`}
+        >
+          <time className="font-display text-[clamp(28px,4vw,42px)] font-black italic uppercase leading-none text-accent">
+            {item.time ?? "--"}
+          </time>
+          <div>
+            <h3 className="font-display text-2xl font-extrabold italic uppercase leading-none">
+              {item.title}
+            </h3>
+            {item.detail ? (
+              <p className="mt-2 text-sm leading-relaxed text-white/68">
+                {item.detail}
+              </p>
+            ) : null}
+          </div>
+        </li>
+      ))}
+    </ol>
+  );
+}
+
+function EventFees({ fees }: { fees: readonly EventFee[] }) {
+  if (fees.length === 0) {
+    return null;
+  }
+
+  return (
+    <div>
+      <h3 className="mb-4 font-display text-2xl font-black italic uppercase leading-none">
+        Quote
+      </h3>
+      <div className="grid gap-3 min-[701px]:grid-cols-3">
+        {fees.map((fee) => (
+          <div className="border border-white/10 bg-white/5 p-5" key={fee.label}>
+            <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/50">
+              {fee.label}
+            </span>
+            <strong className="mt-3 block font-display text-[clamp(38px,5vw,58px)] font-black italic uppercase leading-none text-accent">
+              {fee.amount}
+            </strong>
+            {fee.detail ? (
+              <p className="mt-3 text-sm leading-relaxed text-white/65">
+                {fee.detail}
+              </p>
+            ) : null}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function EventInfoGroups({
+  groups,
+  awards,
+}: {
+  groups: readonly EventInfoGroup[];
+  awards: readonly string[];
+}) {
+  return (
+    <div className="grid gap-4 min-[801px]:grid-cols-2">
+      {groups.map((group) => (
+        <section className="border border-white/10 bg-white/5 p-5" key={group.title}>
+          <h3 className="font-display text-2xl font-black italic uppercase leading-none">
+            {group.title}
+          </h3>
+          <ul className="mt-5 m-0 grid list-none gap-3 p-0">
+            {group.items.map((item) => (
+              <li
+                className="relative border-t border-white/10 pt-3 pl-7 text-sm font-semibold uppercase tracking-[0.04em] text-white/78 before:absolute before:left-0 before:top-[18px] before:size-2.5 before:bg-accent before:content-['']"
+                key={item}
+              >
+                {item}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+
+      {awards.length > 0 ? (
+        <section className="border border-white/10 bg-white/5 p-5">
+          <h3 className="font-display text-2xl font-black italic uppercase leading-none">
+            Premi
+          </h3>
+          <ul className="mt-5 m-0 grid list-none gap-3 p-0">
+            {awards.map((award) => (
+              <li
+                className="relative border-t border-white/10 pt-3 pl-7 text-sm font-semibold uppercase tracking-[0.04em] text-white/78 before:absolute before:left-0 before:top-[18px] before:size-2.5 before:bg-accent before:content-['']"
+                key={award}
+              >
+                {award}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+    </div>
+  );
 }
 
 export default async function EventDetailPage({ params }: EventPageProps) {
@@ -46,18 +173,38 @@ export default async function EventDetailPage({ params }: EventPageProps) {
     notFound();
   }
 
-  const infoRows = [
+  const externalRegistrationUrl = event.preRegistration.externalUrl;
+  const registrationCtaLabel = getEventRegistrationCtaLabel(event);
+  const registrationHref = externalRegistrationUrl ?? "#pre-iscrizione";
+  const registrationIsAvailable = hasEventRegistration(event);
+  const feeSummary = getEventFeeSummary(event);
+  const scheduleSummary = event.schedule[0]
+    ? formatScheduleItem(event.schedule[0])
+    : undefined;
+  const infoRows: [string, string][] = [
     ["Data", event.date.label],
     ["Luogo", event.location],
-    ...(event.registrationFee
-      ? [["Quota", event.registrationFee.amount]]
-      : []),
+    ...(scheduleSummary ? [["Programma", scheduleSummary] as [string, string]] : []),
+    ...(feeSummary ? [["Quote", feeSummary] as [string, string]] : []),
     [
-      "Pre-iscrizione",
-      event.preRegistration.available ? "Disponibile" : "Non disponibile",
+      externalRegistrationUrl ? "Iscrizione" : "Pre-iscrizione",
+      registrationIsAvailable ? "Disponibile" : "Non disponibile",
     ],
   ];
-  const hasRouteDetails = event.routes.length > 0 || Boolean(event.registrationFee);
+  const hasDetails =
+    event.fees.length > 0 ||
+    event.infoGroups.length > 0 ||
+    event.awards.length > 0;
+  const hasRouteDetails = event.routes.length > 0;
+  const routeSection = event.routeSection ?? {
+    label: "Tracciati",
+    title: "Scopri il",
+    accent: "percorso.",
+    intro: "I dettagli del tracciato sono raccolti nella scheda evento.",
+  };
+  const routeCtaLabel = event.routes.some((route) => route.gpxUrl)
+    ? "Tracciati GPX"
+    : "Tracciato";
 
   return (
     <SiteShell theme="dark">
@@ -80,12 +227,14 @@ export default async function EventDetailPage({ params }: EventPageProps) {
               {event.notes}
             </p>
             <div className="mt-[34px] flex flex-wrap gap-4">
-              {event.preRegistration.available ? (
+              {registrationIsAvailable ? (
                 <a
-                  href="#pre-iscrizione"
+                  href={registrationHref}
                   className="group inline-flex cursor-pointer items-center gap-2.5 border-0 bg-accent px-8 py-4 font-display text-base font-extrabold italic uppercase tracking-[0.1em] text-tbe-white transition-[background,transform] duration-200 [clip-path:polygon(6%_0,100%_0,94%_100%,0_100%)] hover:translate-x-1 hover:bg-tbe-amber"
+                  target={externalRegistrationUrl ? "_blank" : undefined}
+                  rel={externalRegistrationUrl ? "noopener noreferrer" : undefined}
                 >
-                  Pre-iscriviti
+                  {registrationCtaLabel}
                   <ButtonArrow />
                 </a>
               ) : null}
@@ -94,7 +243,7 @@ export default async function EventDetailPage({ params }: EventPageProps) {
                   href="#tracciati"
                   className="inline-flex items-center border-b-2 border-accent bg-transparent px-0 py-2 font-display text-base font-extrabold italic uppercase tracking-[0.1em] text-current transition-colors hover:text-accent"
                 >
-                  Tracciati GPX
+                  {routeCtaLabel}
                 </a>
               ) : null}
               <Link
@@ -120,7 +269,10 @@ export default async function EventDetailPage({ params }: EventPageProps) {
         </div>
       </section>
 
-      <section className="bg-tbe-ink py-[clamp(56px,8vw,104px)]">
+      <section
+        id="programma"
+        className="bg-tbe-ink py-[clamp(56px,8vw,104px)]"
+      >
         <div className="mx-auto grid w-full max-w-[var(--maxw)] items-start gap-[clamp(36px,7vw,96px)] px-[var(--gutter)] min-[901px]:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
           <div>
             <SectionLabel light>Informazioni</SectionLabel>
@@ -139,59 +291,52 @@ export default async function EventDetailPage({ params }: EventPageProps) {
           </div>
 
           <div>
-            <SectionLabel light>Premi</SectionLabel>
-            <ul className="m-0 grid list-none gap-3 p-0">
-              {event.awards.map((award) => (
-                <li
-                  className="relative border border-white/10 bg-white/5 py-[18px] pl-12 pr-[18px] text-base before:absolute before:left-5 before:top-[25px] before:size-2.5 before:bg-accent before:content-['']"
-                  key={award}
-                >
-                  {award}
-                </li>
-              ))}
-            </ul>
+            <SectionLabel light>Programma</SectionLabel>
+            <EventScheduleList items={event.schedule} />
           </div>
         </div>
       </section>
 
+      {hasDetails ? (
+        <section className="bg-tbe-black py-[clamp(56px,8vw,110px)]">
+          <div className="mx-auto grid w-full max-w-[var(--maxw)] items-start gap-[clamp(36px,7vw,96px)] px-[var(--gutter)] min-[1001px]:grid-cols-[minmax(0,0.74fr)_minmax(0,1.26fr)]">
+            <div>
+              <SectionLabel light>Dettagli</SectionLabel>
+              <h2 className="mb-[22px] font-display text-[clamp(36px,5vw,76px)] font-black italic uppercase leading-[0.88]">
+                Tutto per
+                <br />
+                <span className="text-accent">partecipare.</span>
+              </h2>
+              <p className="max-w-[42ch] text-[clamp(18px,1.4vw,22px)] leading-[1.5] opacity-80">
+                Controlla quote, logistica, requisiti e premi prima di
+                completare l&apos;iscrizione.
+              </p>
+            </div>
+
+            <div className="grid gap-8">
+              <EventFees fees={event.fees} />
+              <EventInfoGroups groups={event.infoGroups} awards={event.awards} />
+            </div>
+          </div>
+        </section>
+      ) : null}
+
       {hasRouteDetails ? (
         <section
           id="tracciati"
-          className="bg-tbe-black py-[clamp(56px,8vw,110px)]"
+          className="bg-tbe-ink py-[clamp(56px,8vw,110px)]"
         >
           <div className="mx-auto grid w-full max-w-[var(--maxw)] items-start gap-[clamp(36px,7vw,96px)] px-[var(--gutter)] min-[1001px]:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)]">
             <div>
-              <SectionLabel light>Tracciati e quota</SectionLabel>
+              <SectionLabel light>{routeSection.label}</SectionLabel>
               <h2 className="mb-[22px] font-display text-[clamp(36px,5vw,76px)] font-black italic uppercase leading-[0.88]">
-                Scegli il
+                {routeSection.title}
                 <br />
-                <span className="text-accent">percorso.</span>
+                <span className="text-accent">{routeSection.accent}</span>
               </h2>
               <p className="max-w-[42ch] text-[clamp(18px,1.4vw,22px)] leading-[1.5] opacity-80">
-                Due tracciati per pedalare con il gruppo giusto e tutti i
-                dettagli GPX raccolti nella scheda evento.
+                {routeSection.intro}
               </p>
-
-              {event.registrationFee ? (
-                <div className="mt-8 border border-white/10 bg-white/5 p-6">
-                  <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-white/55">
-                    {event.registrationFee.label}
-                  </span>
-                  <strong className="mt-3 block font-display text-[clamp(46px,7vw,84px)] font-black italic uppercase leading-none text-accent">
-                    {event.registrationFee.amount}
-                  </strong>
-                  <ul className="mt-6 grid list-none gap-3 p-0">
-                    {event.registrationFee.benefits.map((benefit) => (
-                      <li
-                        className="relative border-t border-white/10 pt-3 pl-8 text-sm font-semibold uppercase tracking-[0.04em] text-white/78 before:absolute before:left-0 before:top-[18px] before:size-2.5 before:bg-accent before:content-['']"
-                        key={benefit}
-                      >
-                        {benefit}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ) : null}
             </div>
 
             {event.routes.length > 0 ? (
@@ -207,15 +352,28 @@ export default async function EventDetailPage({ params }: EventPageProps) {
       >
         <div className="mx-auto grid w-full max-w-[var(--maxw)] items-start gap-[clamp(36px,7vw,96px)] px-[var(--gutter)] min-[901px]:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
           <div>
-            <SectionLabel light>Pre-iscrizione</SectionLabel>
+            <SectionLabel light>
+              {externalRegistrationUrl ? "Iscrizione" : "Pre-iscrizione"}
+            </SectionLabel>
             <h2 className="mb-[22px] font-display text-[clamp(36px,5vw,76px)] font-black italic uppercase leading-[0.88] tracking-[-0.01em]">
-              Lascia i tuoi
-              <br />
-              <span className="text-accent">dati.</span>
+              {externalRegistrationUrl ? (
+                <>
+                  Completa la
+                  <br />
+                  <span className="text-accent">iscrizione.</span>
+                </>
+              ) : (
+                <>
+                  Lascia i tuoi
+                  <br />
+                  <span className="text-accent">dati.</span>
+                </>
+              )}
             </h2>
             <p className="max-w-[42ch] text-[clamp(18px,1.4vw,22px)] leading-[1.5] opacity-80">
-              I campi extra del form sono specifici di questo evento e si
-              modificano dal file di costanti.
+              {externalRegistrationUrl
+                ? "La cronoscalata usa una piattaforma dedicata per raccogliere le iscrizioni ufficiali."
+                : "Compila il modulo per bloccare la tua pre-iscrizione e ricevere conferma con i dettagli dell'evento."}
             </p>
           </div>
 

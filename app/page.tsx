@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { SiteShell } from "@/components/site/site-shell";
-import { Marquee } from "@/components/site/marquee";
 import { Reveal } from "@/components/site/reveal";
 import { SectionLabel } from "@/components/site/section-label";
 import { BtnLink } from "@/components/site/buttons";
