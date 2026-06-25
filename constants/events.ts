@@ -281,7 +281,12 @@ export const EVENTS = [
         detail: "Roiano di Campli (TE)",
       },
     ],
-    fees: [],
+    fees: [
+      {
+        label: "Tesserati",
+        amount: "15€",
+      },
+    ],
     routes: [
       {
         id: "roiano-rifugio-aquile",
@@ -304,7 +309,7 @@ export const EVENTS = [
         items: [
           "Da Roiano di Campli al Rifugio delle Aquile.",
           "Vista mare e Gran Sasso lungo l'arrivo in quota.",
-          "File GPX in fase di pubblicazione.",
+          "File GPX disponibile.",
         ],
       },
       {
