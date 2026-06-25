@@ -809,15 +809,6 @@ export function EventRoutesViewer({ routes }: { routes: readonly EventRoute[] })
               />
             </dl>
           ) : null}
-
-          <div className="mt-7 border-t border-white/10 pt-5">
-            <dt className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/45">
-              File
-            </dt>
-            <dd className="mt-2 break-all text-xs leading-relaxed text-white/70">
-              {selectedRoute.gpxUrl ?? "GPX in fase di pubblicazione"}
-            </dd>
-          </div>
         </aside>
       </div>
     </div>
