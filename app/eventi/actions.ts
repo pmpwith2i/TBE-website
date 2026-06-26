@@ -131,6 +131,6 @@ export async function submitEventPreRegistration(
   return {
     status: "success",
     message:
-      "Pre-iscrizione inviata. Ti abbiamo mandato una conferma via email.",
+      "Pre-iscrizione inviata. Ti abbiamo mandato una conferma via email (verifica anche nella cartella spam).",
   };
 }
