@@ -1,6 +1,11 @@
 "use server";
 
 import { getEventBySlug, type BikeEvent } from "@/constants/events";
+import {
+  saveEventRegistration,
+  sendEventRegistrationEmail,
+  type EventRegistrationRecord,
+} from "@/lib/event-registrations";
 
 export type RegistrationActionState = {
   status: "idle" | "success" | "error";
@@ -15,6 +20,7 @@ function readText(value: FormDataEntryValue | null) {
 
 function readCustomFields(event: BikeEvent, formData: FormData) {
   const customFields: Record<string, string> = {};
+  const customFieldValues: Record<string, string> = {};
 
   for (const field of event.preRegistration.customFields) {
     const fieldName = `custom.${field.id}`;
@@ -30,41 +36,10 @@ function readCustomFields(event: BikeEvent, formData: FormData) {
     }
 
     customFields[field.label] = value || "Non indicato";
+    customFieldValues[field.id] = value;
   }
 
-  return { ok: true as const, customFields };
-}
-
-function formatMessage({
-  event,
-  firstName,
-  lastName,
-  phone,
-  email,
-  customFields,
-}: {
-  event: BikeEvent;
-  firstName: string;
-  lastName: string;
-  phone: string;
-  email: string;
-  customFields: Record<string, string>;
-}) {
-  const customRows = Object.entries(customFields)
-    .map(([label, value]) => `${label}: ${value}`)
-    .join("\n");
-
-  return [
-    `Evento: ${event.title}`,
-    `Data: ${event.date.label}`,
-    `Nome: ${firstName}`,
-    `Cognome: ${lastName}`,
-    `Telefono: ${phone}`,
-    `Email: ${email}`,
-    customRows ? `\nCampi evento:\n${customRows}` : "",
-  ]
-    .filter(Boolean)
-    .join("\n");
+  return { ok: true as const, customFields, customFieldValues };
 }
 
 export async function submitEventPreRegistration(
@@ -120,52 +95,36 @@ export async function submitEventPreRegistration(
     return { status: "error", message: customResult.message };
   }
 
-  const endpoint = process.env.EVENT_PREREGISTRATION_ENDPOINT;
-  if (!endpoint) {
-    return {
-      status: "error",
-      message:
-        "Invio non configurato: imposta EVENT_PREREGISTRATION_ENDPOINT con l'endpoint Formspree del sito.",
-    };
-  }
-
-  const message = formatMessage({
-    event,
-    firstName,
-    lastName,
+  const registration: EventRegistrationRecord = {
+    event_slug: event.slug,
+    event_title: event.title,
+    event_date_label: event.date.label,
+    first_name: firstName,
+    last_name: lastName,
     phone,
     email,
-    customFields: customResult.customFields,
+    tipologia_iscrizione:
+      customResult.customFieldValues.tipologia_iscrizione || null,
+    percorso: customResult.customFieldValues.percorso || null,
+    mezzo: customResult.customFieldValues.mezzo || null,
+    societa: customResult.customFieldValues.societa || null,
+    custom_fields: customResult.customFields,
+    privacy_accepted: privacyAccepted,
+  };
+
+  const saveResult = await saveEventRegistration(registration);
+  if (!saveResult.ok) {
+    return { status: "error", message: saveResult.message };
+  }
+
+  const emailResult = await sendEventRegistrationEmail({
+    event,
+    registration,
+    registrationId: saveResult.id,
   });
 
-  const response = await fetch(endpoint, {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      subject: `Pre-iscrizione - ${event.title}`,
-      event: event.title,
-      eventSlug: event.slug,
-      date: event.date.label,
-      firstName,
-      lastName,
-      phone,
-      email,
-      _replyto: email,
-      customFields: customResult.customFields,
-      message,
-    }),
-    cache: "no-store",
-  });
-
-  if (!response.ok) {
-    return {
-      status: "error",
-      message:
-        "Non siamo riusciti a inviare la pre-iscrizione. Riprova tra poco o scrivici dai contatti.",
-    };
+  if (!emailResult.ok) {
+    return { status: "success", message: emailResult.message };
   }
 
   return {

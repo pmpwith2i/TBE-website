@@ -50,7 +50,7 @@ export const NAV_LINKS: NavLink[] = [
 ];
 
 /** Nav call-to-action (right side of the bar). */
-export const NAV_CTA = { label: "Unisciti", href: "/contatti" };
+export const NAV_CTA = { label: "Contattaci", href: "/contatti" };
 
 /** Brand lockup as three stacked words (the middle one gets the red bar). */
 export const BRAND_LOCKUP = ["Teramo", "Bike", "Experience"] as const;

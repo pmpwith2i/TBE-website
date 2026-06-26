@@ -100,15 +100,13 @@ export default function HomePage() {
             </Reveal>
 
             <Reveal delay={100}>
-              <SectionLabel>/04 — Lo shop</SectionLabel>
               <h2 className="mb-6 font-display text-[clamp(56px,11vw,180px)] font-black italic uppercase leading-[0.88] tracking-[-0.01em]">
                 La maglia
                 <br />
                 <span className="text-accent">della squadra.</span>
               </h2>
               <p className="mb-8 max-w-[60ch] text-[clamp(18px,1.4vw,22px)] leading-[1.5]">
-                Il kit ufficiale della stagione 2026, prodotto in Italia da
-                Alpic. Un disegno pensato da noi.
+                Il kit ufficiale della stagione 2026, prodotto in Italia. Un disegno pensato da noi.
               </p>
               <BtnLink href="/shop">Vai allo shop</BtnLink>
             </Reveal>

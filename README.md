@@ -22,12 +22,25 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 
 ## Event pre-registrations
 
-Event data lives in `constants/events.ts`. To enable form delivery, create a
-Formspree form and set this environment variable in local/Vercel:
+Event data lives in `constants/events.ts`. The native pre-registration form saves
+submissions to Supabase and sends an admin notification with Resend.
+
+1. Create a Supabase project and run `supabase/event-registrations.sql` in the
+   Supabase SQL editor.
+2. Add these environment variables locally and in Vercel:
 
 ```bash
-EVENT_PREREGISTRATION_ENDPOINT=https://formspree.io/f/your-form-id
+NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=your-publishable-key
+RESEND_API_KEY=re_your_key
+EVENT_REGISTRATION_EMAIL_FROM="Teramo Bike Experience <iscrizioni@your-domain.it>"
+EVENT_REGISTRATION_EMAIL_TO=iscrizioni@your-domain.it
 ```
+
+`EVENT_REGISTRATION_EMAIL_TO` accepts multiple comma-separated recipients.
+`EVENT_REGISTRATION_EMAIL_FROM` must use a sender/domain verified in Resend.
+The Supabase table keeps Row Level Security enabled and only exposes a public
+insert policy; there is no public select policy for registration data.
 
 ## Learn More
 

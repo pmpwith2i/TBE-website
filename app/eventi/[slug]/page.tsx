@@ -211,9 +211,6 @@ export default async function EventDetailPage({ params }: EventPageProps) {
       <section className="bg-tbe-black pb-[88px] pt-[180px] text-tbe-paper">
         <div className="mx-auto grid w-full max-w-[var(--maxw)] items-center gap-[clamp(36px,7vw,110px)] px-[var(--gutter)] min-[901px]:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.85fr)]">
           <div>
-            <Eyebrow num="/04" light className="mb-7">
-              {event.typeLabel}
-            </Eyebrow>
             <h1 className="max-w-[10ch] font-display text-[clamp(52px,9vw,142px)] font-black italic uppercase leading-[0.85] tracking-[-0.01em]">
               {event.title}
             </h1>

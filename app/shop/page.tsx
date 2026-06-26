@@ -29,12 +29,12 @@ export default function ShopPage() {
         </div>
         <div className="relative mx-auto w-full max-w-[var(--maxw)]">
           <Eyebrow num="/05" light className="mb-8">
-            Merchandising Ufficiale
+            Kit Ufficiale
           </Eyebrow>
           <div className="grid items-end gap-[60px] min-[901px]:grid-cols-[1.5fr_1fr]">
             <h1 className="font-display text-[clamp(40px,6.5vw,96px)] font-black italic uppercase leading-[0.9] tracking-[-0.01em]">
               Acquista il nostro{" "}
-              <span className="text-accent">merchandising</span> ufficiale.
+              <span className="text-accent">Kit</span> ufficiale.
             </h1>
             <p className="max-w-[60ch] text-[clamp(18px,1.4vw,22px)] leading-[1.5] opacity-85">
               Il kit della stagione 2026, prodotto in Italia. Per ordinare,

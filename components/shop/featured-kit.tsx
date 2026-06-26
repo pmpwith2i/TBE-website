@@ -40,8 +40,7 @@ export function FeaturedKit() {
 
           <p className="mb-8 max-w-[60ch] text-[clamp(18px,1.4vw,22px)] leading-[1.5] opacity-85">
             Maglia e salopette in tessuto leggero e traspirante, perfetti per
-            ogni uscita. Un disegno pensato dalla squadra, prodotto in Italia da
-            Alpic.
+            ogni uscita. Un disegno pensato dalla squadra, prodotto in Italia.
           </p>
 
           <p className="mb-8 border-t border-white/15 py-6 text-[15px] opacity-75">
