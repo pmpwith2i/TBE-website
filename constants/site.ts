@@ -30,7 +30,7 @@ export const SITE = {
     "Affiliata FCI e CSI, con due tecnici istruttori di secondo livello FCI (Daniele Di Odoardo e Davide Danesi) e due istruttori/tecnici sportivi di Cicloturismo di primo livello CSI (Renzo Miracoli e Davide Danesi).",
   address: "VIA F BRANDIMARTE 2 - 64100 - TERAMO (TE)",
   vat: "P.IVA 02190880670",
-  url: "https://teramobike.it",
+  url: "https://teramobikeexperience.it",
   instagram: "https://www.instagram.com/teramobikeexperience/",
   facebook: "https://www.facebook.com/p/Teramo-Bike-Experience-61573736592702/",
   logos: {

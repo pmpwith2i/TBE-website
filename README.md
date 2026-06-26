@@ -30,6 +30,7 @@ submissions to Supabase and sends an admin notification with Resend.
 2. Add these environment variables locally and in Vercel:
 
 ```bash
+NEXT_PUBLIC_SITE_URL=https://teramobike.it
 NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
 NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=your-publishable-key
 RESEND_API_KEY=re_your_key
@@ -40,7 +41,9 @@ EVENT_REGISTRATION_EMAIL_TO=iscrizioni@your-domain.it
 `EVENT_REGISTRATION_EMAIL_TO` accepts multiple comma-separated recipients.
 `EVENT_REGISTRATION_EMAIL_FROM` must use a sender/domain verified in Resend.
 The Supabase table keeps Row Level Security enabled and only exposes a public
-insert policy; there is no public select policy for registration data.
+insert policy; there is no public select policy for registration data. The
+`get_event_registration_by_id` SQL function powers private confirmation links
+such as `/iscrizioni/[id]`.
 
 ## Learn More
 

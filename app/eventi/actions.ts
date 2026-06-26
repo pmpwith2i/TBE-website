@@ -2,8 +2,9 @@
 
 import { getEventBySlug, type BikeEvent } from "@/constants/events";
 import {
+  createRegistrationId,
   saveEventRegistration,
-  sendEventRegistrationEmail,
+  sendEventRegistrationEmails,
   type EventRegistrationRecord,
 } from "@/lib/event-registrations";
 
@@ -96,6 +97,7 @@ export async function submitEventPreRegistration(
   }
 
   const registration: EventRegistrationRecord = {
+    id: createRegistrationId(),
     event_slug: event.slug,
     event_title: event.title,
     event_date_label: event.date.label,
@@ -117,10 +119,9 @@ export async function submitEventPreRegistration(
     return { status: "error", message: saveResult.message };
   }
 
-  const emailResult = await sendEventRegistrationEmail({
+  const emailResult = await sendEventRegistrationEmails({
     event,
     registration,
-    registrationId: saveResult.id,
   });
 
   if (!emailResult.ok) {
@@ -130,6 +131,6 @@ export async function submitEventPreRegistration(
   return {
     status: "success",
     message:
-      "Pre-iscrizione inviata. Ti ricontatteremo con conferma e dettagli dell'evento.",
+      "Pre-iscrizione inviata. Ti abbiamo mandato una conferma via email.",
   };
 }
