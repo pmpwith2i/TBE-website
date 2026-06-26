@@ -64,7 +64,7 @@ function SponsorLogoLockup({
         alt=""
         width={700}
         height={167}
-        className="h-4 w-auto shrink-0 object-contain min-[390px]:h-5 min-[520px]:h-6 min-[921px]:h-7 xl:h-8"
+        className="h-8 w-fit"
         fetchPriority={fetchPriority}
       />
     </div>
