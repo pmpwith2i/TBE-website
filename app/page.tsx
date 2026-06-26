@@ -29,7 +29,7 @@ export default function HomePage() {
         <div className="mx-auto w-full max-w-[var(--maxw)] px-[var(--gutter)]">
           <div className="grid items-end gap-[clamp(24px,4vw,80px)] min-[901px]:grid-cols-2">
             <Reveal>
-              <SectionLabel>/02 — Chi siamo</SectionLabel>
+              <SectionLabel>Chi siamo</SectionLabel>
               <h2 className="font-display text-[clamp(36px,5vw,76px)] font-black italic uppercase leading-[0.88] tracking-[-0.01em]">
                 Una squadra
                 <br />
@@ -52,7 +52,7 @@ export default function HomePage() {
         <div className="mx-auto w-full max-w-[var(--maxw)] px-[var(--gutter)]">
           <div className="grid items-stretch gap-0 min-[901px]:grid-cols-2">
             <Reveal className="min-[901px]:pr-[clamp(0px,4vw,60px)]">
-              <SectionLabel light>/03 — Le nostre uscite</SectionLabel>
+              <SectionLabel light>Le nostre uscite</SectionLabel>
               <h2 className="mb-8 font-display text-[clamp(56px,11vw,180px)] font-black italic uppercase leading-[0.9] tracking-[-0.01em]">
                 Ci vediamo
                 <br />

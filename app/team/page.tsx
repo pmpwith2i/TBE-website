@@ -22,9 +22,6 @@ export default function TeamPage() {
     <SiteShell theme="dark">
       <section className="bg-tbe-black px-[var(--gutter)] pb-[60px] pt-[180px] text-tbe-paper">
         <div className="mx-auto w-full max-w-[var(--maxw)]">
-          <Eyebrow num="/02" light className="mb-8">
-            La squadra · Stagione 2026
-          </Eyebrow>
           <div className="grid items-end gap-[60px] min-[901px]:grid-cols-[1.5fr_1fr]">
             <h1 className="font-display text-[clamp(60px,11vw,180px)] font-black italic uppercase leading-[0.85] tracking-[-0.01em]">
               Stessa
@@ -75,7 +72,7 @@ export default function TeamPage() {
 
       <section className="bg-tbe-ink py-[var(--section)]">
         <div className="mx-auto w-full max-w-[var(--maxw)] px-[var(--gutter)]">
-          <SectionLabel light>/03 — Staff</SectionLabel>
+          <SectionLabel light>Staff</SectionLabel>
           <h2 className="mb-14 font-display text-[clamp(36px,5vw,76px)] font-black italic uppercase leading-[0.88] tracking-[-0.01em]">
             Chi ci dà
             <br />
