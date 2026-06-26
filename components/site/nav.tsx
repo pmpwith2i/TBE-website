@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { NAV_LINKS, NAV_CTA, SITE } from "@/constants/site";
+import { MAIN_SPONSOR } from "@/constants/sponsors";
 import { cn } from "@/lib/utils";
 
 function isActive(pathname: string, href: string) {
@@ -45,6 +46,31 @@ function BrandLogoLockup({
   );
 }
 
+function SponsorLogoLockup({
+  fetchPriority,
+}: {
+  fetchPriority?: "high" | "low" | "auto";
+}) {
+  if (!MAIN_SPONSOR.logo) return null;
+
+  return (
+    <div
+      className="flex shrink-0 items-center border-l border-black/15 pl-2 min-[390px]:pl-2.5 min-[520px]:pl-3"
+      role="img"
+      aria-label={`Main sponsor: ${MAIN_SPONSOR.name}, ${MAIN_SPONSOR.detail}`}
+    >
+      <Image
+        src={MAIN_SPONSOR.logo}
+        alt=""
+        width={700}
+        height={167}
+        className="h-4 w-auto shrink-0 object-contain min-[390px]:h-5 min-[520px]:h-6 min-[921px]:h-7 xl:h-8"
+        fetchPriority={fetchPriority}
+      />
+    </div>
+  );
+}
+
 export function Nav({
   variant = "solid",
 }: {
@@ -80,13 +106,16 @@ export function Nav({
             "bg-tbe-white/96 py-3 shadow-[0_18px_44px_-32px_rgba(10,10,10,0.5)]"
         )}
       >
-        <Link
-          href="/"
-          className="flex min-w-0 items-center gap-3 font-display text-[22px] font-black italic uppercase tracking-[0.02em]"
-        >
-          <BrandLogoLockup fetchPriority="high" />
-          <span className="hidden whitespace-nowrap min-[520px]:inline">{SITE.name}</span>
-        </Link>
+        <div className="flex min-w-0 items-center gap-2.5 min-[520px]:gap-3">
+          <Link
+            href="/"
+            className="flex min-w-0 items-center gap-3 font-display text-[22px] font-black italic uppercase tracking-[0.02em]"
+          >
+            <BrandLogoLockup fetchPriority="high" />
+
+          </Link>
+          <SponsorLogoLockup fetchPriority="high" />
+        </div>
 
         <ul className="m-0 hidden list-none items-center gap-1 p-0 min-[921px]:flex">
           {NAV_LINKS.map((link) => {
