@@ -5,7 +5,7 @@ import { EventRegistrationForm } from "@/components/eventi/event-registration-fo
 import { EventMainSponsor } from "@/components/eventi/event-main-sponsor";
 import { EventRoutesViewer } from "@/components/eventi/event-routes-viewer";
 import { SiteShell } from "@/components/site/site-shell";
-import { Eyebrow, SectionLabel } from "@/components/site/section-label";
+import { SectionLabel } from "@/components/site/section-label";
 import { ButtonArrow } from "@/components/site/buttons";
 import {
   EVENTS,
@@ -35,19 +35,28 @@ export async function generateMetadata({ params }: EventPageProps) {
     return {};
   }
 
+  const registrationLabel = event.preRegistration.externalUrl
+    ? "iscrizione su Kronos Teramo"
+    : hasEventRegistration(event)
+      ? "pre-iscrizione online"
+      : "dettagli evento";
+
   return pageSeo({
     title: event.title,
-    description: `${event.title}: locandina, data, premi, note e ${
-      hasEventRegistration(event)
-        ? "iscrizione disponibile"
-        : "pre-iscrizione quando disponibile"
-    }.`,
+    description: `${event.title}, ${event.date.label} a ${event.location}. ${event.notes} ${registrationLabel}.`,
     path: `/eventi/${event.slug}`,
     keywords: [
       event.title,
       `${event.typeLabel} Teramo`,
+      event.location,
       `pre iscrizione ${event.typeLabel.toLowerCase()} Teramo`,
     ],
+    image: {
+      url: event.poster,
+      alt: event.posterAlt,
+      width: event.posterSize.width,
+      height: event.posterSize.height,
+    },
   });
 }
 

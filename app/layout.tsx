@@ -4,13 +4,12 @@ import { fontVariables } from "./fonts";
 import { Providers } from "./providers";
 import { StructuredData } from "@/components/site/structured-data";
 import { SITE } from "@/constants/site";
-import { BASE_KEYWORDS, DEFAULT_DESCRIPTION } from "@/lib/seo";
-
-const DEFAULT_TITLE = `${SITE.name} — Una squadra di amici`;
-const OG_IMAGE = {
-  url: "/assets/sunset-rider.jpg",
-  alt: "Teramo Bike Experience — un'uscita in bici al tramonto",
-};
+import {
+  BASE_KEYWORDS,
+  DEFAULT_DESCRIPTION,
+  DEFAULT_TITLE,
+  OG_IMAGE,
+} from "@/lib/seo";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),

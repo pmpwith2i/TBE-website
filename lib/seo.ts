@@ -11,8 +11,12 @@ import { SITE } from "@/constants/site";
  * keyword merging).
  */
 
+export const SITE_UPDATED_AT = "2026-06-26";
+
+export const DEFAULT_TITLE = `${SITE.name} — ASD ciclismo Teramo`;
+
 /** Default OG/Twitter share image (a real team photo). */
-const OG_IMAGE = {
+export const OG_IMAGE = {
   url: "/assets/sunset-rider.jpg",
   alt: "Teramo Bike Experience — un'uscita in bici al tramonto",
 };
@@ -31,8 +35,14 @@ export const BASE_KEYWORDS = [
   "bici Gran Sasso",
 ];
 
-export const DEFAULT_DESCRIPTION =
-  "Squadra di ciclismo a Teramo: usciamo in bici insieme ogni settimana, aperti a tutti i livelli. Chi vuole gareggiare può farlo, senza rinunciare al piacere di pedalare in compagnia.";
+export const DEFAULT_DESCRIPTION = SITE.description;
+
+type PageSeoImage = {
+  url: string;
+  alt: string;
+  width?: number;
+  height?: number;
+};
 
 type PageSeoInput = {
   /** Page title; omit on the home page to use the site default. */
@@ -41,41 +51,63 @@ type PageSeoInput = {
   path: string;
   /** Extra keywords specific to the page. */
   keywords?: string[];
+  /** Optional page-specific share image. */
+  image?: PageSeoImage;
   /** Set false for thin/placeholder pages that shouldn't be indexed. */
   index?: boolean;
 };
+
+export function absoluteUrl(path: string) {
+  return new URL(path, SITE.url).toString();
+}
+
+function normalizePath(path: string) {
+  if (path.startsWith("http://") || path.startsWith("https://")) {
+    return path;
+  }
+
+  return path.startsWith("/") ? path : `/${path}`;
+}
 
 export function pageSeo({
   title,
   description,
   path,
   keywords = [],
+  image = OG_IMAGE,
   index = true,
 }: PageSeoInput): Metadata {
-  const fullTitle = title
-    ? `${title} — ${SITE.name}`
-    : `${SITE.name} — Una squadra di amici`;
+  const fullTitle = title ? `${title} — ${SITE.name}` : DEFAULT_TITLE;
+  const canonicalPath = normalizePath(path);
 
   return {
     ...(title ? { title } : {}),
     description,
-    keywords: [...BASE_KEYWORDS, ...keywords],
-    alternates: { canonical: path },
-    ...(index ? {} : { robots: { index: false, follow: true } }),
+    keywords: Array.from(new Set([...BASE_KEYWORDS, ...keywords])),
+    alternates: { canonical: canonicalPath },
+    ...(index
+      ? {}
+      : {
+          robots: {
+            index: false,
+            follow: false,
+            googleBot: { index: false, follow: false },
+          },
+        }),
     openGraph: {
       title: fullTitle,
       description,
-      url: path,
+      url: canonicalPath,
       siteName: SITE.name,
       locale: "it_IT",
       type: "website",
-      images: [OG_IMAGE],
+      images: [image],
     },
     twitter: {
       card: "summary_large_image",
       title: fullTitle,
       description,
-      images: [OG_IMAGE.url],
+      images: [image.url],
     },
   };
 }

@@ -39,14 +39,13 @@ export function FeaturedKit() {
           </h2>
 
           <p className="mb-8 max-w-[60ch] text-[clamp(18px,1.4vw,22px)] leading-[1.5] opacity-85">
-            Maglia e salopette in tessuto leggero e traspirante, perfetti per
-            ogni uscita. Un disegno pensato dalla squadra, prodotto in Italia.
+            Il kit ufficiale della stagione 2026, con il disegno Teramo Bike
+            Experience. Un disegno pensato dalla squadra, prodotto in Italia.
           </p>
 
           <p className="mb-8 border-t border-white/15 py-6 text-[15px] opacity-75">
-            Disponibile nelle taglie XS–XXXL, in versione estiva, gravel e
-            invernale. Per prezzi e disponibilità scrivici: te lo prepariamo
-            noi.
+            Per prezzi, taglie e disponibilità scrivici: ti rispondiamo con le
+            informazioni aggiornate.
           </p>
 
           <BtnLink href="/contatti">Scrivici per il kit</BtnLink>

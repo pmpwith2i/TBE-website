@@ -1,12 +1,12 @@
 import type { MetadataRoute } from "next";
 import { SITE } from "@/constants/site";
+import { DEFAULT_DESCRIPTION } from "@/lib/seo";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
     name: SITE.name,
     short_name: SITE.shortName,
-    description:
-      "Squadra di ciclismo a Teramo: usciamo in bici insieme, aperti a tutti.",
+    description: DEFAULT_DESCRIPTION,
     start_url: "/",
     display: "standalone",
     background_color: "#0a0a0a",

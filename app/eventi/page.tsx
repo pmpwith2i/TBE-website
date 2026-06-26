@@ -13,13 +13,14 @@ import {
 export const metadata = pageSeo({
   title: "Eventi e iscrizioni",
   description:
-    "Gli eventi di Teramo Bike Experience: cicloturistica, cronoscalata, programmi, quote, tracciati, premi e iscrizioni.",
+    "Calendario Teramo Bike Experience: Cicloturistica di Garrano del 4 luglio 2026 e Cronoscalata del 5 luglio 2026, con dettagli, GPX e iscrizioni.",
   path: "/eventi",
   keywords: [
     "eventi ciclismo Teramo",
-    "cicloturistica Teramo",
-    "cronoscalata Teramo",
-    "pre iscrizione ciclismo Teramo",
+    "Cicloturistica di Garrano",
+    "Cronoscalata Teramo Bike Experience",
+    "Garrano Basso",
+    "Roiano di Campli",
   ],
 });
 

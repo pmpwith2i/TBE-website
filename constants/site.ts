@@ -21,18 +21,47 @@ export interface SocialLink {
   href: string;
 }
 
+export interface SiteInstructor {
+  name: string;
+  role: string;
+}
+
 export const SITE = {
   name: "Teramo Bike Experience",
   shortName: "TBE",
   legalName: "ASD TERAMO BIKE EXPERIENCE",
+  description:
+    "ASD di ciclismo a Teramo, affiliata FCI e CSI. Uscite di gruppo, eventi e squadra per pedalare insieme nel teramano.",
   affiliation: "Affiliata FCI e CSI",
   affiliationDetail:
     "Affiliata FCI e CSI, con due tecnici istruttori di secondo livello FCI (Daniele Di Odoardo e Davide Danesi) e due istruttori/tecnici sportivi di Cicloturismo di primo livello CSI (Renzo Miracoli e Davide Danesi).",
   address: "VIA F BRANDIMARTE 2 - 64100 - TERAMO (TE)",
+  addressParts: {
+    streetAddress: "Via F Brandimarte 2",
+    postalCode: "64100",
+    addressLocality: "Teramo",
+    addressRegion: "TE",
+    addressCountry: "IT",
+  },
   vat: "P.IVA 02190880670",
+  vatNumber: "02190880670",
   url: "https://teramobikeexperience.it",
   instagram: "https://www.instagram.com/teramobikeexperience/",
   facebook: "https://www.facebook.com/p/Teramo-Bike-Experience-61573736592702/",
+  instructors: [
+    {
+      name: "Daniele Di Odoardo",
+      role: "Tecnico istruttore di secondo livello FCI",
+    },
+    {
+      name: "Davide Danesi",
+      role: "Tecnico istruttore di secondo livello FCI e istruttore/tecnico sportivo Cicloturismo di primo livello CSI",
+    },
+    {
+      name: "Renzo Miracoli",
+      role: "Istruttore/tecnico sportivo Cicloturismo di primo livello CSI",
+    },
+  ] satisfies SiteInstructor[],
   logos: {
     appIcon: "/web-app-manifest-512x512.png",
     badge: "/assets/logo-badge.png",
@@ -65,9 +94,9 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
   {
     title: "Esplora",
     links: [
-      { label: "Team", href: "/team" },
       { label: "Eventi", href: "/eventi" },
       { label: "Shop", href: "/shop" },
+      { label: "Contatti", href: "/contatti" },
     ],
   },
 ];

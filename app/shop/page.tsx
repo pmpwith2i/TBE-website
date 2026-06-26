@@ -3,11 +3,12 @@ import { pageSeo } from "@/lib/seo";
 import { Eyebrow } from "@/components/site/section-label";
 import { BtnLink } from "@/components/site/buttons";
 import { FeaturedKit } from "@/components/shop/featured-kit";
+import { KIT } from "@/constants/shop";
 
 export const metadata = pageSeo({
   title: "Shop",
   description:
-    "Il kit ufficiale di Teramo Bike Experience, prodotto in Italia: maglia e salopette della squadra. Scrivici per prezzi, taglie e disponibilità.",
+    "Kit ufficiale 2026 di Teramo Bike Experience. Scrivici per prezzi, taglie e disponibilità aggiornate.",
   path: "/shop",
   keywords: [
     "maglia ciclismo Teramo",
@@ -15,6 +16,10 @@ export const metadata = pageSeo({
     "abbigliamento ciclismo Made in Italy",
     "completo ciclismo squadra",
   ],
+  image: {
+    url: KIT.image,
+    alt: KIT.imageAlt,
+  },
 });
 
 export default function ShopPage() {
