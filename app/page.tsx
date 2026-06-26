@@ -50,14 +50,9 @@ export default function HomePage() {
 
       <section className="bg-tbe-black py-[clamp(80px,10vw,140px)] text-tbe-paper">
         <div className="mx-auto w-full max-w-[var(--maxw)] px-[var(--gutter)]">
-          <div className="grid items-stretch gap-0 min-[901px]:grid-cols-2">
+          <div className="grid items-stretch gap-4 min-[901px]:grid-cols-2">
             <Reveal className="min-[901px]:pr-[clamp(0px,4vw,60px)]">
               <SectionLabel light>Le nostre uscite</SectionLabel>
-              <h2 className="mb-8 font-display text-[clamp(56px,11vw,180px)] font-black italic uppercase leading-[0.9] tracking-[-0.01em]">
-                Ci vediamo
-                <br />
-                <span className="text-accent">la domenica.</span>
-              </h2>
               <p className="mb-8 max-w-[60ch] text-[clamp(18px,1.4vw,22px)] leading-[1.5] opacity-85">
                 Ci troviamo ogni settimana per un&apos;uscita insieme, aperta a
                 chiunque abbia una bici e voglia di pedalare. Si va al passo del
