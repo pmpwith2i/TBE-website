@@ -11,7 +11,7 @@ import { SITE } from "@/constants/site";
  * keyword merging).
  */
 
-export const SITE_UPDATED_AT = "2026-06-26";
+export const SITE_UPDATED_AT = "2026-06-29";
 
 export const DEFAULT_TITLE = `${SITE.name} — ASD ciclismo Teramo`;
 
@@ -31,8 +31,12 @@ export const BASE_KEYWORDS = [
   "ASD ciclismo Teramo",
   "team ciclismo teramano",
   "pedalare a Teramo",
+  "cicloturismo Teramo",
+  "MTB Teramo",
+  "gravel Teramo",
   "ciclismo Gran Sasso",
   "bici Gran Sasso",
+  "salite Gran Sasso bici",
 ];
 
 export const DEFAULT_DESCRIPTION = SITE.description;
@@ -59,6 +63,27 @@ type PageSeoInput = {
 
 export function absoluteUrl(path: string) {
   return new URL(path, SITE.url).toString();
+}
+
+/**
+ * Trim text to a meta-description-friendly length, cutting on a word
+ * boundary so descriptions don't get awkwardly chopped by search engines
+ * (Google renders roughly the first ~160 characters).
+ */
+export function truncate(text: string, max = 160) {
+  const clean = text.replace(/\s+/g, " ").trim();
+  if (clean.length <= max) {
+    return clean;
+  }
+
+  const cut = clean.slice(0, max - 1);
+  const lastSpace = cut.lastIndexOf(" ");
+  const trimmed = (lastSpace > 0 ? cut.slice(0, lastSpace) : cut).replace(
+    /[\s.,;:–—-]+$/u,
+    ""
+  );
+
+  return `${trimmed}…`;
 }
 
 function normalizePath(path: string) {

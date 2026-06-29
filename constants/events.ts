@@ -111,6 +111,8 @@ export interface BikeEvent {
   infoGroups: readonly EventInfoGroup[];
   awards: readonly string[];
   notes: string;
+  /** Event-specific long-tail keywords for local-SEO indexing. */
+  seoKeywords: readonly string[];
   preRegistration: EventPreRegistration;
 }
 
@@ -215,6 +217,20 @@ export const EVENTS = [
     awards: ["Premio per la squadra piu numerosa"],
     notes:
       "Cicloturistica non competitiva a Garrano Basso con percorsi soft e hard, ristoro in quota al Rifugio Fratta Montanara e ristoro finale in zona partenza/arrivo.",
+    seoKeywords: [
+      "Cicloturistica di Garrano",
+      "cicloturistica Garrano Basso",
+      "cicloturistica Teramo",
+      "cicloturistica 4 luglio 2026",
+      "raduno cicloturistico teramano",
+      "cicloturistica non competitiva Teramo",
+      "Rifugio Fratta Montanara",
+      "pedalata Gran Sasso",
+      "uscita in bici Garrano Basso",
+      "percorso soft hard GPX",
+      "MTB e-bike gravel Teramo",
+      "pre iscrizione cicloturistica Teramo",
+    ],
     preRegistration: {
       available: true,
       formTitle: "Pre-iscriviti alla cicloturistica",
@@ -338,6 +354,19 @@ export const EVENTS = [
     ],
     notes:
       "Cronoscalata competitiva da Roiano di Campli al Rifugio delle Aquile, con arrivo panoramico tra vista mare e Gran Sasso.",
+    seoKeywords: [
+      "Cronoscalata Teramo Bike Experience",
+      "cronoscalata Roiano di Campli",
+      "cronoscalata Rifugio delle Aquile",
+      "cronoscalata Campli",
+      "cronoscalata Teramo",
+      "cronoscalata 5 luglio 2026",
+      "cronoscalata ciclismo Teramo",
+      "salita Roiano Rifugio delle Aquile",
+      "cronoscalata Gran Sasso",
+      "cronometro in salita Teramo",
+      "iscrizione cronoscalata Kronos Teramo",
+    ],
     preRegistration: {
       available: false,
       externalUrl: "https://www.kronosteramo.it/cronoscalata/iscrizione.aspx",

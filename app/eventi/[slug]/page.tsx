@@ -7,6 +7,7 @@ import { EventRoutesViewer } from "@/components/eventi/event-routes-viewer";
 import { SiteShell } from "@/components/site/site-shell";
 import { SectionLabel } from "@/components/site/section-label";
 import { ButtonArrow } from "@/components/site/buttons";
+import { EventStructuredData } from "@/components/site/structured-data";
 import {
   EVENTS,
   getEventFeeSummary,
@@ -17,7 +18,7 @@ import {
   type EventInfoGroup,
   type EventScheduleItem,
 } from "@/constants/events";
-import { pageSeo } from "@/lib/seo";
+import { pageSeo, truncate } from "@/lib/seo";
 
 type EventPageProps = {
   params: Promise<{ slug: string }>;
@@ -35,22 +36,13 @@ export async function generateMetadata({ params }: EventPageProps) {
     return {};
   }
 
-  const registrationLabel = event.preRegistration.externalUrl
-    ? "iscrizione online"
-    : hasEventRegistration(event)
-      ? "pre-iscrizione online"
-      : "dettagli evento";
-
   return pageSeo({
     title: event.title,
-    description: `${event.title}, ${event.date.label} a ${event.location}. ${event.notes} ${registrationLabel}.`,
+    description: truncate(
+      `${event.date.label} · ${event.location} — ${event.notes}`
+    ),
     path: `/eventi/${event.slug}`,
-    keywords: [
-      event.title,
-      `${event.typeLabel} Teramo`,
-      event.location,
-      `pre iscrizione ${event.typeLabel.toLowerCase()} Teramo`,
-    ],
+    keywords: [...event.seoKeywords],
     image: {
       url: event.poster,
       alt: event.posterAlt,
@@ -217,6 +209,7 @@ export default async function EventDetailPage({ params }: EventPageProps) {
 
   return (
     <SiteShell theme="dark">
+      <EventStructuredData event={event} />
       <section className="bg-tbe-black pb-[88px] pt-[180px] text-tbe-paper">
         <div className="mx-auto grid w-full max-w-[var(--maxw)] items-center gap-[clamp(36px,7vw,110px)] px-[var(--gutter)] min-[901px]:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.85fr)]">
           <div>

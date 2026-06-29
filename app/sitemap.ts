@@ -50,7 +50,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     path: `/eventi/${event.slug}`,
     priority: 0.8,
     changeFrequency: "weekly" as const,
-    lastModified: event.date.iso ?? SITE_UPDATED_AT,
+    // The content-update date, not the (future) event date.
+    lastModified: SITE_UPDATED_AT,
     images: [event.poster],
   }));
 

@@ -4,6 +4,7 @@ import { pageSeo } from "@/lib/seo";
 import { SectionLabel } from "@/components/site/section-label";
 import { BtnLink, ButtonArrow } from "@/components/site/buttons";
 import { EventMainSponsor } from "@/components/eventi/event-main-sponsor";
+import { EventsListStructuredData } from "@/components/site/structured-data";
 import {
   EVENTS,
   getEventRegistrationCtaLabel,
@@ -17,6 +18,9 @@ export const metadata = pageSeo({
   path: "/eventi",
   keywords: [
     "eventi ciclismo Teramo",
+    "calendario eventi ciclismo Teramo",
+    "gare ciclismo Teramo",
+    "cicloturistica e cronoscalata Teramo",
     "Cicloturistica di Garrano",
     "Cronoscalata Teramo Bike Experience",
     "Garrano Basso",
@@ -31,6 +35,7 @@ const CHRONOLOGICAL_EVENTS = [...EVENTS].sort((a, b) =>
 export default function EventiPage() {
   return (
     <SiteShell theme="dark">
+      <EventsListStructuredData />
       <section className="bg-tbe-black px-[var(--gutter)] pb-20 pt-[180px] text-tbe-paper">
         <div className="mx-auto w-full max-w-[var(--maxw)]">
           <h1 className="font-display text-[clamp(56px,11vw,180px)] font-black italic uppercase leading-[0.85] tracking-[-0.01em]">

@@ -1,12 +1,34 @@
-import { EVENTS, hasEventRegistration, type BikeEvent } from "@/constants/events";
+import {
+  EVENTS,
+  hasEventRegistration,
+  type BikeEvent,
+} from "@/constants/events";
 import { SITE } from "@/constants/site";
+import { SITE_UPDATED_AT } from "@/lib/seo";
 
 /**
- * JSON-LD structured data (schema.org), rendered site-wide from the root
- * layout. A SportsClub entity for the team + a WebSite node, so Google can
- * build the brand/knowledge entity and understand this is an Italian cycling
- * club based in Teramo.
+ * JSON-LD structured data (schema.org).
+ *
+ * - `StructuredData` is rendered site-wide from the root layout: a `SportsClub`
+ *   entity for the team + a `WebSite` node, so Google can build the brand /
+ *   knowledge entity and understand this is an Italian cycling club in Teramo.
+ * - `EventStructuredData` is rendered on each event's own page (its `SportsEvent`
+ *   node + a breadcrumb). Event markup lives on the event page it describes —
+ *   not on every page — which is what Google expects for rich results. The
+ *   `SportsClub` referenced as `organizer` is always present via the layout.
+ * - `EventsListStructuredData` adds a breadcrumb + `ItemList` on the calendar.
  */
+const BASE = SITE.url.replace(/\/$/, "");
+
+function JsonLd({ data }: { data: unknown }) {
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+    />
+  );
+}
+
 function schemaStartDate(event: BikeEvent) {
   if (!event.date.iso) {
     return undefined;
@@ -29,66 +51,80 @@ function euroPrice(amount: string) {
   return Number.isFinite(value) ? value.toFixed(2) : undefined;
 }
 
-export function StructuredData() {
-  const base = SITE.url.replace(/\/$/, "");
-  const eventNodes = EVENTS.filter((event) => event.date.iso).map((event) => {
-    const externalUrl =
-      "externalUrl" in event.preRegistration
-        ? event.preRegistration.externalUrl
-        : undefined;
-    const registrationUrl =
-      externalUrl ?? `${base}/eventi/${event.slug}#pre-iscrizione`;
+/** Build the `SportsEvent` node for one event, referencing the club as organizer. */
+function eventNode(event: BikeEvent) {
+  const externalUrl =
+    "externalUrl" in event.preRegistration
+      ? event.preRegistration.externalUrl
+      : undefined;
+  const registrationUrl =
+    externalUrl ?? `${BASE}/eventi/${event.slug}#pre-iscrizione`;
 
-    return {
-      "@type": "SportsEvent",
-      "@id": `${base}/eventi/${event.slug}#event`,
-      name: event.title,
-      description: event.notes,
-      sport: "Ciclismo",
-      startDate: schemaStartDate(event),
-      eventStatus: "https://schema.org/EventScheduled",
-      eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-      image: `${base}${event.poster}`,
-      url: `${base}/eventi/${event.slug}`,
-      organizer: { "@id": `${base}/#club` },
-      location: {
-        "@type": "Place",
-        name: event.location,
-        address: {
-          "@type": "PostalAddress",
-          streetAddress: event.schedule[0]?.detail ?? event.location,
-          addressLocality: stripProvince(event.location),
-          addressRegion: "TE",
-          addressCountry: "IT",
-        },
+  return {
+    "@type": "SportsEvent",
+    "@id": `${BASE}/eventi/${event.slug}#event`,
+    name: event.title,
+    description: event.notes,
+    sport: "Ciclismo",
+    inLanguage: "it-IT",
+    startDate: schemaStartDate(event),
+    eventStatus: "https://schema.org/EventScheduled",
+    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+    image: `${BASE}${event.poster}`,
+    url: `${BASE}/eventi/${event.slug}`,
+    organizer: { "@id": `${BASE}/#club` },
+    location: {
+      "@type": "Place",
+      name: event.location,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: event.schedule[0]?.detail ?? event.location,
+        addressLocality: stripProvince(event.location),
+        addressRegion: "TE",
+        addressCountry: "IT",
       },
-      offers:
-        hasEventRegistration(event) && event.fees.length > 0
-          ? event.fees.map((fee) => ({
-              "@type": "Offer",
-              name: fee.label,
-              price: euroPrice(fee.amount),
-              priceCurrency: "EUR",
-              availability: "https://schema.org/InStock",
-              url: registrationUrl,
-            }))
-          : undefined,
-    };
-  });
+    },
+    offers:
+      hasEventRegistration(event) && event.fees.length > 0
+        ? event.fees.map((fee) => ({
+            "@type": "Offer",
+            name: fee.label,
+            price: euroPrice(fee.amount),
+            priceCurrency: "EUR",
+            availability: "https://schema.org/InStock",
+            validFrom: SITE_UPDATED_AT,
+            url: registrationUrl,
+          }))
+        : undefined,
+  };
+}
 
+function breadcrumb(items: Array<{ name: string; path: string }>) {
+  return {
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: `${BASE}${item.path}`,
+    })),
+  };
+}
+
+export function StructuredData() {
   const graph = {
     "@context": "https://schema.org",
     "@graph": [
       {
         "@type": "SportsClub",
-        "@id": `${base}/#club`,
+        "@id": `${BASE}/#club`,
         name: SITE.name,
         alternateName: SITE.shortName,
         legalName: SITE.legalName,
         description: SITE.description,
-        url: base,
-        logo: `${base}${SITE.logos.badge}`,
-        image: `${base}/assets/sunset-rider.jpg`,
+        url: BASE,
+        logo: `${BASE}${SITE.logos.badge}`,
+        image: `${BASE}/assets/sunset-rider.jpg`,
         sport: "Ciclismo",
         knowsLanguage: "it",
         areaServed: { "@type": "City", name: "Teramo" },
@@ -127,20 +163,56 @@ export function StructuredData() {
       },
       {
         "@type": "WebSite",
-        "@id": `${base}/#website`,
+        "@id": `${BASE}/#website`,
         name: SITE.name,
-        url: base,
+        url: BASE,
         inLanguage: "it-IT",
-        publisher: { "@id": `${base}/#club` },
+        publisher: { "@id": `${BASE}/#club` },
       },
-      ...eventNodes,
     ],
   };
 
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(graph) }}
-    />
-  );
+  return <JsonLd data={graph} />;
+}
+
+/** Per-event markup: the `SportsEvent` node + a breadcrumb, on the event page. */
+export function EventStructuredData({ event }: { event: BikeEvent }) {
+  const graph = {
+    "@context": "https://schema.org",
+    "@graph": [
+      eventNode(event),
+      breadcrumb([
+        { name: "Home", path: "/" },
+        { name: "Eventi", path: "/eventi" },
+        { name: event.title, path: `/eventi/${event.slug}` },
+      ]),
+    ],
+  };
+
+  return <JsonLd data={graph} />;
+}
+
+/** Calendar markup: a breadcrumb + an `ItemList` of the events. */
+export function EventsListStructuredData() {
+  const graph = {
+    "@context": "https://schema.org",
+    "@graph": [
+      breadcrumb([
+        { name: "Home", path: "/" },
+        { name: "Eventi", path: "/eventi" },
+      ]),
+      {
+        "@type": "ItemList",
+        name: `Eventi ${SITE.name}`,
+        itemListElement: EVENTS.map((event, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          name: event.title,
+          url: `${BASE}/eventi/${event.slug}`,
+        })),
+      },
+    ],
+  };
+
+  return <JsonLd data={graph} />;
 }

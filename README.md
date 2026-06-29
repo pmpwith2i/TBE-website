@@ -30,7 +30,7 @@ submissions to Supabase and sends an admin notification with Resend.
 2. Add these environment variables locally and in Vercel:
 
 ```bash
-NEXT_PUBLIC_SITE_URL=https://teramobike.it
+NEXT_PUBLIC_SITE_URL=https://teramobikeexperience.it
 NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
 NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=your-publishable-key
 RESEND_API_KEY=re_your_key
