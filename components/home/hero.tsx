@@ -17,9 +17,6 @@ export function HomeHero() {
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,0.5)_0%,rgba(10,10,10,0)_30%,rgba(10,10,10,0)_50%,rgba(10,10,10,0.85)_100%),radial-gradient(ellipse_at_80%_50%,rgba(200,16,46,0.18),transparent_60%)]" />
 
       <div className="relative z-10 mx-auto w-full max-w-[var(--maxw)] px-[var(--gutter)] pb-[clamp(40px,8vw,96px)]">
-        <Eyebrow light num="/01" className="mb-7">
-          Teramo · Italia
-        </Eyebrow>
 
         <h1 className="mb-6 font-display text-[clamp(56px,13vw,220px)] font-black italic uppercase leading-[0.85] tracking-[-0.01em]">
           Una squadra
