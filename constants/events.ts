@@ -276,6 +276,11 @@ export const EVENTS = [
     mainSponsor: DI_MATTIA_FIORE_SPONSOR,
     schedule: [
       {
+        time: "07.00",
+        title: "Ritrovo",
+        detail: "Roiano di Campli (TE)",
+      },
+      {
         time: "08.30",
         title: "Partenza",
         detail: "Roiano di Campli (TE)",
@@ -283,7 +288,7 @@ export const EVENTS = [
     ],
     fees: [
       {
-        label: "Tesserati",
+        label: "Iscrizione",
         amount: "15€",
       },
     ],
@@ -313,6 +318,13 @@ export const EVENTS = [
         ],
       },
       {
+        title: "Logistica",
+        items: [
+          "Casco obbligatorio.",
+          "Parcheggio - Piazza San Gabriele - Bivio Campli (TE).",
+        ],
+      },
+      {
         title: "Iscrizione",
         items: [
           "Iscrizioni gestite dalla piattaforma Kronos Teramo.",
@@ -320,13 +332,16 @@ export const EVENTS = [
         ],
       },
     ],
-    awards: ["Premiati i primi 3 di ogni categoria"],
+    awards: [
+      "Premiati i primi 3 assoluti",
+      "Premiati i primi di ogni categoria",
+    ],
     notes:
       "Cronoscalata competitiva da Roiano di Campli al Rifugio delle Aquile, con arrivo panoramico tra vista mare e Gran Sasso.",
     preRegistration: {
       available: false,
       externalUrl: "https://www.kronosteramo.it/cronoscalata/iscrizione.aspx",
-      externalCtaLabel: "Iscriviti su Kronos",
+      externalCtaLabel: "Iscriviti online",
       formTitle: "Iscriviti alla cronoscalata",
       intro:
         "Completa l'iscrizione sulla piattaforma Kronos Teramo: il link apre la scheda ufficiale della cronoscalata.",

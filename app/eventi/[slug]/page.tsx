@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: EventPageProps) {
   }
 
   const registrationLabel = event.preRegistration.externalUrl
-    ? "iscrizione su Kronos Teramo"
+    ? "iscrizione online"
     : hasEventRegistration(event)
       ? "pre-iscrizione online"
       : "dettagli evento";
