@@ -275,7 +275,7 @@ export const EVENTS = [
     slug: "cronoscalata",
     kind: "cronoscalata",
     typeLabel: "Cronoscalata",
-    title: "Cronoscalata Teramo Bike Experience",
+    title: "Cronoscalata ASD Teramo Bike Experience",
     date: {
       iso: "2026-07-05",
       label: "Domenica 5 luglio 2026",
@@ -355,7 +355,7 @@ export const EVENTS = [
     notes:
       "Cronoscalata competitiva da Roiano di Campli al Rifugio delle Aquile, con arrivo panoramico tra vista mare e Gran Sasso.",
     seoKeywords: [
-      "Cronoscalata Teramo Bike Experience",
+      "Cronoscalata ASD Teramo Bike Experience",
       "cronoscalata Roiano di Campli",
       "cronoscalata Rifugio delle Aquile",
       "cronoscalata Campli",
