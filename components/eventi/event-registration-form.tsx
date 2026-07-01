@@ -1,7 +1,10 @@
 "use client";
 
 import { useActionState } from "react";
-import type { BikeEvent, EventCustomField } from "@/constants/events";
+import type {
+  EventCustomField,
+  EventPreRegistration,
+} from "@/constants/events";
 import {
   submitEventPreRegistration,
   type RegistrationActionState,
@@ -19,6 +22,11 @@ const labelClass =
   "font-mono text-[11px] uppercase tracking-[0.2em] text-white/70";
 const inputClass =
   "border border-white/15 bg-white/5 px-[18px] py-3.5 font-body text-[15px] text-white transition focus:border-accent focus:bg-white/[0.08] focus:outline-none placeholder:text-white/40";
+
+type RegistrationEvent = {
+  slug: string;
+  preRegistration: EventPreRegistration;
+};
 
 function CustomField({ field }: { field: EventCustomField }) {
   const id = `registration-${field.id}`;
@@ -105,7 +113,7 @@ function CustomField({ field }: { field: EventCustomField }) {
   );
 }
 
-export function EventRegistrationForm({ event }: { event: BikeEvent }) {
+export function EventRegistrationForm({ event }: { event: RegistrationEvent }) {
   if (event.preRegistration.externalUrl) {
     return <ExternalRegistrationCard event={event} />;
   }
@@ -113,7 +121,7 @@ export function EventRegistrationForm({ event }: { event: BikeEvent }) {
   return <NativeEventRegistrationForm event={event} />;
 }
 
-function ExternalRegistrationCard({ event }: { event: BikeEvent }) {
+function ExternalRegistrationCard({ event }: { event: RegistrationEvent }) {
   const { externalUrl, externalCtaLabel, formTitle, intro } =
     event.preRegistration;
 
@@ -143,7 +151,7 @@ function ExternalRegistrationCard({ event }: { event: BikeEvent }) {
   );
 }
 
-function NativeEventRegistrationForm({ event }: { event: BikeEvent }) {
+function NativeEventRegistrationForm({ event }: { event: RegistrationEvent }) {
   const [state, formAction, pending] = useActionState(
     submitEventPreRegistration,
     INITIAL_STATE

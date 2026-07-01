@@ -59,6 +59,8 @@ function eventNode(event: BikeEvent) {
       : undefined;
   const registrationUrl =
     externalUrl ?? `${BASE}/eventi/${event.slug}#pre-iscrizione`;
+  const primaryMapPoint = event.locationMaps?.find((map) => map.points.length > 0)
+    ?.points[0];
 
   return {
     "@type": "SportsEvent",
@@ -75,7 +77,7 @@ function eventNode(event: BikeEvent) {
     organizer: { "@id": `${BASE}/#club` },
     location: {
       "@type": "Place",
-      name: event.location,
+      name: primaryMapPoint?.title ?? event.location,
       address: {
         "@type": "PostalAddress",
         streetAddress: event.schedule[0]?.detail ?? event.location,
@@ -83,6 +85,13 @@ function eventNode(event: BikeEvent) {
         addressRegion: "TE",
         addressCountry: "IT",
       },
+      geo: primaryMapPoint
+        ? {
+            "@type": "GeoCoordinates",
+            latitude: primaryMapPoint.coordinates.lat,
+            longitude: primaryMapPoint.coordinates.lng,
+          }
+        : undefined,
     },
     offers:
       hasEventRegistration(event) && event.fees.length > 0

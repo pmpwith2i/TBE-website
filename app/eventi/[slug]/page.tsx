@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { EventRegistrationForm } from "@/components/eventi/event-registration-form";
 import { EventMainSponsor } from "@/components/eventi/event-main-sponsor";
+import { EventLocationMaps } from "@/components/eventi/event-location-maps";
 import { EventRoutesViewer } from "@/components/eventi/event-routes-viewer";
 import { SiteShell } from "@/components/site/site-shell";
 import { SectionLabel } from "@/components/site/section-label";
@@ -196,6 +197,17 @@ export default async function EventDetailPage({ params }: EventPageProps) {
     event.fees.length > 0 ||
     event.infoGroups.length > 0 ||
     event.awards.length > 0;
+  const eventLocationMaps = event.locationMaps ?? [];
+  const hasLocationMaps = eventLocationMaps.length > 0;
+  const locationMapCtaLabel =
+    eventLocationMaps.length === 1
+      ? `Mappa ${eventLocationMaps[0].label.toLowerCase()}`
+      : "Mappe evento";
+  const locationMapSection = event.locationMapSection ?? {
+    label: "Mappe",
+    title: "Trova i",
+    accent: "punti evento.",
+  };
   const hasRouteDetails = event.routes.length > 0;
   const routeSection = event.routeSection ?? {
     label: "Tracciati",
@@ -206,6 +218,10 @@ export default async function EventDetailPage({ params }: EventPageProps) {
   const routeCtaLabel = event.routes.some((route) => route.gpxUrl)
     ? "Tracciati GPX"
     : "Tracciato";
+  const registrationEvent = {
+    slug: event.slug,
+    preRegistration: event.preRegistration,
+  };
 
   return (
     <SiteShell theme="dark">
@@ -243,6 +259,14 @@ export default async function EventDetailPage({ params }: EventPageProps) {
                   className="inline-flex items-center border-b-2 border-accent bg-transparent px-0 py-2 font-display text-base font-extrabold italic uppercase tracking-[0.1em] text-current transition-colors hover:text-accent"
                 >
                   {routeCtaLabel}
+                </a>
+              ) : null}
+              {hasLocationMaps ? (
+                <a
+                  href="#mappa"
+                  className="inline-flex items-center border-b-2 border-accent bg-transparent px-0 py-2 font-display text-base font-extrabold italic uppercase tracking-[0.1em] text-current transition-colors hover:text-accent"
+                >
+                  {locationMapCtaLabel}
                 </a>
               ) : null}
               <Link
@@ -295,6 +319,31 @@ export default async function EventDetailPage({ params }: EventPageProps) {
           </div>
         </div>
       </section>
+
+      {hasLocationMaps ? (
+        <section
+          id="mappa"
+          className="bg-tbe-black py-[clamp(56px,8vw,110px)]"
+        >
+          <div className="mx-auto grid w-full max-w-[var(--maxw)] items-start gap-[clamp(36px,7vw,96px)] px-[var(--gutter)] min-[1001px]:grid-cols-[minmax(0,0.74fr)_minmax(0,1.26fr)]">
+            <div>
+              <SectionLabel light>{locationMapSection.label}</SectionLabel>
+              <h2 className="mb-[22px] font-display text-[clamp(36px,5vw,76px)] font-black italic uppercase leading-[0.88]">
+                {locationMapSection.title}
+                <br />
+                <span className="text-accent">{locationMapSection.accent}</span>
+              </h2>
+              {locationMapSection.intro ? (
+                <p className="max-w-[42ch] text-[clamp(18px,1.4vw,22px)] leading-[1.5] opacity-80">
+                  {locationMapSection.intro}
+                </p>
+              ) : null}
+            </div>
+
+            <EventLocationMaps maps={eventLocationMaps} />
+          </div>
+        </section>
+      ) : null}
 
       {hasDetails ? (
         <section className="bg-tbe-black py-[clamp(56px,8vw,110px)]">
@@ -376,7 +425,7 @@ export default async function EventDetailPage({ params }: EventPageProps) {
             </p>
           </div>
 
-          <EventRegistrationForm event={event} />
+          <EventRegistrationForm event={registrationEvent} />
         </div>
       </section>
     </SiteShell>

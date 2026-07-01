@@ -90,6 +90,38 @@ export interface EventRouteSection {
   intro: string;
 }
 
+export interface EventMapCoordinates {
+  lat: number;
+  lng: number;
+}
+
+export interface EventMapPoint {
+  id: string;
+  label: string;
+  title: string;
+  detail?: string;
+  coordinates: EventMapCoordinates;
+  googleMapsUrl: string;
+}
+
+export interface EventLocationMap {
+  id: string;
+  label: string;
+  title: string;
+  intro?: string;
+  embedUrl?: string;
+  center?: EventMapCoordinates;
+  zoom?: number;
+  points: readonly EventMapPoint[];
+}
+
+export interface EventLocationMapSection {
+  label: string;
+  title: string;
+  accent: string;
+  intro?: string;
+}
+
 export interface BikeEvent {
   slug: string;
   kind: EventKind;
@@ -108,6 +140,8 @@ export interface BikeEvent {
   fees: readonly EventFee[];
   routes: readonly EventRoute[];
   routeSection?: EventRouteSection;
+  locationMapSection?: EventLocationMapSection;
+  locationMaps?: readonly EventLocationMap[];
   infoGroups: readonly EventInfoGroup[];
   awards: readonly string[];
   notes: string;
@@ -196,6 +230,32 @@ export const EVENTS = [
       intro:
         "Percorso soft e hard sono disponibili in GPX per preparare la giornata e scegliere il passo giusto.",
     },
+    locationMapSection: {
+      label: "Mappa",
+      title: "Arriva al",
+      accent: "ritrovo.",
+    },
+    locationMaps: [
+      {
+        id: "partenza-ritrovo",
+        label: "Partenza/Ritrovo",
+        title: "Via Nazionale, Garrano Basso (TE)",
+        zoom: 16,
+        points: [
+          {
+            id: "partenza-ritrovo-garrano",
+            label: "Partenza/Ritrovo",
+            title: "Via Nazionale, Garrano Basso (TE)",
+            coordinates: {
+              lat: 42.695575,
+              lng: 13.664299,
+            },
+            googleMapsUrl:
+              "https://www.google.com/maps/place/42.695575,13.664299/data=!4m6!3m5!1s0!7e2!8m2!3d42.6955755!4d13.664298899999999!18m1!1e1?entry=gps&coh=192189&g_ep=CAESBzI2LjI1LjUYACDl7Q0qiwEsOTQyNjc3MjcsOTQyOTIxOTUsOTQyOTk1MzIsMTAwNzk2NDk4LDEwMDc5Nzc2MSwxMDA3OTY1MzUsOTQyODA1NzYsOTQyMDczOTQsOTQyMDc1MDYsOTQyMDg1MDYsOTQyMTg2NTMsOTQyMjk4MzksOTQyNzUxNjgsOTQyNzk2MTksMTAwODE1NjM1QgJJVA%3D%3D&skid=43b65c83-32e8-4cc6-93c5-e857eaa7388c&g_st=aw",
+          },
+        ],
+      },
+    ],
     infoGroups: [
       {
         title: "Logistica",
