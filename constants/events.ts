@@ -232,7 +232,7 @@ export const EVENTS = [
     },
     locationMapSection: {
       label: "Mappa",
-      title: "Arriva al",
+      title: "Punto di partenza e",
       accent: "ritrovo.",
     },
     locationMaps: [
